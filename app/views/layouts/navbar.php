@@ -1,0 +1,6 @@
+<?php
+    $navbar = '
+        <navbar>
+        </navbar>
+    ';
+?>

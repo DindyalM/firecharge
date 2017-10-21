@@ -1,0 +1,25 @@
+<?php
+    require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/navbar.php');
+?>
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/app/vendor/stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="./signup.css">
+        <title>User</title>
+    </head>
+    <body>
+        <header>
+            <?php echo navbar('home'); ?>
+            <div class="jumbotron bg-info">
+              <h1 class="display-3">Hello, world!</h1>
+              <p class="lead">Create a new account with us!</p>
+              <hr class="my-4">
+              <p>Creating new habits is just a click away.</p>
+              <p class="lead">
+                <a class="btn btn-light btn-lg" href="#" role="button">Learn more</a>
+              </p>
+            </div>
+        </header>
+    </body>
+</html>

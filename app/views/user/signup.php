@@ -1,6 +1,5 @@
 <?php
     require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/navbar.php');
-    
     switch($_SERVER['REQUEST_METHOD']) {
         case 'POST':
             break;
@@ -21,6 +20,7 @@
         <header>
             <?php echo navbar('signup'); ?>
             <h1 class="text-center mt-5">Create a new account.</h1>
+            <p class="text-center">Already have an account? <a href="/app/views/user/login.php">Click here</a> to log in!</p>
         </header>
         
         <div class="container bg-light">

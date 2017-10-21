@@ -1,5 +1,5 @@
 <?php
-    function navbar($active="") {
+    function navbar($active="", $user_logged_in=false) {
         $signup = "";
         $login = "";
         $home = "";
@@ -17,6 +17,28 @@
             default:
                 break;
         }
+        $navbar_links = '';
+
+        if ($user_logged_in) {
+            $navbar_links = '
+                <li class="navbar-item ' . $signup . '">
+                    <a class="nav-link" href="#">Friends</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="/app/views/user/logout.php">Logout</a>
+                </li>
+            ';
+        }
+        else {
+            $navbar_links = '
+                <li class="navbar-item ' . $signup . '">
+                    <a class="nav-link" href="'. "/app/views/user/signup.php" .'">Sign Up</a>
+                </li>
+                <li class="navbar-item ' . $login . '">
+                    <a class="nav-link" href="'. "/app/views/user/login.php" .'">Log In</a>
+                </li>
+            ';
+        }
         
         $navbar = '
             <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
@@ -27,15 +49,11 @@
                     <li class="navbar-item ' . $home .'">
                         <a class="nav-link" href=" '. "/app/views/home/index.php" .'">Home</a>
                     </li>
-                    <li class="navbar-item ' . $signup . '">
-                        <a class="nav-link" href="'. "/app/views/user/signup.php" .'">Sign Up</a>
-                    </li>
-                    <li class="navbar-item ' . $login . '">
-                        <a class="nav-link" href="'. "/app/views/user/login.php" .'">Log In</a>
-                    </li>
+                    ' . $navbar_links . '
+
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                <form class="form-inline my-2 my-lg-0" method="GET" action="/app/views/user/search.php">
+                  <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search">
                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </nav>

@@ -3,15 +3,25 @@ class User {
     private $db;
     
     public function __construct() {}
-        
-    private function connect($username, $password) {
+    
+    // MODIFIES: $db
+    private function connect() {
         // Check connection
-         $db = new PDO("mysql:host=localhost;dbname=database", $username, $password);
+        $servername = getenv('IP');
+        $username = getenv('C9_USER');
+        $password = "";
+        $database = "dev";
+        $dbport = 3306;
          
-         if ($db->connect_error)
-         {
-             return false;
-         }
+        // Create connection
+        $this->db = new mysqli($servername, $username, $password, $database, $dbport);
+
+        // Check connection
+        if ($this->db->connect_error) {
+            return false;
+        }
+        
+        return true;
     }
     
     public function createSession($id) {
@@ -28,18 +38,44 @@ class User {
     
     // EFFECTS: creates a new user
     // REQUIRES: username must not be blank, password and password_confirm must match
-    public function create($username, $password, $password_confirm) {
-        if(!legalUser($username, $password, $password_confirm)) return false;
+    public function create($username, $password) {
+        if($this->connect()) {
+            $stmt = $this->db->prepare('INSERT INTO User (Username, Password) VALUES (?, ?)');
+
+            $stmt->bind_param('ss', $username, $password);
+         
+
+            $stmt->execute();
+            
+            $result = $stmt->get_result();
+            echo var_dump($this->db->error);
+            return true;
+        }
         
-        // insert new user into database:
-        // TODO: SQL CODE
+        return false;
+    }
+    
+    public function findAll() {
+        if($this->connect()) {
+            $stmt = $this->db->prepare('SELECT Username FROM User;');
+            $stmt->execute();
+            
+            $result = $stmt->get_result();
+            
+            return $result;
+        }
         
-        return true;
+        return false;
     }
     
     // TODO: connect to data
-    public function login() {
-        $this->createSession(1);
+    public function login($username, $password) {
+        
+        $hash = $findHashByUsername($username);
+        if(password_verify($password, $hash)) {
+            $user = findUserByUsername($username);
+            $this->createSession($user->getId());
+        }
     }
     
     public function logout() {

@@ -16,7 +16,7 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/app/vendor/stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/stylesheets/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="./style.css">
         <title>User</title>
     </head>

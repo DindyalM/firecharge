@@ -1,12 +1,13 @@
 <?php
     require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/navbar.php');
     require($_SERVER['DOCUMENT_ROOT'] .'/app/controllers/user.php');
+
     $user = new User();
 ?>
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/app/vendor/stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/stylesheets/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="./signup.css">
         <title>User</title>
     </head>

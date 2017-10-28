@@ -36,7 +36,7 @@ function alert($use_ajax=false) {
                 });
             </script>
         ';
-        return '<div class="mb-0 alert alert-' . $class . '">'
+        return '<div id="alert" class="mb-0 alert alert-' . $class . '">'
                     . $msg .'
                     <button type="button" id="alert-close" class="close" data-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">&times;</span>

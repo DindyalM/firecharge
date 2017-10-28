@@ -64,5 +64,13 @@ function validateFormGroup(inputElement, condition, error_msg) {
 function showAlert(type, msg) {
     var alert = document.getElementById('alert');
     alert.className = 'alert alert-' + type;
-    alert.innerHTML = msg;
+    var btn_html ='<button type="button" id="alert-close" class="close" data-dismiss="alert" aria-label="Close">' +
+                      '<span aria-hidden="true">&times;</span></button>';
+    alert.innerHTML = msg + btn_html;
+    var btn = document.getElementById("alert-close");
+        btn.addEventListener("click", function(event) {
+        var trget = event.target.parentNode.parentNode;
+        trget.innerHTML = "";
+        trget.className = "";
+    });
 }

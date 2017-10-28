@@ -1,5 +1,6 @@
 <?php
     require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/navbar.php');
+    require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/alert.php');
     require($_SERVER['DOCUMENT_ROOT'] .'/app/controllers/user.php');
 
     $user = new User();
@@ -14,6 +15,7 @@
     <body>
         <header>
             <?php echo navbar('home', $user->current_user()); ?>
+            <?php echo alert() ?>
             <div class="jumbotron bg-info">
               <h1 class="display-3">Hello, world!</h1>
               <p class="lead">Create a new account with us!</p>

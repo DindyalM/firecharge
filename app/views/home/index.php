@@ -14,8 +14,8 @@
     </head>
     <body>
         <header>
-            /* <?php echo navbar('home', $user->isLoggedIn()); ?>
-            <?php echo alert() ?> */
+            <?php //echo navbar('home', $user->isLoggedIn()); ?>
+            <?php //echo alert() ?> */
             <div class="jumbotron bg-info">
               <h1 class="display-3">Hello, world!</h1>
               <p class="lead">Create a new account with us!</p>

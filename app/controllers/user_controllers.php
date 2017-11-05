@@ -1,6 +1,7 @@
 <?php
+    require($_SERVER['DOCUMENT_ROOT'] .'/app/controllers/user.php');
     
-    function handleSignupRequest() {
+    function signup() {
         session_start();
         switch($_SERVER['REQUEST_METHOD']) {
             case 'POST':
@@ -23,6 +24,32 @@
             default:
                 break;
         }
+    }
+    
+    function login() {
+        switch($_SERVER['REQUEST_METHOD']) {
+            case 'POST':
+                $email = @$_POST['email'];
+                $password = @$_POST['password'];
+                if(isset($email) && isset($password)) {
+                    $user = new User();
+                    if($user->login($email, $password)) {
+                        flash("Successfully logged in", "success");
+                        header('Location: ../home/index.php');
+                    }
+                }
+                break;
+            case 'GET':
+                break;
+            default:
+                break;
+        }
+    }
+    
+    function logout() {
+        session_start();
+        unset($_SESSION['User_Id']);
+        header( 'Location: /app/views/home/index.php');
     }
     
 ?>

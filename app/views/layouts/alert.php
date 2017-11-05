@@ -15,17 +15,18 @@ function alert($use_ajax=false) {
         if(isset($error_flash)) {
             $msg = $error_flash;
             $class = 'danger';
-            session_unset($_SESSION['error-flash']);
+            unset($_SESSION['error-flash']);
         }
         else if(isset($flash)) {
             $msg = $flash;
             if(isset($flash_type)) { 
                 $class = $flash_type ;
-                session_unset($_SESSION['flash-type']);
+                unset($_SESSION['flash-type']);
             }
-            session_unset($_SESSION['flash']);
+            unset($_SESSION['flash']);
+        } else {
+            return '<div id="alert"></div>';
         }
-
         $close_js = '
             <script>
                 var btn = document.getElementById("alert-close");

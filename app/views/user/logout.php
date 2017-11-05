@@ -1,5 +1,4 @@
 <?php
-    session_start();
-    session_destroy();
-    header( 'Location: /app/views/home/index.php');
+    require($_SERVER['DOCUMENT_ROOT'] .'/app/controllers/user_controllers.php');
+    logout();
 ?>

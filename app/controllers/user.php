@@ -32,9 +32,9 @@ class User {
     
     // EFFECTS: 
     // MODIFIES: $_SESSION['user_id']
-    public function createSession($id) {
+    private function createSession($id) {
         session_start();
-        $_SESSION['user_id'] = $id;
+        $_SESSION['User_Id'] = $id;
     }
     
     // EFFECTS: gets the user that's logged in from the session
@@ -42,7 +42,7 @@ class User {
     // RETURNS: user or false
     public function current_user() {
         session_start();
-        if(isset($_SESSION['user_id'])) return $_SESSION['user_id'];
+        if(isset($_SESSION['User_Id'])) return $_SESSION['User_Id'];
         return false;
     }
 
@@ -125,13 +125,39 @@ class User {
     // MODIFIES: addds user to current session
     // REQUIRES: username and password to match up
     // RETURNS: user or false if user not found
-    public function login($username, $password) {
-        
+    public function login($email, $password) {
+        if($this->connect()) {
+            $stmt = $this->db->prepare("SELECT * FROM User WHERE Email=?");
+            $stmt->bind_param('s', $email);
+            $stmt->execute();
+            
+            $result = $stmt->get_result();
+            
+            if($result->num_rows === 0) {
+                flash("No account with that email.", "danger", true);
+                return false;
+            }
+            
+            $result_arr = $result->fetch_array();
+            
+            if(password_verify($password, $result_arr['Password'])) {
+                $this->createSession($result_arr['User_Id']);
+                return true;
+            } else {
+                flash("Invalid password.", "danger", true);
+                return false;
+            }
+        }
         // $hash = $findHashByUsername($username);
         // if(password_verify($password, $hash)) {
             // $user = findUserByUsername($username);
-            $this->createSession($user->getId());
+            // $this->createSession($user->getId());
         // }
+    }
+    
+    public function isLoggedIn() {
+        session_start();
+        return isset($_SESSION['User_Id']);
     }
     
     // EFFECTS: removes the user from the session
@@ -139,7 +165,7 @@ class User {
     // RETURNS: boolean
     public function logout() {
         session_start();
-        session_destroy();
+        unset($_SESSION['User_Id']);
     }
     
     // EFFECTS: validates the user information

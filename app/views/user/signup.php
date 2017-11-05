@@ -1,10 +1,9 @@
 <?php
     require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/navbar.php');
-    require($_SERVER['DOCUMENT_ROOT'] .'/app/controllers/user.php');
     require($_SERVER['DOCUMENT_ROOT'] .'/app/controllers/user_controllers.php');
     require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/alert.php');
     
-    handleSignupRequest();
+    signup();
 ?>
 
 <html>

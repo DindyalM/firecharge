@@ -14,7 +14,7 @@
     </head>
     <body>
         <header>
-            <?php echo navbar('home', $user->current_user()); ?>
+            <?php echo navbar('home', $user->isLoggedIn()); ?>
             <?php echo alert() ?>
             <div class="jumbotron bg-info">
               <h1 class="display-3">Hello, world!</h1>

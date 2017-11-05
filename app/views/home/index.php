@@ -2,7 +2,7 @@
     // require($_SERVER['DOCUMENT_ROOT'] .'/views/layouts/navbar.php');
     // require($_SERVER['DOCUMENT_ROOT'] .'/views/layouts/alert.php');
     // require($_SERVER['DOCUMENT_ROOT'] .'/controllers/user.php');
-
+    echo $_SERVER['DOCUMENT_ROOT'];
     // $user = new User();
 ?>
 
@@ -15,7 +15,7 @@
     <body>
         <header>
             <?php //echo navbar('home', $user->isLoggedIn()); ?>
-            <?php //echo alert() ?> */
+            <?php //echo alert() ?>
             <div class="jumbotron bg-info">
               <h1 class="display-3">Hello, world!</h1>
               <p class="lead">Create a new account with us!</p>

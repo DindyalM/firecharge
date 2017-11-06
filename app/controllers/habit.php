@@ -31,17 +31,16 @@
         // MODIFIES: $db
         // REQUIRES: an attribute name
         // RETURNS: boolean  
-        public function deleteHabit($habit_name) {
+        public function destroy($habit_name) {
             
         }
         
         
         // EFFECTS: creates a new habit 
-        // REQUIRES: validUser must return true
-        // RETURNS: 
-       
-        public function createHabit($habit_name, $habit_details="") {
-            if(!$this->connect()) {
+        // REQUIRES: TODO
+        // RETURNS: boolean
+        public function create($habit_name, $habit_details="") {
+            if(!$this->connect() || strlen($habit_name) < 6) {
                 return false;
             }
             
@@ -58,6 +57,7 @@
             $result = $stmt->get_result();
             
             if($this->db->error) {
+                echo $this->db->error;
                 return false;
             }
             
@@ -70,10 +70,26 @@
         // READ
         // UPDATE
         // DESTROY
-        
-        public function findHabit() {
-            $stmt=$this->db->prepare('SELECT * FROM Habit; VALUES (?)');
-            $stmt->excute();
+        public function find() {
+            if(!$this->connect()) {
+                return false;
+            }
+            
+            $stmt=$this->db->prepare('SELECT * FROM Habit;');
+            
+            $stmt->execute();
+            
+            $result = $stmt->get_result();
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            
+            $arr = array();
+            
+            foreach($result as $row) {
+                array_push($arr, $row);
+            }
+            
+            
+            return $arr;
         }
     }
 ?>

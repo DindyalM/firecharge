@@ -25,7 +25,7 @@
             }
             
             if(password_verify($password, $user['Password'])) {
-                $_SESSION['user_id'] = $user['User_Id'];
+                $_SESSION['User_Id'] = $user['User_Id'];
                 header('Location: /public/index.php');
                 echo "SUCCESS";
             } else {
@@ -61,7 +61,11 @@
             }
 
         }
-
+        
+        public function logout() {
+            unset($_SESSION['User_Id']);
+            header( 'Location: /public/index.php');
+        }
     }
     
     // function signup() {
@@ -89,10 +93,6 @@
     //     }
     // }
     
-    function logout() {
-        session_start();
-        unset($_SESSION['User_Id']);
-        header( 'Location: /app/views/home/index.php');
-    }
+
     
 ?>

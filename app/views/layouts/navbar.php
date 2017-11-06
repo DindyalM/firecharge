@@ -20,13 +20,13 @@
 
         $navbar_links = '';
 
-        if ($user_logged_in) {
+        if (logged_in()) {
             $navbar_links = '
                 <li class="navbar-item ' . $signup . '">
                     <a class="nav-link" href="#">Friends</a>
                 </li>
                 <li class="navbar-item">
-                    <a class="nav-link" href="/app/views/user/logout.php">Logout</a>
+                    <a class="nav-link" href="/public/user.php?action=logout">Logout</a>
                 </li>
             ';
         }

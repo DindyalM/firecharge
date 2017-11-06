@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    require('../app/controllers/helpers.php');
     require('../app/views/layouts/navbar.php');
     require('../app/views/layouts/alert.php');
     

@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
     function get($name, $default="") {
         return isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
     }
@@ -10,6 +10,8 @@
     $view = '../app/views/user/' . $page .'.php';
     $model = '../app/models/' . 'user' . 'Model.php';
     $controller = '../app/controllers/' . 'user' . 'Controller.php';
+    
+    require('../app/controllers/helpers.php');
     
     require('../app/views/layouts/navbar.php');
     require('../app/views/layouts/alert.php');
@@ -35,15 +37,22 @@
             default:
                 break;
         }
-
+    } else if($_SERVER['REQUEST_METHOD'] == 'GET') {
+        
+        switch(get('action')) {
+            case 'logout':
+                $user_controller = new UserController();
+                $user_controller->logout();
+                break;
+            default:
+                break;
+        }
     }
     
     
     if(file_exists($view)) {
         require $view;
     }
-    
-
     
     
 

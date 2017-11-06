@@ -9,4 +9,8 @@
             $_SESSION['flash-type'] = $flash_type;    
         }
     }
+    
+    function logged_in() {
+        return isset($_SESSION['User_Id']);
+    }
 ?>

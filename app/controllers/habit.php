@@ -37,8 +37,6 @@
             $stmt->bind_param('s',$habit_name);
             $stmt->execute();
             
-            
-            
             }
         }
         

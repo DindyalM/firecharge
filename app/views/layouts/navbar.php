@@ -17,7 +17,7 @@
             default:
                 break;
         }
-        
+
         $navbar_links = '';
 
         if ($user_logged_in) {

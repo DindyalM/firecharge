@@ -65,7 +65,6 @@ class User {
             $result = $stmt->get_result();
             
             if($this->db->error) {
-                fputs(STDOUT, $this->db->error);
                 return false;
             }
             

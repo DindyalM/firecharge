@@ -1,0 +1,20 @@
++----------+--------------+------+-----+---------+----------------+                                                   
+| Field    | Type         | Null | Key | Default | Extra          |                                                   
++----------+--------------+------+-----+---------+----------------+                                                   
+| User_Id  | int(11)      | NO   | PRI | NULL    | auto_increment |                                                   
+| Username | varchar(255) | YES  |     | NULL    |                |                                                   
+| Email    | varchar(255) | YES  |     | NULL    |                |                                                   
+| Password | varchar(255) | YES  |     | NULL    |                |                                                   
++----------+--------------+------+-----+---------+----------------+   
+
++-------------+--------------+------+-----+---------+-------+                                                         
+| Field       | Type         | Null | Key | Default | Extra |                                                         
++-------------+--------------+------+-----+---------+-------+                                                         
+| Habit_Id    | int(11)      | NO   | PRI | NULL    |       |                                                         
+| User_Id     | int(11)      | YES  |     | NULL    |       |                                                         
+| Name        | varchar(255) | YES  |     | NULL    |       |                                                         
+| Description | text         | YES  |     | NULL    |       |                                                         
++-------------+--------------+------+-----+---------+-------+ 
+
+
+

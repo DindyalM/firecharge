@@ -10,11 +10,11 @@
             <?php echo navbar('login'); ?>
             <?php echo alert(true); ?>
             <h1 class="text-center mt-5">Log in to your account.</h1>
-            <p class="text-center">Don't have an account yet? <a href="/app/views/user/signup.php">Click here</a> to sign up!</p>
+            <p class="text-center">Don't have an account yet? <a href="/public/user.php?page=signup">Click here</a> to sign up!</p>
         </header>
         
         <div class="container bg-light">
-            <form method="POST" onsubmit="return validateInput();">
+            <form method="POST" onsubmit="return validateInput();" action="/public/user.php?action=login">
                 <div class="form-group">
                     <label for="email">Email address</label>
                     <input id='email' class='form-control' name='email' type='email' placeholder="Enter Email"></input>

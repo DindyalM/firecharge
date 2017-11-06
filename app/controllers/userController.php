@@ -11,28 +11,55 @@
         // REQUIRES: username and password to match up
         // RETURNS: user or false if user not found
         public function login() {
-            // $email = @$_POST['email'];
-            // $password = @$_POST['password'];
+            $email = @$_POST['email'];
+            $password = @$_POST['password'];
             
-            // if(!(isset($email) && isset($password))) {
-            //     return false;
-            // }    
+            if(!(isset($email) && isset($password))) {
+                return false;
+            }
             
-            $user = $this->model->findByEmail("strike@gmail.com");
+            $user = $this->model->findByEmail($email);
             
             if(!$user) {
                 return false;
             }
             
-            
-            
-            if($this->model->passwordMatchesEmail("strike@gmail.com", "strike123")) {
-                echo "WORKS";
-                // $this->createSession($user['User_Id']);
+            if(password_verify($password, $user['Password'])) {
+                $_SESSION['user_id'] = $user['User_Id'];
+                header('Location: /public/index.php');
+                echo "SUCCESS";
             } else {
                 echo "DOESN'T WORK";
                 // flash("Invalid password.", "danger", true);
             }
+        }
+    
+        // EFFECTS: creates a new user
+        // REQUIRES: validUser must return true
+        // RETURNS boolean if user created else false
+        public function create() {
+            $email = @$_POST['email'];
+            $username = @$_POST['username'];
+            $password = @$_POST['password'];
+            
+            if(!isset($email) || !isset($password) || !isset($username)) {
+                echo "failure in data";
+                return false;
+            }
+            
+            if($this->model->userExists($email, $password)) {
+                echo "user already exists";
+                return false;
+            }
+            
+            if($this->model->create($email, $username, $password)) {
+                header('Location: /public/user.php?page=login');
+                echo "SUCCESS";
+            } else {
+                header('Location: /public/user.php?page=login');
+                echo "FAILURE";
+            }
+
         }
 
     }

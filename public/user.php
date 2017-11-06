@@ -13,21 +13,38 @@
     
     require('../app/views/layouts/navbar.php');
     require('../app/views/layouts/alert.php');
+
+    // echo var_dump($_POST);
     
-    // if(file_exists($view)) {
-        
-    // }
-    // if(file_exists($model)) {
+    if(file_exists($model)) {
         require $model;
-    // }
-    // if(file_exists($controller)) {
+    }
+    if(file_exists($controller)) {
         require $controller;
-        
-        $user = new UserController();
-        $user->login();
-        
+    }
+    
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+        $user_controller = new UserController();
+        switch(get('action')) {
+            case 'create':
+                $user_controller->create();
+                break;
+            case 'login':
+                $user_controller->login();
+                break;
+            default:
+                break;
+        }
+
+    }
+    
+    
+    if(file_exists($view)) {
         require $view;
-    // }
+    }
+    
+
+    
     
 
 ?>

@@ -44,34 +44,6 @@ class UserModel {
         if(isset($_SESSION['User_Id'])) return $_SESSION['User_Id'];
         return false;
     }
-
-    
-    // EFFECTS: creates a new user
-    // REQUIRES: validUser must return true
-    // RETURNS boolean if user created else false
-    public function create($email, $username, $password, $password_confirmation) {
-        if(!($this->validUser($email, $username, $password, $password_confirmation))) {
-            return false;   
-        }
-        
-        if($this->connect()) {
-            $stmt = $this->db->prepare('INSERT INTO User (Email, Username, Password) VALUES (?, ?, ?)');
-
-            $stmt->bind_param('sss', $email, $username, crypt($password));
-
-            $stmt->execute();
-            
-            $result = $stmt->get_result();
-            
-            if($this->db->error) {
-                return false;
-            }
-            
-            return true;
-        }
-        
-        return false;
-    }
     
     public function findAll() {
         if($this->connect()) {
@@ -128,53 +100,49 @@ class UserModel {
         
         $result = $stmt->get_result();
         
-        echo var_dump($result);
-        
         if($result->num_rows > 1 || $result->num_rows <= 0) {
             return false;
         }
         
-        // return $result[0];
+        return $result->fetch_array(MYSQLI_ASSOC);
         
     }
     
-    public function passwordMatchesEmail($password, $email) {
+    public function create($email, $username, $password) {
         $this->connect();
         
-        $stmt = $this->db->prepare("SELECT Password FROM User WHERE Email=?;");
-        $stmt->bind_param('s', $email);
+        if(!$this->isValidUserInfo($email, $username, $password)) return false;
+        
+        $stmt = $this->db->prepare('INSERT INTO User (Email, Username, Password) VALUES (?, ?, ?)');
+
+        $stmt->bind_param('sss', $email, $username, crypt($password));
+
         $stmt->execute();
         
         $result = $stmt->get_result();
-        
-        echo $result->field_count;
-        
-        if($result->num_rows > 1 || $result->num_rows <= 0) {
+            
+        if($this->db->error) {
             return false;
         }
-        
-        return $result[0];
+            
+        return true;
     }
     
-    // EFFECTS: verifies that the user and password are a valid combination
-    public function authenticateUser($email, $password) {
-        $user = findByEmail($email);
-        if(!$user) return false;
-        
-        echo $user['Password'];
-        
-    }
-    
-    public function userExists($email) {
+    public function userExists($email, $username="") {
         $this->connect();
-        
-        $stmt = $this->db->prepare("SELECT User_Id FROM User WHERE Email=?;");
-        $stmt->bind_param('s', $email);
+        if($username == "") {
+            $stmt = $this->db->prepare("SELECT User_Id FROM User WHERE Email=?;");
+            $stmt->bind_param('s', $email);
+        } else {
+            $stmt = $this->db->prepare("SELECT User_Id FROM User WHERE Email=? OR Username=?;");
+            $stmt->bind_param('ss', $email, $username);
+        }
+
         $stmt->execute();
 
         $result = $stmt->get_result();
     
-        return $result->num_rows == 1;
+        return $result->num_rows > 0;
     }
     
     public function isLoggedIn() {
@@ -195,29 +163,8 @@ class UserModel {
     //           username must be between 3 and 15 characters, 
     //           password must be between 6 and 25 function,
     // RETURNS: boolean
-    private function validUser($email, $username, $password, $password_confirm) {
-        if($this->connect()) {
-            $stmt = $this->db->prepare('SELECT User_Id FROM User WHERE Username=?');
-            $stmt->bind_param('s', $username);
-            $stmt->execute();
-            
-            if(!($stmt->get_result()->num_rows === 0)) {
-                flash("User already exists.", "danger", true);
-                return false;
-            }
-            
-            $stmt = $this->db->prepare('SELECT Email FROM User WHERE Email=?');
-            $stmt->bind_param('s', $email);
-            $stmt->execute();
-
-            if(!($stmt->get_result()->num_rows === 0)) {
-                flash("Email already in use.", "danger", true);
-                return false;
-            }
-        }
-        
-        return filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($email) && !empty($username) && !empty($password) &&
-        !empty($password_confirm) && $password_confirm === $password;
+    private function isValidUserInfo($email, $username, $password) {
+        return filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($username) && !empty($password) && !$this->userExists($email, $username);
     }
     
     // EFFECTS: searches for a query in the database

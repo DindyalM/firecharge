@@ -33,10 +33,10 @@
         else {
             $navbar_links = '
                 <li class="navbar-item ' . $signup . '">
-                    <a class="nav-link" href="'. "/app/views/user/signup.php" .'">Sign Up</a>
+                    <a class="nav-link" href="' . "/public/user.php?page=signup" .'">Sign Up</a>
                 </li>
                 <li class="navbar-item ' . $login . '">
-                    <a class="nav-link" href="'. "/app/views/user/login.php" .'">Log In</a>
+                    <a class="nav-link" href="' . "/public/user.php?page=login" .'">Log In</a>
                 </li>
             ';
         }
@@ -48,7 +48,7 @@
                 </nav>
                 <ul class="navbar-nav ml-auto mr-4">
                     <li class="navbar-item ' . $home .'">
-                        <a class="nav-link" href=" '. "/app/views/home/index.php" .'">Home</a>
+                        <a class="nav-link" href=" '. "/public/index.php" .'">Home</a>
                     </li>
                     ' . $navbar_links . '
 

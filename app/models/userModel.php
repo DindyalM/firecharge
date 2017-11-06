@@ -1,8 +1,6 @@
 <?php
-
-require($_SERVER['DOCUMENT_ROOT'] . '/app/controllers/helpers.php');
-
-class User {
+class UserModel {
+    
     private $db;
     
     public function __construct() {}
@@ -11,6 +9,7 @@ class User {
     // MODIFIES: $db
     // REQUIRES: there must be a database with name in database variable
     // RETURNS: boolean
+    // EXCEPTION: Throws an exception when it fails to connect to the database
     private function connect() {
         // Check connection
         $servername = getenv('IP');
@@ -24,7 +23,7 @@ class User {
 
         // Check connection
         if ($this->db->connect_error) {
-            return false;
+            throw new Exception($this->db->connect_error);
         }
         
         return true;
@@ -120,38 +119,62 @@ class User {
         return false;
     }
     
-    // EFFECTS: logs the user in
-    // MODIFIES: addds user to current session
-    // REQUIRES: username and password to match up
-    // RETURNS: user or false if user not found
-    public function login($email, $password) {
-        if($this->connect()) {
-            $stmt = $this->db->prepare("SELECT * FROM User WHERE Email=?");
-            $stmt->bind_param('s', $email);
-            $stmt->execute();
-            
-            $result = $stmt->get_result();
-            
-            if($result->num_rows === 0) {
-                flash("No account with that email.", "danger", true);
-                return false;
-            }
-            
-            $result_arr = $result->fetch_array();
-            
-            if(password_verify($password, $result_arr['Password'])) {
-                $this->createSession($result_arr['User_Id']);
-                return true;
-            } else {
-                flash("Invalid password.", "danger", true);
-                return false;
-            }
+    public function findByEmail($email) {
+        $this->connect();
+        
+        $stmt = $this->db->prepare("SELECT User_Id, Password FROM User WHERE Email=?;");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        
+        echo var_dump($result);
+        
+        if($result->num_rows > 1 || $result->num_rows <= 0) {
+            return false;
         }
-        // $hash = $findHashByUsername($username);
-        // if(password_verify($password, $hash)) {
-            // $user = findUserByUsername($username);
-            // $this->createSession($user->getId());
-        // }
+        
+        // return $result[0];
+        
+    }
+    
+    public function passwordMatchesEmail($password, $email) {
+        $this->connect();
+        
+        $stmt = $this->db->prepare("SELECT Password FROM User WHERE Email=?;");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        
+        echo $result->field_count;
+        
+        if($result->num_rows > 1 || $result->num_rows <= 0) {
+            return false;
+        }
+        
+        return $result[0];
+    }
+    
+    // EFFECTS: verifies that the user and password are a valid combination
+    public function authenticateUser($email, $password) {
+        $user = findByEmail($email);
+        if(!$user) return false;
+        
+        echo $user['Password'];
+        
+    }
+    
+    public function userExists($email) {
+        $this->connect();
+        
+        $stmt = $this->db->prepare("SELECT User_Id FROM User WHERE Email=?;");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+    
+        return $result->num_rows == 1;
     }
     
     public function isLoggedIn() {

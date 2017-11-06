@@ -32,7 +32,14 @@
         // REQUIRES: an attribute name
         // RETURNS: boolean  
         public function destroy($habit_name) {
+            if($this->connect()){
+            $stmt =$this->db->prepare('DELETE FROM Habit WHERE Name =$habit_name');
+            $stmt->bind_param('s',$habit_name);
+            $stmt->execute();
             
+            
+            
+            }
         }
         
         

@@ -1,27 +1,33 @@
 <?php
-    switch($_GET['page']) {
-        case 'login':
-            require '../app/views/user/login.php';
-            require '../app/controller/helpers/php';
-            break;
-        case 'signup':
-            require '../app/views/user/signup.php';
-            require '../app/controller/helpers/php';
-            break;
-        default:
-            break;
-}
-    // if($_GET['page'] == 'home') {
-    //     require '../app/views/home/index.php';
-    //     require '../app/controller/helpers/php';
+
+    function get($name, $default="") {
+        return isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
+    }
+    
+    
+    $page = get('page', null);
+    
+    $view = '../app/views/user/' . $page .'.php';
+    $model = '../app/models/' . 'user' . 'Model.php';
+    $controller = '../app/controllers/' . 'user' . 'Controller.php';
+    
+    require('../app/views/layouts/navbar.php');
+    require('../app/views/layouts/alert.php');
+    
+    // if(file_exists($view)) {
+        
     // }
-    // else if($_GET['page'] == 'user') {
-    //     require '../app/views/user/index.php';
+    // if(file_exists($model)) {
+        require $model;
     // }
-    // else if($_GET['page'] == 'signup') {
-    //     require '../app/views/user/signup.php';
+    // if(file_exists($controller)) {
+        require $controller;
+        
+        $user = new UserController();
+        $user->login();
+        
+        require $view;
     // }
-    // else {
-    //     require '../app/views/home/index.php';
-    // }
+    
+
 ?>

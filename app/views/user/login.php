@@ -1,11 +1,3 @@
-<?php
-    require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/navbar.php');
-    require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/alert.php');
-    require($_SERVER['DOCUMENT_ROOT'] .'/app/controllers/user_controllers.php');
-    
-    login();
-?>
-
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="/vendor/stylesheets/bootstrap.min.css">

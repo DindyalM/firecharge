@@ -53,7 +53,9 @@
                     ' . $navbar_links . '
 
                 </ul>
-                <form class="form-inline my-2 my-lg-0" method="GET" action="/app/views/user/search.php">
+                <form class="form-inline my-2 my-lg-0" method="GET" action="/public/user.php">
+                  <input name="action" type="hidden" value="search">
+                  <input name="page" type="hidden" value="search">
                   <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search">
                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>

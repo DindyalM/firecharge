@@ -90,6 +90,28 @@ class UserModel {
         
         return false;
     }
+    //EFFECT: searches a column for a field
+    public function findByUsername($username, $max_return=10) {
+        $this->connect();
+        
+        $like_param = $username ."%";
+        
+        $stmt = $this->db->prepare("SELECT * FROM User WHERE Username LIKE ? LIMIT ?");
+        $stmt->bind_param('si', $like_param, $max_return);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        
+        if($this->db->error) {
+            return false;
+        }
+        
+        if($result->num_rows < 0) {
+            return false;
+        }
+        
+        return $result;
+    }
     
     public function findByEmail($email) {
         $this->connect();
@@ -105,7 +127,6 @@ class UserModel {
         }
         
         return $result->fetch_array(MYSQLI_ASSOC);
-        
     }
     
     public function create($email, $username, $password) {

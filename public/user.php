@@ -4,7 +4,6 @@
         return isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
     }
     
-    
     $page = get('page', null);
     
     $view = '../app/views/user/' . $page .'.php';
@@ -12,11 +11,9 @@
     $controller = '../app/controllers/' . 'user' . 'Controller.php';
     
     require('../app/controllers/helpers.php');
-    
     require('../app/views/layouts/navbar.php');
     require('../app/views/layouts/alert.php');
-
-    // echo var_dump($_POST);
+    require('../app/views/layouts/card.php');
     
     if(file_exists($model)) {
         require $model;
@@ -37,12 +34,14 @@
             default:
                 break;
         }
-    } else if($_SERVER['REQUEST_METHOD'] == 'GET') {
-        
+    } else if($_SERVER['REQUEST_METHOD'] == "GET") {
+        $user_controller = new UserController();
         switch(get('action')) {
             case 'logout':
-                $user_controller = new UserController();
                 $user_controller->logout();
+                break;
+            case 'search':
+                $user_controller->search();
                 break;
             default:
                 break;
@@ -53,7 +52,4 @@
     if(file_exists($view)) {
         require $view;
     }
-    
-    
-
 ?>

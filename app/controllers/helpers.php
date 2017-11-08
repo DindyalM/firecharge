@@ -1,7 +1,6 @@
 <?php 
     
     function flash($msg, $flash_type="primary", $error_flash=false) {
-        session_start();
         if($error_flash) {
             $_SESSION['error-flash'] = $msg;
         } else {

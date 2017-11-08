@@ -47,11 +47,6 @@
                 return false;
             }
             
-            if($this->model->userExists($email, $password)) {
-                echo "user already exists";
-                return false;
-            }
-            
             if($this->model->create($email, $username, $password)) {
                 header('Location: /public/user.php?page=login');
                 echo "SUCCESS";

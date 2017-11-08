@@ -113,7 +113,7 @@ class UserModel {
         
         if(!$this->isValidUserInfo($email, $username, $password)) return false;
         
-        $stmt = $this->db->prepare('INSERT INTO User (Email, Username, Password) VALUES (?, ?, ?)');
+        $stmt = $this->db->prepare('INSERT INTO User (Email, Username, Password) VALUES (?, ?, ?);');
 
         $stmt->bind_param('sss', $email, $username, crypt($password));
 
@@ -129,19 +129,21 @@ class UserModel {
     }
     
     public function userExists($email, $username="") {
+        echo $email;
+        echo $username;
         $this->connect();
         if($username == "") {
-            $stmt = $this->db->prepare("SELECT User_Id FROM User WHERE Email=?;");
+            $stmt = $this->db->prepare("SELECT * FROM User WHERE Email=?;");
             $stmt->bind_param('s', $email);
         } else {
-            $stmt = $this->db->prepare("SELECT User_Id FROM User WHERE Email=? OR Username=?;");
+            $stmt = $this->db->prepare("SELECT * FROM User WHERE Email=? OR Username=?;");
             $stmt->bind_param('ss', $email, $username);
         }
 
         $stmt->execute();
 
         $result = $stmt->get_result();
-    
+        echo var_dump($result->fetch_array(MYSQLI_ASSOC));
         return $result->num_rows > 0;
     }
     

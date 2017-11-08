@@ -1,7 +1,6 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="/vendor/stylesheets/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="./signup.css">
         <title>User</title>
     </head>
     <body>

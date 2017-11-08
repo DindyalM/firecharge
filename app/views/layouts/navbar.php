@@ -23,7 +23,7 @@
         if (logged_in()) {
             $navbar_links = '
                 <li class="navbar-item ' . $signup . '">
-                    <a class="nav-link" href="#">Friends</a>
+                    <a class="nav-link" href="/public/user.php?page=profile">Profile</a>
                 </li>
                 <li class="navbar-item">
                     <a class="nav-link" href="/public/user.php?action=logout">Logout</a>
@@ -40,15 +40,15 @@
                 </li>
             ';
         }
-        
+        // e3f2fd
         $navbar = '
-            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-                <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f8f9fa; color: white;">
+                <nav class="navbar navbar-light" style="background-color: #f8f9fa;">
                   <a class="navbar-brand" href="#">FireCharge</a>
                 </nav>
                 <ul class="navbar-nav ml-auto mr-4">
                     <li class="navbar-item ' . $home .'">
-                        <a class="nav-link" href=" '. "/public/index.php" .'">Home</a>
+                        <a class="nav-link" href=" '. "/public/user.php?page=index" .'">Home</a>
                     </li>
                     ' . $navbar_links . '
 

@@ -1,8 +1,8 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="/vendor/stylesheets/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="./style.css">
-        <script src="./login.js"></script>
+        <link rel="stylesheet" type="text/css" href="/app/assets/stylesheets/style.css">
+        <script src="/app/assets/javascripts/login.js"></script>
         <title>User</title>
     </head>
     <body>
@@ -16,12 +16,12 @@
         <div class="container bg-light">
             <form method="POST" onsubmit="return validateInput();" action="/public/user.php?action=login">
                 <div class="form-group">
-                    <label for="email">Email address</label>
+                    <label for="email" class="text-dark">Email address</label>
                     <input id='email' class='form-control' name='email' type='email' placeholder="Enter Email"></input>
                     <small id="email_error" class="form-text"></small>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password" class="text-dark">Password</label>
                     <input id="password" class="form-control" name='password' type='password' placeholder="Enter Password"></input>
                     <small id="password_error" class="form-text"></small>
                 </div>

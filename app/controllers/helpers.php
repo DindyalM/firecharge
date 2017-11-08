@@ -10,6 +10,10 @@
     }
     
     function logged_in() {
-        return isset($_SESSION['User_Id']);
+        return isset($_SESSION['User']);
+    }
+    
+    function current_user() {
+        return $_SESSION['User'];
     }
 ?>

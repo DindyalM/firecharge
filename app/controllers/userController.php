@@ -26,22 +26,29 @@
             $password = @$_POST['password'];
             
             if(!(isset($email) && isset($password))) {
+                flash("Fields can't be blank", "danger", true);
+                header('Location: /public/user.php?page=login');
                 return false;
             }
             
             $user = $this->model->findByEmail($email);
             
             if(!$user) {
+                flash("User doesn't exist!", "danger", true);
+                header('Location: /public/user.php?page=login');
                 return false;
             }
             
             if(password_verify($password, $user['Password'])) {
-                $_SESSION['User_Id'] = $user['User_Id'];
-                header('Location: /public/index.php');
-                echo "SUCCESS";
+                $_SESSION['User'] = array(
+                    'User_Id' => $user['User_Id'],
+                    'Username' => $user['Username']);
+                
+                flash("Successfully logged in!", "success");
+                header('Location: /public/user.php?page=index');
             } else {
-                echo "DOESN'T WORK";
-                // flash("Invalid password.", "danger", true);
+                flash("Password not valid!", "danger", true);
+                header('Location: /public/user.php?page=login');
             }
         }
     
@@ -72,8 +79,8 @@
         // REQUIRES: User_Id must be set in the session
         // MODIFIES: Session
         public function logout() {
-            unset($_SESSION['User_Id']);
-            header( 'Location: /public/index.php');
+            unset($_SESSION['User']);
+            header( 'Location: /public/user.php?page=index');
         }
     }
 ?>

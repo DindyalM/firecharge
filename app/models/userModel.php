@@ -35,16 +35,7 @@ class UserModel {
         session_start();
         $_SESSION['User_Id'] = $id;
     }
-    
-    // EFFECTS: gets the user that's logged in from the session
-    // REQUIRES: user_id must be set in the session
-    // RETURNS: user or false
-    public function current_user() {
-        session_start();
-        if(isset($_SESSION['User_Id'])) return $_SESSION['User_Id'];
-        return false;
-    }
-    
+
     public function findAll() {
         if($this->connect()) {
             $stmt = $this->db->prepare('SELECT Username FROM User;');
@@ -116,7 +107,7 @@ class UserModel {
     public function findByEmail($email) {
         $this->connect();
         
-        $stmt = $this->db->prepare("SELECT User_Id, Password FROM User WHERE Email=?;");
+        $stmt = $this->db->prepare("SELECT User_Id, Username, Password FROM User WHERE Email=?;");
         $stmt->bind_param('s', $email);
         $stmt->execute();
         
@@ -188,10 +179,5 @@ class UserModel {
     // RETURNS: boolean
     private function isValidUserInfo($email, $username, $password) {
         return filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($username) && !empty($password) && !$this->userExists($email, $username);
-    }
-    
-    // EFFECTS: searches for a query in the database
-    public function search($query) {
-        return [];
     }
 }

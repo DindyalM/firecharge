@@ -1,8 +1,8 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="/vendor/stylesheets/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="./style.css">
-        <script src='./signup.js'></script>
+        <link rel="stylesheet" type="text/css" href="/app/assets/stylesheets/style.css">
+        <script src="/app/assets/javascripts/signup.js"></script>
         <title>User</title>
     </head>
     <body>
@@ -16,22 +16,22 @@
         <div class="container bg-light">
             <form method="POST" action="/public/user.php?action=create" onsubmit="return validateInput();">
                 <div class="form-group">
-                    <label for="email">Email address</label>
+                    <label for="email" class="text-dark">Email address</label>
                     <input id="email" class="form-control" name='email' type='email' placeholder="Enter Email"></input>
                     <small id="email_error" class="form-text"></small>
                 </div>
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="username" class="text-dark">Username</label>
                     <input id="username" class="form-control" name='username' type='text' placeholder="Enter Username"></input>
                     <small id="username_error" class="form-text"></small>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password" class="text-dark">Password</label>
                     <input id="password" class="form-control" name='password' type='password' placeholder="Enter Password"></input>
                     <small id="password_error" class="form-text"></small>
                 </div>
                 <div class="form-group">
-                    <label for="password_confirmation">Confirm Password</label>
+                    <label for="password_confirmation" class="text-dark">Confirm Password</label>
                     <input id="password_confirmation" class="form-control" name='password_confirmation' type='password' placeholder="Confirm Password"></input>
                     <small id="password_confirmation_error" class="form-text"></small>
                 </div>

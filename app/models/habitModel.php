@@ -26,19 +26,8 @@
         }
         
         public function __construct() {}
-          
-        // EFFECTS: Locates a specific habit and then deletes it
-        // MODIFIES: $db
-        // REQUIRES: an attribute name
-        // RETURNS: boolean  
-        public function destroy($habit_name) {
-            if($this->connect()){
-            $stmt =$this->db->prepare('DELETE FROM Habit WHERE Name =$habit_name');
-            $stmt->bind_param('s',$habit_name);
-            $stmt->execute();
-            
-            }
-        }
+        
+
         
         
         // EFFECTS: creates a new habit 
@@ -70,12 +59,7 @@
         }
         
         
-        // CRUD
-        // CREATE
-        // READ
-        // UPDATE
-        // DESTROY
-        public function find() {
+        public function read() {
             if(!$this->connect()) {
                 return false;
             }
@@ -96,5 +80,17 @@
             
             return $arr;
         }
+        //EFFECTS: deletes 
+        //REQUIRES:
+        //RETURNS:
+        public function delete_habit($habit_name){
+            if(!connect()){
+                return false;
+            }
+           $stmt=$this->db->prepare("DELETE FROM Habit WHERE Name='?'");
+           $stmt->bind_param('s',$habit_name);
+           $stmt->execute();
+        }
+        
     }
 ?>

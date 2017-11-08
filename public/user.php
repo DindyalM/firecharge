@@ -10,20 +10,28 @@
     $model = '../app/models/' . 'user' . 'Model.php';
     $controller = '../app/controllers/' . 'user' . 'Controller.php';
     
-    require('../app/controllers/helpers.php');
+    
     require('../app/views/layouts/navbar.php');
     require('../app/views/layouts/alert.php');
+    require('../app/views/layouts/post.php');
     require('../app/views/layouts/card.php');
+    require('../app/controllers/helpers.php');
+    
     
     if(file_exists($model)) {
         require $model;
     }
+    
     if(file_exists($controller)) {
         require $controller;
     }
     
+    $user_model = new UserModel();
+    $user_controller = new UserController();
+    
+    
+    
     if($_SERVER['REQUEST_METHOD'] == "POST") {
-        $user_controller = new UserController();
         switch(get('action')) {
             case 'create':
                 $user_controller->create();
@@ -35,13 +43,14 @@
                 break;
         }
     } else if($_SERVER['REQUEST_METHOD'] == "GET") {
-        $user_controller = new UserController();
         switch(get('action')) {
             case 'logout':
                 $user_controller->logout();
                 break;
             case 'search':
                 $user_controller->search();
+                break;
+            case 'index':
                 break;
             default:
                 break;

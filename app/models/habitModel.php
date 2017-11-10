@@ -80,9 +80,10 @@
             
             return $arr;
         }
-        //EFFECTS: deletes 
-        //REQUIRES:
-        //RETURNS:
+        
+        //EFFECTS: deletes a habit
+        //REQUIRES:The name of the habit
+        //RETURNS: false if a connection error happens
         public function delete_habit($habit_name){
             if(!connect()){
                 return false;
@@ -92,5 +93,20 @@
            $stmt->execute();
         }
         
+        //EFFECTS: updates a habit
+        //REQUIRES:The name and description of the habit
+        //RETURNS: false if a connection error happens
+        public function update_habit($name,$description,$Habit_Id){
+            if(!connect()){
+                return false;
+                
+            }
+            $stmt=$this->db->prepare("UPDATE Habit SET Name='?',Description='?' WHERE Habit_Id=?;");
+            $stmt->bind_param("sss",$name,$description,$Habit_Id);
+            $stmt->execute();
+        }
+        
     }
+    
+    
 ?>

@@ -8,11 +8,15 @@ function validateInput() {
     var password_confirm = document.getElementById('password_confirmation');
     
     var error_count = 0;
+    
+    
 
     error_count += validateFormGroup(username, username.value.length > 0, "Username cannot be blank.");
+    
     error_count += validateFormGroup(email, email.value.length > 0, "Email cannot be blank.");
     error_count += validateFormGroup(password, password.value.length > 0, "Password cannot be blank.");
     error_count += validateFormGroup(password_confirm, password_confirm.value.length > 0, "Password confirmation cannot be blank.");
+    
     if(password.value !== password_confirm.value && password.value != '' && password_confirm.value != '') {
         validateFormGroup(password, false, "Passwords don't match.");    
         validateFormGroup(password_confirm, false, "Passwords don't match.");    
@@ -42,7 +46,7 @@ function validateInput() {
 function validateFormGroup(inputElement, condition, error_msg) {
     var elementName = inputElement.name;
     var error_element = document.getElementById(elementName + "_error");
-    console.log(error_element);
+
     if(!condition) {
         inputElement.style['border-color'] = 'red';
         inputElement.parentNode.style['color'] = 'red';
@@ -62,6 +66,7 @@ function validateFormGroup(inputElement, condition, error_msg) {
 // REQUIRES: page should have a div with an "alert" id
 // EFFECTS: sets the "alert" element equal to an alert with a message
 function showAlert(type, msg) {
+    // return;
     var alert = document.getElementById('alert');
     alert.className = 'alert alert-' + type;
     var btn_html ='<button type="button" id="alert-close" class="close" data-dismiss="alert" aria-label="Close">' +

@@ -8,3 +8,19 @@ body {
     color: white;
     background-color: #363a41;
 }
+
+#add-btn {
+    margin-left: 10px;
+    display: inline;
+}
+
+#intro-div {
+    background-image: url("/public/system/images/header3.jpeg");
+    background-size: cover;
+    height: 100%;
+}
+
+#alert {
+    border-radius: 0px;
+    margin: 0;
+}

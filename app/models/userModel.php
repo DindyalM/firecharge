@@ -71,7 +71,7 @@ class UserModel {
     // RETURNS: user or false
     public function findUserById($id) {
         if($this->connect()) {
-            $stmt = $this->db->prepare("SELECT * FROM USER WHERE User_Id=?");
+            $stmt = $this->db->prepare("SELECT * FROM USER WHERE User_Id=? LIMIT 10");
             $stmt->bind_param('s',$id);
             $stmt->execute();
             
@@ -81,8 +81,31 @@ class UserModel {
         
         return false;
     }
-    //EFFECT: searches a column for a field
+    
+    //EFFECT: checks the database for a user with the given username
+    //        returns false if none found
     public function findByUsername($username, $max_return=10) {
+        $this->connect();
+        
+        $stmt = $this->db->prepare("SELECT * FROM User WHERE Username=? LIMIT ?");
+        $stmt->bind_param('si', $username, $max_return);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        
+        if($this->db->error) {
+            return false;
+        }
+        
+        if($result->num_rows < 1) {
+            return false;
+        }
+        
+        return $result;
+    }
+    
+        //EFFECT: searches a column for a field
+    public function searchByUsername($username, $max_return=10) {
         $this->connect();
         
         $like_param = $username ."%";
@@ -113,7 +136,7 @@ class UserModel {
         
         $result = $stmt->get_result();
         
-        if($result->num_rows > 1 || $result->num_rows <= 0) {
+        if($result->num_rows < 1) {
             return false;
         }
         
@@ -141,8 +164,6 @@ class UserModel {
     }
     
     public function userExists($email, $username="") {
-        echo $email;
-        echo $username;
         $this->connect();
         if($username == "") {
             $stmt = $this->db->prepare("SELECT * FROM User WHERE Email=?;");
@@ -179,5 +200,26 @@ class UserModel {
     // RETURNS: boolean
     private function isValidUserInfo($email, $username, $password) {
         return filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($username) && !empty($password) && !$this->userExists($email, $username);
+    }
+    
+    public function update_user($username,$password,$email,$User_Id){
+        if(!connect()){
+            return false;
+            
+        }
+        $stmt=$this->db->prepare("UPDATE User SET Username='?',Password='?',Email='?' WHERE Name=?;");
+        $stmt->bind_param("ssss",$username,$password,$email,$User_Id);
+        $stmt->execute();
+    }
+    
+    public function delete_user ($username){
+
+        if(!connect()){
+            return false;
+            }
+           $stmt=$this->db->prepare("DELETE FROM User WHERE Name='?'");
+           $stmt->bind_param('s',$username);
+           $stmt->execute();
+        
     }
 }

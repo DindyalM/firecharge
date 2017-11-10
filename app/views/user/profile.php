@@ -19,7 +19,10 @@
                 <div class="row flex-nowrap">
                     <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box">
                         <img id="avatar" class="rounded d-block mx-auto" src="https://i.pinimg.com/originals/09/b2/de/09b2deff3d7abfffaa12aed8ee14bbe0.png"/>    
-                        <p id="username_tag" class="text-center">@<?php echo current_user()['Username']; ?></p>
+                        <div id="username_tag" class="text-center">
+                            @<?php echo current_user()['Username']; ?>
+                        </div>
+                        
                         <p>Lorem ipsum dolor sit amet, ut prima doming patrioque has, per at esse inermis. Commodo neglegentur sed ad, dictas nonumes delectus te nam. Ea mea dico etiam.</p>
                     </div>
                     <div class="col col-sm-8">

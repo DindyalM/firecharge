@@ -1,112 +1,130 @@
 <?php
-    class Habit {
-        private $db;
+class HabitModel {
+    private $db;
 
-        // EFFECTS: sets $db to the database connection
-        // MODIFIES: $db
-        // REQUIRES: there must be a database with name in database variable
-        // RETURNS: boolean
-        private function connect() {
-            
-            $servername = getenv('IP');
-            $username = getenv('C9_USER');
-            $password = "";
-            $database = "dev";
-            $dbport = 3306;
-             
-            // Create connection
-            $this->db = new mysqli($servername, $username, $password, $database, $dbport);
+    // EFFECTS: sets $db to the database connection
+    // MODIFIES: $db
+    // REQUIRES: there must be a database with name in database variable
+    // RETURNS: boolean
+    private function connect() {
+        
+        $servername = getenv('IP');
+        $username = getenv('C9_USER');
+        $password = "";
+        $database = "dev";
+        $dbport = 3306;
+         
+        // Create connection
+        $this->db = new mysqli($servername, $username, $password, $database, $dbport);
+
+        // Check connection
+        if ($this->db->connect_error) {
+            return false;
+        }
+        
+        return true;
+    }
     
-            // Check connection
-            if ($this->db->connect_error) {
-                return false;
-            }
-            
-            return true;
+    public function __construct() {}
+    
+    // EFFECTS: creates a new habit 
+    // REQUIRES: TODO
+    // RETURNS: boolean
+    public function create($habit_name, $habit_details="", $user_id) {
+        $this->connect();
+        
+        if($habit_details == "") {
+            $stmt = $this->db->prepare('INSERT INTO Habit (Name, User_Id) VALUES (?, ?)');    
+            $stmt->bind_param('si', $habit_name, $user_id);
+        } else {
+            $stmt = $this->db->prepare('INSERT INTO Habit (Name, Description, User_Id) VALUES (?, ?, ?)');
+            $stmt->bind_param('ssi', $habit_name, $habit_details, $user_id);
         }
         
-        public function __construct() {}
+        $stmt->execute();
         
-
+        $result = $stmt->get_result();
         
-        
-        // EFFECTS: creates a new habit 
-        // REQUIRES: TODO
-        // RETURNS: boolean
-        public function create($habit_name, $habit_details="") {
-            if(!$this->connect() || strlen($habit_name) < 6) {
-                return false;
-            }
-            
-            if($habit_details == "") {
-                $stmt = $this->db->prepare('INSERT INTO Habit (Name) VALUES (?)');    
-                $stmt->bind_param('s', $habit_name);
-            } else {
-                $stmt = $this->db->prepare('INSERT INTO Habit (Name, Description) VALUES (? ?)');
-                $stmt->bind_param('ss', $habit_name, $habit_details);
-            }
-            
-            $stmt->execute();
-            
-            $result = $stmt->get_result();
-            
-            if($this->db->error) {
-                echo $this->db->error;
-                return false;
-            }
-            
-            return true;
+        if($this->db->error) {
+            echo $this->db->error;
+            return false;
         }
         
-        
-        public function read() {
-            if(!$this->connect()) {
-                return false;
-            }
-            
-            $stmt=$this->db->prepare('SELECT * FROM Habit;');
-            
-            $stmt->execute();
-            
-            $result = $stmt->get_result();
-            $row = $result->fetch_array(MYSQLI_ASSOC);
-            
-            $arr = array();
-            
-            foreach($result as $row) {
-                array_push($arr, $row);
-            }
-            
-            
-            return $arr;
-        }
-        
-        //EFFECTS: deletes a habit
-        //REQUIRES:The name of the habit
-        //RETURNS: false if a connection error happens
-        public function delete_habit($habit_name){
-            if(!connect()){
-                return false;
-            }
-           $stmt=$this->db->prepare("DELETE FROM Habit WHERE Name='?'");
-           $stmt->bind_param('s',$habit_name);
-           $stmt->execute();
-        }
-        
-        //EFFECTS: updates a habit
-        //REQUIRES:The name and description of the habit
-        //RETURNS: false if a connection error happens
-        public function update_habit($name,$description,$Habit_Id){
-            if(!connect()){
-                return false;
-                
-            }
-            $stmt=$this->db->prepare("UPDATE Habit SET Name='?',Description='?' WHERE Habit_Id=?;");
-            $stmt->bind_param("sss",$name,$description,$Habit_Id);
-            $stmt->execute();
-        }
-        
+        return true;
     }
     
     
+    public function findById($user_id) {
+        $this->connect();
+        
+        $stmt = $this->db->prepare('SELECT * FROM Habit WHERE User_Id=?');
+        $stmt->bind_param('i', intval($user_id));
+        
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        
+        $arr = array();
+        
+        foreach($result as $row) {
+            array_push($arr, $row);
+        }
+        
+        return $arr;
+    }
+    
+    //EFFECT: checks the database for a user with the given username
+    //        returns false if none found
+    public function findByUserUsername($username, $max_return=10) {
+        $this->connect();
+        
+        $stmt = $this->db->prepare("SELECT * FROM Habit h INNER JOIN User u ON u.User_Id=h.User_Id WHERE u.Username=?");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        
+        if($this->db->error) {
+            return false;
+        }
+        
+        if($result->num_rows < 1) {
+            return false;
+        }
+        
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        
+        $arr = array();
+        
+        foreach($result as $row) {
+            array_push($arr, $row);
+        }
+        
+        return $arr;
+    }
+    
+    //EFFECTS: deletes a habit
+    //REQUIRES:The name of the habit
+    //RETURNS: false if a connection error happens
+    public function destroy($habit_name){
+        if(!connect()){
+            return false;
+        }
+       $stmt=$this->db->prepare("DELETE FROM Habit WHERE Name='?'");
+       $stmt->bind_param('s',$habit_name);
+       $stmt->execute();
+    }
+    
+    //EFFECTS: updates a habit
+    //REQUIRES:The name and description of the habit
+    //RETURNS: false if a connection error happens
+    public function update($habit_id, $new_name, $new_description) {
+        $this->connect();
+        
+        $stmt=$this->db->prepare("UPDATE Habit SET Name='?',Description='?' WHERE Habit_Id=?;");
+        $stmt->bind_param("sss",$name,$description,$Habit_Id);
+        $stmt->execute();
+    }
+}
 ?>

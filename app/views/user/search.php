@@ -6,7 +6,7 @@
     <body>
         <header>
             <?php echo navbar('search'); ?>
-            <div class="jumbotron bg-info">
+            <div class="jumbotron bg-dark">
               <h1 class="display-3">Search</h1>
               <hr class="my-4">
               <p></p>

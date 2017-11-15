@@ -24,3 +24,27 @@ body {
     border-radius: 0px;
     margin: 0;
 }
+
+
+#avatar {
+    height: 150px;
+    width: 150px;
+    margin-top: -75px;
+}
+
+#bio-box {
+    /*margin: 50px;*/
+}
+
+#user-header {
+    height: 100px;
+}
+
+#profile-container {
+    padding: 0px;
+    height: 100%;
+}
+
+#action-buttons {
+    margin: 0px;
+}

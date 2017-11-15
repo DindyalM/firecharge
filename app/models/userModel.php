@@ -196,7 +196,7 @@ class UserModel {
     // EFFECTS: validates the user information
     // REQUIRES: fields must be non empty, password & password_confirm must match
     //           username must be between 3 and 15 characters, 
-    //           password must be between 6 and 25 function,
+    //           password must be between 6 and 25 characters,
     // RETURNS: boolean
     private function isValidUserInfo($email, $username, $password) {
         return filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($username) && !empty($password) && !$this->userExists($email, $username);

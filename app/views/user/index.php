@@ -51,18 +51,76 @@
             </div>
         </section>
             
-            
-            
-            
         <?php elseif(logged_in) : ?>
             <?php echo navbar('home'); ?>
             <?php echo alert() ?>
             <header>
-                <div class="jumbotron bg-dark">
-                  <h1 class="display-3" style="color: white;">Hello, <?php echo current_user()['Username']; ?></h1>
-                  <hr class="my-4">
-                </div>
+                
             </header>
+                    
+            <section>
+                <div class="container-fluid bg-dark" id="profile-container">
+                    <div class="col-md-12 bg-danger" id="user-header">
+                        
+                    </div>
+                    <div class="row flex-nowrap">
+                        <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box">
+                            <img id="avatar" class="rounded d-block mx-auto" src="https://i.pinimg.com/originals/09/b2/de/09b2deff3d7abfffaa12aed8ee14bbe0.png"/>    
+                            <div id="username_tag" class="text-center">
+                                @<?php echo current_user()['Username']; ?>
+                            </div>
+                            
+                        </div>
+                        <div class="col col-sm-8">
+                            <div class="row">
+                                <div class="col col-sm-8 offset-1" style="margin-top: 30px;">
+                                    <div class="bg-light rounded">
+                                        <h3 class="text-dark text-center">Timeline</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-sm-8 offset-1">
+                                    <div class="card">
+                                      <div class="card-body">
+                                        <button class="btn btn-link text-danger">Habits</button>
+                                        <button class="btn btn-link text-danger">Activity</button>
+                                        <button class="btn btn-link text-danger">Friends</button>
+                                        <button class="btn btn-link text-danger">Likes</button>
+                                      </div>
+                                      
+                                      <div id="timeline" class="row">
+                                          <div class="col-md-10 offset-1">
+                                            <form action="/public/habit.php" method="POST">
+                                                <div class="form-group mx-auto">
+                                                  <input class="form-control" name="action" type="hidden" value="create"/>
+                                                  <input name="name" class="form-control" type="text" name="Name" placeholder="Name"/></br>
+                                                  <textarea name="description" class="form-control" name="Details" placeholder="Details"></textarea>
+                                                </div>
+                                                <input class="btn btn-dark" type="submit" value="Create Habit"/>
+                                            </form>
+                                            
+                                            <?php
+                                                // echo var_dump($user_controller->habits);
+                                                foreach($user_controller->habits as $habit) {
+                                                    
+                                                    echo card($habit['Name'], $habit['Description']);
+                                                }
+                                            ?>
+                                            
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="card-footer text-muted text-center">
+                                        <a href="#" class="">Load More</a>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         <?php endif; ?>
         
     </body>

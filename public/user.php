@@ -10,6 +10,7 @@
     $model = '../app/models/' . 'user' . 'Model.php';
     $controller = '../app/controllers/' . 'user' . 'Controller.php';
     
+    require('../app/models/habitModel.php');
     
     require('../app/views/layouts/navbar.php');
     require('../app/views/layouts/alert.php');
@@ -28,8 +29,6 @@
     
     $user_model = new UserModel();
     $user_controller = new UserController();
-    
-    
     
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         switch(get('action')) {
@@ -51,6 +50,22 @@
                 $user_controller->search();
                 break;
             case 'index':
+                $user_controller->findHabits();
+                break;
+            case 'profile':
+                $user_controller->profile();
+                $user_controller->findHabits();
+                break;
+            default:
+                break;
+        }
+        switch(get('page')) {
+            case 'profile':
+                $user_controller->profile();
+                // $user_controller->findHabits();
+                break;
+            case 'index':
+                $user_controller->findHabits();
                 break;
             default:
                 break;

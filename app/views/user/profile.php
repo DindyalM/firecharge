@@ -20,7 +20,7 @@
                     <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box">
                         <img id="avatar" class="rounded d-block mx-auto" src="https://i.pinimg.com/originals/09/b2/de/09b2deff3d7abfffaa12aed8ee14bbe0.png"/>    
                         <div id="username_tag" class="text-center">
-                            @<?php echo current_user()['Username']; ?>
+                            @<?php echo $user_controller->user['Username']; ?>
                         </div>
                         
                         <p>Lorem ipsum dolor sit amet, ut prima doming patrioque has, per at esse inermis. Commodo neglegentur sed ad, dictas nonumes delectus te nam. Ea mea dico etiam.</p>
@@ -45,7 +45,15 @@
                                   </div>
                                   
                                   <div id="timeline">
-                                    <?php echo post(); ?>
+                                    <?php
+                                        $habits = $user_controller->habits;
+                                        if($habits) {
+                                            foreach($habits as $habit) {
+                                                echo card($habit['Name'], $habit['Description']);
+                                            }
+                                        }
+
+                                    ?>
                                   </div>
                                   
                                   <div class="card-footer text-muted text-center">

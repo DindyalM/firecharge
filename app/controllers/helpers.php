@@ -14,6 +14,11 @@
     }
     
     function current_user() {
-        return $_SESSION['User'];
+        $user = $_SESSION['User'];
+        if(isset($user)) {
+            return $user;
+        }
+        
+        return false;
     }
 ?>

@@ -13,11 +13,12 @@
     require('../app/models/habitModel.php');
     
     require('../app/views/layouts/navbar.php');
+    require('../app/views/layouts/user_card.php');
+    require('../app/views/layouts/habit_timeline.php');
     require('../app/views/layouts/alert.php');
     require('../app/views/layouts/post.php');
-    require('../app/views/layouts/card.php');
+    require('../app/views/layouts/habit_card.php');
     require('../app/controllers/helpers.php');
-    
     
     if(file_exists($model)) {
         require $model;
@@ -50,7 +51,9 @@
                 $user_controller->search();
                 break;
             case 'index':
-                $user_controller->findHabits();
+                if(logged_in()) {
+                    $user_controller->findHabits();    
+                }
                 break;
             case 'profile':
                 $user_controller->profile();
@@ -65,8 +68,9 @@
                 // $user_controller->findHabits();
                 break;
             case 'index':
-                $user_controller->findHabits();
-                break;
+                if(logged_in()) {
+                    $user_controller->findHabits();    
+                }
             default:
                 break;
         }

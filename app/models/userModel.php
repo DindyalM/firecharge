@@ -179,12 +179,7 @@ class UserModel {
         echo var_dump($result->fetch_array(MYSQLI_ASSOC));
         return $result->num_rows > 0;
     }
-    
-    public function isLoggedIn() {
-        session_start();
-        return isset($_SESSION['User_Id']);
-    }
-    
+
     // EFFECTS: removes the user from the session
     // MODIFIES: $_SESSION['user_id']
     // RETURNS: boolean

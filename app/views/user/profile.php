@@ -37,24 +37,17 @@
                             <div class="col col-sm-8 offset-1">
                                 <div class="card">
                                   <div class="card-body">
-                                      <button class="btn btn-link text-danger">Habits</button>
+                                    
+                                    <button class="btn btn-link text-danger">Habits</button>
                                     <button class="btn btn-link text-danger">Activity</button>
                                     <button class="btn btn-link text-danger">Friends</button>
                                     <button class="btn btn-link text-danger">Likes</button>
                                                             
                                   </div>
                                   
-                                  <div id="timeline">
                                     <?php
-                                        $habits = $user_controller->habits;
-                                        if($habits) {
-                                            foreach($habits as $habit) {
-                                                echo card($habit['Name'], $habit['Description']);
-                                            }
-                                        }
-
+                                        echo habit_timeline($user_controller->habits);
                                     ?>
-                                  </div>
                                   
                                   <div class="card-footer text-muted text-center">
                                     <a href="#" class="">Load More</a>

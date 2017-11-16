@@ -119,7 +119,7 @@ class HabitModel {
     //EFFECTS: updates a habit
     //REQUIRES:The name and description of the habit
     //RETURNS: false if a connection error happens
-    public function update($habit_id, $new_name, $new_description) {
+    public function update($new_name, $new_description,$habit_id) {
         $this->connect();
         
         $stmt=$this->db->prepare("UPDATE Habit SET Name='?',Description='?' WHERE Habit_Id=?;");

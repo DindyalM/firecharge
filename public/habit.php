@@ -14,7 +14,7 @@
     require('../app/views/layouts/navbar.php');
     require('../app/views/layouts/alert.php');
     require('../app/views/layouts/post.php');
-    require('../app/views/layouts/card.php');
+    require('../app/views/layouts/habit_card.php');
     require('../app/controllers/helpers.php');
     
     
@@ -34,11 +34,17 @@
             case 'create':
                 $habit_controller->create();
                 break;
+            case 'update':
+                $habit_controller->update();
+                break;
+            default:
+                break;
         }
     } else if($_SERVER['REQUEST_METHOD'] == "GET") {
-        switch(get('action')) {
-            case('index'):
-                return;
+        switch(get('page')) {
+            case('edit'):
+                $user_controller->find
+                break;
             default:
                 break;
         }

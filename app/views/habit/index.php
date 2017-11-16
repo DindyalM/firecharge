@@ -31,7 +31,7 @@
                 foreach($habit->find() as $row) {
                     $name = $row['Name'];
                     $description = $row['Description'];
-                    echo '<div class="col-sm-3">' . card($name, $description) . "</div>";
+                    echo '<div class="col-sm-3">' . habit_card($row) . "</div>";
                 }
                 echo '</div>';
                 

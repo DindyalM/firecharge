@@ -52,6 +52,21 @@ class UserController {
         return true;
     }
     
+    // EFFECTS: Finds the current user's habit with a corresponding id
+    //          returns the current users habits
+    public function findHabit($habit_id) {
+        $user = current_user();
+        if(!$user) {
+            flash("User must be logged in to do that!", "danger", true);
+            header('Location: /public/user.php?page=login');
+            return false;
+        }
+        
+        $this->habits = $this->habit_model->findById(current_user()['User_Id']);
+        
+        return true;
+    }
+    
     public function profile() {
         $username = $_GET['username'];
         if(!isset($username)) {

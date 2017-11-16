@@ -99,15 +99,9 @@
                                                 </div>
                                                 <input class="btn btn-dark" type="submit" value="Create Habit"/>
                                             </form>
-                                            
                                             <?php
-                                                // echo var_dump($user_controller->habits);
-                                                foreach($user_controller->habits as $habit) {
-                                                    
-                                                    echo card($habit['Name'], $habit['Description']);
-                                                }
+                                                echo habit_timeline($user_controller->habits);
                                             ?>
-                                            
                                           </div>
                                       </div>
                                       

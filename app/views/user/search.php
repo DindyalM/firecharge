@@ -15,7 +15,7 @@
         <section id="search-result">
             <?php 
                 foreach($user_controller->users as $user ) {
-                    echo card($user['Username']);
+                    echo user_card($user);
                 }
             ?>
         </section>

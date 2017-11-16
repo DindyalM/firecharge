@@ -1,20 +1,39 @@
-+----------+--------------+------+-----+---------+----------------+                                                   
-| Field    | Type         | Null | Key | Default | Extra          |                                                   
-+----------+--------------+------+-----+---------+----------------+                                                   
-| User_Id  | int(11)      | NO   | PRI | NULL    | auto_increment |                                                   
-| Username | varchar(255) | YES  |     | NULL    |                |                                                   
-| Email    | varchar(255) | YES  |     | NULL    |                |                                                   
-| Password | varchar(255) | YES  |     | NULL    |                |                                                   
+| User  | CREATE TABLE `User` (                                                                                             
+  `User_Id` int(11) NOT NULL AUTO_INCREMENT,                                                                                
+  `Username` varchar(255) DEFAULT NULL,                                                                                     
+  `Email` varchar(255) DEFAULT NULL,                                                                                        
+  `Password` varchar(255) DEFAULT NULL,                                                                                     
+  PRIMARY KEY (`User_Id`)                                                                                                   
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 |       
+
++----------+--------------+------+-----+---------+----------------+                                                         
+| Field    | Type         | Null | Key | Default | Extra          |                                                         
++----------+--------------+------+-----+---------+----------------+                                                         
+| User_Id  | int(11)      | NO   | PRI | NULL    | auto_increment |                                                         
+| Username | varchar(255) | YES  |     | NULL    |                |                                                         
+| Email    | varchar(255) | YES  |     | NULL    |                |                                                         
+| Password | varchar(255) | YES  |     | NULL    |                |                                                         
 +----------+--------------+------+-----+---------+----------------+   
 
-+-------------+--------------+------+-----+---------+----------------+                                                
-| Field       | Type         | Null | Key | Default | Extra          |                                                
-+-------------+--------------+------+-----+---------+----------------+                                                
-| Habit_Id    | int(11)      | NO   | PRI | NULL    | auto_increment |                                                
-| User_Id     | int(11)      | YES  |     | NULL    |                |                                                
-| Name        | varchar(255) | YES  |     | NULL    |                |                                                
-| Description | text         | YES  |     | NULL    |                |                                                
-+-------------+--------------+------+-----+---------+----------------+    
+
+| Habit | CREATE TABLE `Habit` (                                                                                            
+  `Habit_Id` int(11) NOT NULL AUTO_INCREMENT,                                                                               
+  `User_Id` int(11) NOT NULL,                                                                                               
+  `Name` varchar(255) DEFAULT NULL,                                                                                         
+  `Description` text,                                                                                                       
+  `Created_At` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,                                                                
+  PRIMARY KEY (`Habit_Id`)                                                                                                  
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1 |  
+
++-------------+--------------+------+-----+-------------------+----------------+                                            
+| Field       | Type         | Null | Key | Default           | Extra          |                                            
++-------------+--------------+------+-----+-------------------+----------------+                                            
+| Habit_Id    | int(11)      | NO   | PRI | NULL              | auto_increment |                                            
+| User_Id     | int(11)      | NO   |     | NULL              |                |                                            
+| Name        | varchar(255) | YES  |     | NULL              |                |                                            
+| Description | text         | YES  |     | NULL              |                |                                            
+| Created_At  | timestamp    | NO   |     | CURRENT_TIMESTAMP |                |                                            
++-------------+--------------+------+-----+-------------------+----------------+  
 
 
 

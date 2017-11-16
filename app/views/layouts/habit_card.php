@@ -1,8 +1,8 @@
 <?php
     function habit_card($habit) {
         $btns = "";
-        if(current_user()['Username'] === $habit['Username']) {
-            $btns = '<a href="#" class="btn btn-link-dark text-dark">Update</a>
+        if(current_user()['User_Id'] === $habit['User_Id']) {
+            $btns = '<a href="/public/habit.php?page=edit&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Update</a>
                      <a href="#" class="btn btn-link-dark text-dark">Delete</a>';
         }
         

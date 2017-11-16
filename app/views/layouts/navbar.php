@@ -57,7 +57,7 @@
                   <input name="action" type="hidden" value="search">
                   <input name="page" type="hidden" value="search">
                   <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search">
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                  <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </nav>
         ';

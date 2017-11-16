@@ -43,7 +43,7 @@
     } else if($_SERVER['REQUEST_METHOD'] == "GET") {
         switch(get('page')) {
             case('edit'):
-                $user_controller->find
+                $habit_controller->edit();
                 break;
             default:
                 break;

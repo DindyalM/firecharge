@@ -29,14 +29,49 @@ class HabitController {
         header('Location: /public/user.php?page=index');
         return false;
     }
+    
+    public function edit() {
+        $id = @$_GET['id'];
+        
+        if(!isset($id)) {
+            // todo: 404 page here
+                    
+            flash('Habit does not exist!', "danger", true);
+            header('Location: /public/user.php?page=index');
+            return false;
+        }
+        
+        $habit = $this->habit_model->findById($id);
+        
+        if($habit) {
+            $this->habit = $habit;
+            return true;
+        }
+        
+        flash('Habit does not exist!', "danger", true);
+        header('Location: /public/user.php?page=index');
+        
+        return false;
+        
+    }
+    
+    //
     public function update(){
         
+        $habit_id = @$_POST['habit_id'];
         $new_name = @$_POST['new_name'];
-        $new_desc = @$_POST['new_description'];
+        $new_description = @$_POST['new_description'];
         $current_user = current_user();
-        
-         if(!isset($name)) {
+
+        if(!isset($new_name)) {
             flash("Name should be present!", "danger", true);
+            header("Refresh:0");
+            return false;
+        }
+        
+        if(!isset($habit_id)) {
+            flash("Habit doesn't exist!", "danger", true);
+            header("/public/user.php?page=index");
             return false;
         }
         
@@ -45,7 +80,8 @@ class HabitController {
             header('Location: /public/user.php?page=login');
             return false;
         }
-        if($this->habit_model->update($new_name, $new_description, $current_user['User_Id'])) {
+        
+        if($this->habit_model->update($habit_id, $new_name, $new_description)) {
             flash("Succesfully Updated habit track!", "success");
             header('Location: /public/user.php?page=index');
             return true;

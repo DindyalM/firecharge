@@ -53,8 +53,30 @@ class HabitModel {
         return true;
     }
     
+        
+    //EFFECT: checks the database for a user with the given username
+    //        returns false if none found
+    public function findById($habit_id) {
+        $this->connect();
+        
+        $stmt = $this->db->prepare("SELECT * FROM Habit WHERE Habit_Id=?");
+        $stmt->bind_param('i', $habit_id);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        
+        if($this->db->error) {
+            return false;
+        }
+        
+        if($result->num_rows < 1) {
+            return false;
+        }
+        
+        return $result->fetch_array();
+    }
     
-    public function findById($user_id) {
+    public function findByUserId($user_id) {
         $this->connect();
         
         $stmt = $this->db->prepare('SELECT * FROM Habit WHERE User_Id=?');
@@ -118,13 +140,19 @@ class HabitModel {
     
     //EFFECTS: updates a habit
     //REQUIRES:The name and description of the habit
-    //RETURNS: false if a connection error happens
-    public function update($new_name, $new_description,$habit_id) {
+    //RETURNS: return false if update fails
+    public function update($habit_id, $new_name, $new_description) {
         $this->connect();
         
-        $stmt=$this->db->prepare("UPDATE Habit SET Name='?',Description='?' WHERE Habit_Id=?;");
-        $stmt->bind_param("sss",$name,$description,$Habit_Id);
+        $stmt=$this->db->prepare("UPDATE Habit SET Name=?,Description=? WHERE Habit_Id=?;");
+        $stmt->bind_param("ssi", $new_name, $new_description, $habit_id);
         $stmt->execute();
+        
+        if($this->db->error) {
+            return false;
+        }
+        
+        return true;
     }
 }
 ?>

@@ -66,7 +66,14 @@
         switch(get('page')) {
             case 'profile':
                 $user_controller->profile();
-                // $user_controller->findHabits();
+                switch($_GET['action']) {
+                    case 'posts':
+                        $user_controller->findPosts(); 
+                        break;
+                    default:
+                        $user_controller->findHabits(); 
+                        break;
+                }
                 break;
             case 'index':
                 if(logged_in()){
@@ -79,7 +86,7 @@
                             break;
                     }
                 }
-
+                break;
             default:
                 break;
         }

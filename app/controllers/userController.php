@@ -81,8 +81,15 @@ class UserController {
             header('Location: /public/user.php?page=login');
             return false;
         }
+        $username = $_GET['username'];
+        if(!$username) {
+            $this->posts = $this->post_model->findByUserId(current_user()['User_Id']);    
+        }
+        else {
+            $this->posts = $this->post_model->findByUserUsername($username);
+        }
         
-        $this->posts = $this->post_model->findByUserId(current_user()['User_Id']);
+        
         
         return true;
     }

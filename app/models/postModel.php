@@ -92,23 +92,15 @@ class PostModel {
     
     //EFFECT: checks the database for a user with the given username
     //        returns false if none found
-    public function findByUserUsername($username, $max_return=10) {
+    public function findByUserUsername($username) {
         $this->connect();
         
-        $stmt = $this->db->prepare("SELECT * FROM Habit h INNER JOIN User u ON u.User_Id=h.User_Id WHERE u.Username=?");
+        $stmt = $this->db->prepare("SELECT * FROM Post p INNER JOIN User u ON u.User_Id=p.User_Id WHERE u.Username=?");
         $stmt->bind_param('s', $username);
+        
         $stmt->execute();
         
         $result = $stmt->get_result();
-        
-        if($this->db->error) {
-            return false;
-        }
-        
-        if($result->num_rows < 1) {
-            return false;
-        }
-        
         $row = $result->fetch_array(MYSQLI_ASSOC);
         
         $arr = array();

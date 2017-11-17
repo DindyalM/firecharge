@@ -36,22 +36,32 @@
                         <div class="row">
                             <div class="col col-sm-8 offset-1">
                                 <div class="card">
-                                  <div class="card-body">
-                                    
-                                    <button class="btn btn-link text-danger">Habits</button>
-                                    <button class="btn btn-link text-danger">Activity</button>
-                                    <button class="btn btn-link text-danger">Friends</button>
-                                    <button class="btn btn-link text-danger">Likes</button>
-                                                            
-                                  </div>
-                                  
-                                    <?php
-                                        echo habit_timeline($user_controller->habits);
-                                    ?>
-                                  
-                                  <div class="card-footer text-muted text-center">
-                                    <a href="#" class="">Load More</a>
-                                  </div>
+                                    <div class="card-body">
+                                      <form style="display: inline;">
+                                        <input type="hidden" name="page" value="profile">
+                                        <input type="hidden" name="username" value="<?php echo $user_controller->user['Username']; ?>">
+                                        <input type="submit" class="btn btn-link text-danger" value="Habits"></input>
+                                      </form>
+                                      <form style="display: inline;">
+                                        <input type="hidden" name="page" value="profile">
+                                        <input type="hidden" name="action" value="posts">
+                                        <input type="hidden" name="username" value="<?php echo $user_controller->user['Username']; ?>">
+                                        <input type="submit" class="btn btn-link text-danger" value="Posts"></input>
+                                      </form>
+                                      <button class="btn btn-link text-danger">Friends</button>
+                                      <button class="btn btn-link text-danger">Likes</button>
+                                    </div>
+                                        <?php
+                                            switch($_GET['action']) {
+                                                case 'posts':
+                                                    echo post_timeline($user_controller->posts, current_user());
+                                                    break;
+                                                default:
+                                                    echo habit_timeline($user_controller->habits);
+                                                    break;
+                                            }
+                                        ?>
+
                                 </div>
                             </div>
                         </div>

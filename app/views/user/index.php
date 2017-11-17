@@ -95,17 +95,16 @@
                                         <button class="btn btn-link text-danger">Friends</button>
                                         <button class="btn btn-link text-danger">Likes</button>
                                       </div>
-                                      
-                                            <?php
-                                                switch($_GET['action']) {
-                                                    case 'posts':
-                                                        echo post_timeline($user_controller->posts, current_user());
-                                                        break;
-                                                    default:
-                                                        echo habit_timeline($user_controller->habits);
-                                                        break;
-                                                }
-                                            ?>
+                                        <?php
+                                            switch($_GET['action']) {
+                                                case 'posts':
+                                                    echo post_timeline($user_controller->posts, current_user());
+                                                    break;
+                                                default:
+                                                    echo habit_timeline($user_controller->habits);
+                                                    break;
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </div>

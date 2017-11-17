@@ -20,6 +20,41 @@ class UserController {
         $this->users = $this->user_model->searchByUsername($query);
     }
     
+    public function createPost() {
+        $current_user = current_user();
+        if(!$current_user) {
+            flash('Must be logged in to do that!', "danger", true);
+            header('Location: /public/user.php?page=login');
+            return false;
+        }
+        
+        $user_id = @$_POST['user_id'];
+        $text = @$_POST['text'];
+        $username = @$_POST['username'];
+        
+        if(!isset($user_id) || !isset($text)) {
+            flash('Something went wrong!', "danger", true);
+            header('Location: /public/user.php?page=index');
+            return false;
+        }
+        
+        if($this->post_model->create($user_id, $current_user['User_Id'], $text, $username)) {
+            flash('Successfully created post!', "success");
+            if(isset($username)) {
+                header('Location: /public/user.php?page=profile&username=' . $username);    
+            } else {
+                header('Location: /public/user.php?page=index&action=posts');    
+            }
+            
+            return true;
+        } else {
+            flash('Something went wrong!', "danger", true);
+            header('Location: /public/user.php?page=index');
+            return false;
+        }
+        
+    }
+    
     private function createSession($username, $user_id=false) {
         if($user_id) {
             $_SESSION['User'] = array(

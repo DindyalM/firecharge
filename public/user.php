@@ -39,6 +39,9 @@
             case 'create':
                 $user_controller->create();
                 break;
+            case 'create_post':
+                $user_controller->createPost();
+                break;
             case 'login':
                 $user_controller->login();
                 break;
@@ -52,9 +55,6 @@
                 break;
             case 'search':
                 $user_controller->search();
-                break;
-            case 'create_post':
-                $post_controller->create();
                 break;
             case 'profile':
                 $user_controller->profile();

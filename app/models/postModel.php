@@ -92,11 +92,13 @@ class PostModel {
     
     //EFFECT: checks the database for a user with the given username
     //        returns false if none found
+    // this function doesn't work, note to future self: good fukin luk 
     public function findByUserUsername($username) {
         $this->connect();
-        
-        $stmt = $this->db->prepare("SELECT * FROM Post p INNER JOIN User u ON u.User_Id=p.User_Id WHERE u.Username=?");
-        $stmt->bind_param('s', $username);
+        $stmt = $this->db->prepare("SELECT * FROM Post p 
+        INNER JOIN User u1 ON u1.User_Id=p.Poster_Id 
+        INNER JOIN User u2 ON u2.User_Id=p.User_Id");
+        // $stmt->bind_param('s', $username);
         
         $stmt->execute();
         

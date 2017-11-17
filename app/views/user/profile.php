@@ -54,7 +54,7 @@
                                         <?php
                                             switch($_GET['action']) {
                                                 case 'posts':
-                                                    echo post_timeline($user_controller->posts, current_user());
+                                                    echo post_timeline($user_controller->posts, $user_controller->user);
                                                     break;
                                                 default:
                                                     echo habit_timeline($user_controller->habits);

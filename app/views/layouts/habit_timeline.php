@@ -1,6 +1,7 @@
 <?php
 function habit_timeline($habits) {
-    $timeline = '<div id="timeline" class="row">
+    $timeline = "";
+    $form = '<div id="timeline" class="row">
                   <div class="col-md-10 offset-1">
                     <form action="/public/habit.php" method="POST">
                         <div class="form-group mx-auto">
@@ -11,6 +12,10 @@ function habit_timeline($habits) {
                         <input class="btn btn-dark" type="submit" value="Create Habit"/>
                     </form>
                     <div class="text-dark">';
+                    
+    if(!empty($habits) && current_user()['User_Id'] == $habits[0]['User_Id']) {
+        $timeline = $form;    
+    }
     // insert data into timeline
     if($habits) {
         foreach($habits as $habit) {

@@ -9,8 +9,8 @@
 </head>
 <body>
       <header>
-            <?php echo navbar(); ?>
-          <div class='alert' id='alert'></div>
+            <?php echo navbar('login'); ?>
+            <?php echo alert(true); ?>
                 
         </header>
         

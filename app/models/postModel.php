@@ -1,5 +1,5 @@
 <?php
-class HabitModel {
+class PostModel {
     private $db;
 
     // EFFECTS: sets $db to the database connection
@@ -30,23 +30,17 @@ class HabitModel {
     // EFFECTS: creates a new habit 
     // REQUIRES: TODO
     // RETURNS: boolean
-    public function create($habit_name, $habit_details="", $user_id) {
+    public function create($user_id, $poster_id, $text) {
         $this->connect();
         
-        if($habit_details == "") {
-            $stmt = $this->db->prepare('INSERT INTO Habit (Name, User_Id) VALUES (?, ?)');    
-            $stmt->bind_param('si', $habit_name, $user_id);
-        } else {
-            $stmt = $this->db->prepare('INSERT INTO Habit (Name, Description, User_Id) VALUES (?, ?, ?)');
-            $stmt->bind_param('ssi', $habit_name, $habit_details, $user_id);
-        }
+        $stmt = $this->db->prepare('INSERT INTO Post (User_Id, Poster_Id, Text) VALUES (?, ?, ?)');    
+        $stmt->bind_param('iis', $user_id, $poster_id, $text);
         
         $stmt->execute();
         
         $result = $stmt->get_result();
         
         if($this->db->error) {
-            echo $this->db->error;
             return false;
         }
         
@@ -56,7 +50,7 @@ class HabitModel {
         
     //EFFECT: checks the database for a user with the given username
     //        returns false if none found
-    public function findById($habit_id) {
+    private function findById($habit_id) {
         $this->connect();
         
         $stmt = $this->db->prepare("SELECT * FROM Habit WHERE Habit_Id=?");
@@ -79,7 +73,7 @@ class HabitModel {
     public function findByUserId($user_id) {
         $this->connect();
         
-        $stmt = $this->db->prepare('SELECT * FROM Habit WHERE User_Id=?');
+        $stmt = $this->db->prepare("SELECT * FROM Post p INNER JOIN User u ON u.User_Id=p.User_Id WHERE u.User_Id=?");
         $stmt->bind_param('i', intval($user_id));
         
         $stmt->execute();
@@ -141,7 +135,7 @@ class HabitModel {
     //EFFECTS: updates a habit
     //REQUIRES:The name and description of the habit
     //RETURNS: return false if update fails
-    private function update($habit_id, $new_name, $new_description) {
+    public function update($habit_id, $new_name, $new_description) {
         $this->connect();
         
         $stmt=$this->db->prepare("UPDATE Habit SET Name=?,Description=? WHERE Habit_Id=?;");

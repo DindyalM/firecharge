@@ -197,14 +197,26 @@ class UserModel {
         return filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($username) && !empty($password) && !$this->userExists($email, $username);
     }
     
-    public function update_user($username,$password,$email,$User_Id){
+   // okay so i wrote all this code and didnt even bother to run it once
+    // seriously i dont know how i pulled it off but for the love of god
+    // dont use this function unless you're willing to make it actually work
+    // use at your own risk
+    private function update($new_username,$new_password,$new_email,$new_bio,$new_user_id){
+       
         if(!connect()){
             return false;
             
         }
-        $stmt=$this->db->prepare("UPDATE User SET Username='?',Password='?',Email='?' WHERE Name=?;");
-        $stmt->bind_param("ssss",$username,$password,$email,$User_Id);
+        
+        if(!isValidUserInfo($email, $username, $password)){
+            return false;
+        }
+        
+        $stmt=$this->db->prepare("UPDATE User SET Username='?',Password='?',Email='?',Bio='?' WHERE Name=?;");
+        $stmt->bind_param("ssssi",$new_username,$new_password,$new_email,$new_bio,$new_user_id);
         $stmt->execute();
+        
+        header("Location:");
     }
     
     public function delete_user ($username){
@@ -212,9 +224,11 @@ class UserModel {
         if(!connect()){
             return false;
             }
+            
            $stmt=$this->db->prepare("DELETE FROM User WHERE Name='?'");
            $stmt->bind_param('s',$username);
            $stmt->execute();
         
     }
+    
 }

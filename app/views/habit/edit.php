@@ -1,9 +1,7 @@
-
-<!DOCTYPE html>
 <html>
     <head>
-    <link rel="stylesheet" type="text/css" href="/vendor/stylesheets/bootstrap.min.css">
-    <title>Update Habit</title>
+      <link rel="stylesheet" type="text/css" href="/vendor/stylesheets/bootstrap.min.css">
+      <title>Update Habit</title>
     </head>
     <body>
         <header>
@@ -32,6 +30,5 @@
                 </form>
             </div>
         </section>
-         
     </body>
 </html>

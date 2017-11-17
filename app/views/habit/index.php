@@ -25,8 +25,9 @@
               <hr class="my-4">
             </div>
         </header>
-        <section id="habits">
+        <section id="data">
             <?php
+                
                 echo '<div class="card-deck">';
                 foreach($habit->find() as $row) {
                     $name = $row['Name'];

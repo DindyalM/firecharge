@@ -83,31 +83,29 @@
                                 <div class="col col-sm-8 offset-1">
                                     <div class="card">
                                       <div class="card-body">
-                                        <button class="btn btn-link text-danger">Habits</button>
-                                        <button class="btn btn-link text-danger">Activity</button>
+                                          <form style="display: inline;">
+                                            <input type="hidden" name="page" value="index">
+                                            <input type="submit" class="btn btn-link text-danger" value="Habits"></input>
+                                          </form>
+                                          <form style="display: inline;">
+                                            <input type="hidden" name="page" value="index">
+                                            <input type="hidden" name="action" value="posts">
+                                            <input type="submit" class="btn btn-link text-danger" value="Posts"></input>
+                                          </form>
                                         <button class="btn btn-link text-danger">Friends</button>
                                         <button class="btn btn-link text-danger">Likes</button>
                                       </div>
                                       
-                                      <div id="timeline" class="row">
-                                          <div class="col-md-10 offset-1">
-                                            <form action="/public/habit.php" method="POST">
-                                                <div class="form-group mx-auto">
-                                                  <input class="form-control" name="action" type="hidden" value="create"/>
-                                                  <input name="name" class="form-control" type="text" name="Name" placeholder="Name"/></br>
-                                                  <textarea name="description" class="form-control" name="Details" placeholder="Details"></textarea>
-                                                </div>
-                                                <input class="btn btn-dark" type="submit" value="Create Habit"/>
-                                            </form>
                                             <?php
-                                                echo habit_timeline($user_controller->habits);
+                                                switch($_GET['action']) {
+                                                    case 'posts':
+                                                        echo post_timeline($user_controller->posts, current_user());
+                                                        break;
+                                                    default:
+                                                        echo habit_timeline($user_controller->habits);
+                                                        break;
+                                                }
                                             ?>
-                                          </div>
-                                      </div>
-                                      
-                                      <div class="card-footer text-muted text-center">
-                                        <a href="#" class="">Load More</a>
-                                      </div>
                                     </div>
                                 </div>
                             </div>

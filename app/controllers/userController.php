@@ -2,9 +2,11 @@
 class UserController {
     private $user_model;
     private $habit_model;
+    private $post_model;
     public function __construct() {
         $this->user_model = new UserModel();
         $this->habit_model = new HabitModel();
+        $this->post_model = new PostModel();
     }
     
     // EFFECTS: finds a user from the database with the username
@@ -35,6 +37,19 @@ class UserController {
         }
         
         return false;
+    }
+    
+    public function findPosts() {
+        $user = current_user();
+        if(!$user) {
+            flash("User must be logged in to do that!", "danger", true);
+            header('Location: /public/user.php?page=login');
+            return false;
+        }
+        
+        $this->posts = $this->post_model->findByUserId(current_user()['User_Id']);
+        
+        return true;
     }
     
     // EFFECTS: Finds a users habits through their username, if no id provided
@@ -141,6 +156,50 @@ class UserController {
         }
 
     }
+    
+    // okay so i wrote all this code and didnt even bother to run it once
+    // seriously i dont know how i pulled it off but for the love of god
+    // dont use this function unless you're willing to make it actually work
+    // use at your own risk
+    private function update() {
+        $new_username = $POST['new_username'];
+        $new_email = $POST['new_email'];
+        $new_bio = $POST['new_bio'];
+        $new_pasword = $POST['new_password'];
+        $new_user_id = $_SESSION['User'];
+    
+        if($new_username=="") {
+            flash("Username cannot be blank!", "danger", true);
+            header("Refresh:0");
+            return false;
+        }
+        
+        if($new_email=="") {
+            flash("Email cannot be blank!", "danger", true);
+            header("Refresh:0");
+            return false;
+        }
+        if($new_password=="") {
+            flash("Password cannot be blank!", "danger", true);
+            header("Refresh:0");
+            return false;
+        }
+        
+        if(!$current_user) {
+            flash("Must be logged in first!", "danger", true);
+            header('Location: /public/user.php?page=login');
+            return false;
+        }
+        
+       else if($this->user_model->update($new_username,$new_password,$new_email,$new_bio)){
+            flash("Succesfully Updated Account!", "success",true);
+            header('Location: /public/user.php?page=profile');
+            return true;
+        }
+        
+    }
+           
+   
     
     // EFFECTS: unsets the user id from the session
     // REQUIRES: User_Id must be set in the session

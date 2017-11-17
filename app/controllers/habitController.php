@@ -54,10 +54,8 @@ class HabitController {
         return false;
         
     }
-    
-    //
+
     public function update(){
-        
         $habit_id = @$_POST['habit_id'];
         $new_name = @$_POST['new_name'];
         $new_description = @$_POST['new_description'];
@@ -82,7 +80,7 @@ class HabitController {
         }
         
         if($this->habit_model->update($habit_id, $new_name, $new_description)) {
-            flash("Succesfully Updated habit track!", "success");
+            flash("Succesfully Updated habit track!", "success",true );
             header('Location: /public/user.php?page=index');
             return true;
         } 

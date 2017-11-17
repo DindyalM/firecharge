@@ -13,7 +13,7 @@
     
     require('../app/views/layouts/navbar.php');
     require('../app/views/layouts/alert.php');
-    require('../app/views/layouts/post.php');
+    require('../app/views/layouts/post_card.php');
     require('../app/views/layouts/habit_card.php');
     require('../app/controllers/helpers.php');
     
@@ -49,7 +49,6 @@
                 break;
         }
     }
-    
     
     if(file_exists($view)) {
         require $view;

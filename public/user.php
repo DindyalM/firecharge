@@ -11,12 +11,14 @@
     $controller = '../app/controllers/' . 'user' . 'Controller.php';
     
     require('../app/models/habitModel.php');
+    require('../app/models/postModel.php');
     
     require('../app/views/layouts/navbar.php');
     require('../app/views/layouts/user_card.php');
     require('../app/views/layouts/habit_timeline.php');
     require('../app/views/layouts/alert.php');
-    require('../app/views/layouts/post.php');
+    require('../app/views/layouts/post_card.php');
+    require('../app/views/layouts/post_timeline.php');
     require('../app/views/layouts/habit_card.php');
     require('../app/controllers/helpers.php');
     
@@ -29,6 +31,7 @@
     }
     
     $user_model = new UserModel();
+    $post_model = new PostModel();
     $user_controller = new UserController();
     
     if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -50,10 +53,8 @@
             case 'search':
                 $user_controller->search();
                 break;
-            case 'index':
-                if(logged_in()) {
-                    $user_controller->findHabits();    
-                }
+            case 'create_post':
+                $post_controller->create();
                 break;
             case 'profile':
                 $user_controller->profile();
@@ -68,14 +69,21 @@
                 // $user_controller->findHabits();
                 break;
             case 'index':
-                if(logged_in()) {
-                    $user_controller->findHabits();    
+                if(logged_in()){
+                    switch($_GET['action']) {
+                        case 'posts':
+                            $user_controller->findPosts(); 
+                            break;
+                        default:
+                            $user_controller->findHabits(); 
+                            break;
+                    }
                 }
+
             default:
                 break;
         }
     }
-    
     
     if(file_exists($view)) {
         require $view;

@@ -14,7 +14,7 @@
 
 <html>
     <head>
-    <link rel="stylesheet" type="text/css" href="/vendor/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/bootstrap.min.css">
     <title>Habit</title>
     </head>
     <body>

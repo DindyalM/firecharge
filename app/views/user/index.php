@@ -1,7 +1,7 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/vendor/stylesheets/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/app/assets/stylesheets/style.css">
+        <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/style.css">
         <script src="/app/assets/javascripts/signup.js"></script>
         <title>Home | FireCharge</title>
     </head>

@@ -1,7 +1,7 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/vendor/stylesheets/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/app/assets/stylesheets/profile.css">
+        <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/profile.css">
         <script src="./login.js"></script>
         <title>User</title>
     </head>

@@ -13,7 +13,7 @@
 | Username | varchar(255) | YES  |     | NULL    |                |                                                         
 | Email    | varchar(255) | YES  |     | NULL    |                |                                                         
 | Password | varchar(255) | YES  |     | NULL    |                |
-| Bio      | varchar(255) | YES  |     | NULL    |//working on atm|
+| Bio      | varchar(255) | YES  |     | NULL    |                |
 +----------+--------------+------+-----+---------+----------------+   
 
 

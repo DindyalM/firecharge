@@ -35,18 +35,24 @@ class HabitController {
         
         if(!isset($id)) {
             // todo: 404 page here
-                    
             flash('Habit does not exist!', "danger", true);
             header('Location: /public/user.php?page=index');
             return false;
         }
         
         $habit = $this->habit_model->findById($id);
-        
+
         if($habit) {
+            if(!$habit['User_Id'] == current_user()['User_Id']) {
+                flash('Cannot edit another user\'s habits', "danger", true);
+                header('Location: /public/user.php?page=index');
+                return false;
+            }
+            
             $this->habit = $habit;
             return true;
         }
+        
         
         flash('Habit does not exist!', "danger", true);
         header('Location: /public/user.php?page=index');
@@ -54,14 +60,17 @@ class HabitController {
         return false;
         
     }
-
+    
+    //
     public function update(){
+        
         $habit_id = @$_POST['habit_id'];
         $new_name = @$_POST['new_name'];
         $new_description = @$_POST['new_description'];
         $current_user = current_user();
 
         if(!isset($new_name)) {
+            
             flash("Name should be present!", "danger", true);
             header("Refresh:0");
             return false;
@@ -83,7 +92,7 @@ class HabitController {
             flash("Succesfully Updated habit track!", "success",true );
             header('Location: /public/user.php?page=index');
             return true;
-        } 
+        }
     }
 }
 ?>

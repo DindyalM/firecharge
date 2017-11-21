@@ -208,31 +208,59 @@ class UserController {
 
     }
     
-    // okay so i wrote all this code and didnt even bother to run it once
-    // seriously i dont know how i pulled it off but for the love of god
+     public function edit(){  
+         
+        if(!logged_in()){//simplify? 
+            flash("Must be logged in first!", "danger", true);
+            header("Location: /public/user.php?page=login");
+            return false;
+        }
+                
+        $id = @$_GET['id'];
+        if(!isset($id)) {
+            flash('User does not exist!', "danger", true);
+            header('Location: /public/user.php?page=index');
+            return false;
+        }
+        
+        $user = $this->user_model->findById($id);
+        
+        if($user) {
+            $this->user = $user;
+            return true;
+        }
+        flash('user does not exist!', "danger", true);
+        header('Location: /public/user.php?page=index');
+        
+        return false;
+    }
+    
+    //still testing, currently none of the flash messages appear even when it seems the if statments are ture.
     // dont use this function unless you're willing to make it actually work
     // use at your own risk
-    private function update() {
-        $new_username = $POST['new_username'];
+    public function update() { //send post here?
+        $new_username = $_POST['new_username'];
         $new_email = $POST['new_email'];
         $new_bio = $POST['new_bio'];
-        $new_pasword = $POST['new_password'];
-        $new_user_id = $_SESSION['User'];
-    
+        $new_pasword = @$POST['new_password'];
+        $current_user = current_user();
+        $new_user_id = $current_user['User_Id'];
+        
         if($new_username=="") {
             flash("Username cannot be blank!", "danger", true);
-            header("Refresh:0");
+            header('Location: /public/user.php?page=edit');
             return false;
         }
         
         if($new_email=="") {
             flash("Email cannot be blank!", "danger", true);
-            header("Refresh:0");
+            header('Location: /public/user.php?page=edit');
             return false;
         }
+        
         if($new_password=="") {
             flash("Password cannot be blank!", "danger", true);
-            header("Refresh:0");
+            header('Location: /public/user.php?page=edit');
             return false;
         }
         
@@ -242,16 +270,17 @@ class UserController {
             return false;
         }
         
-       else if($this->user_model->update($new_username,$new_password,$new_email,$new_bio)){
+       if($this->user_model->update($new_username,$new_password,$new_email,$new_bio)){
             flash("Succesfully Updated Account!", "success",true);
             header('Location: /public/user.php?page=profile');
             return true;
         }
         
+        flash("Something Went Wrong", "success",true);
+        header('Location: /public/user.php?page=edit');
+        return false;  //an explain it to you once youre done talking if you dont get it. 
     }
-           
    
-    
     // EFFECTS: unsets the user id from the session
     // REQUIRES: User_Id must be set in the session
     // MODIFIES: Session

@@ -1,0 +1,3 @@
+in habit controller https://firecharge-polygoning.c9users.io/public/habit.php?page=edit&id=25 when we chnage the value od id you can see 
+other people's post's. 
+

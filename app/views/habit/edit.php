@@ -6,6 +6,7 @@
     <body>
         <header>
             <?php echo navbar(); ?>
+            <?php echo alert(true); ?>
         </header>
         <section>
             <div class="jumbotron bg-dark">

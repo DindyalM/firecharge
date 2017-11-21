@@ -6,7 +6,7 @@
         
         switch($active) {
             case "home":
-                $home="active";
+                $home = "active";
                 break;
             case "login":
                 $login = "active";

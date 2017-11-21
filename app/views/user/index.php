@@ -53,7 +53,7 @@
             
         <?php elseif(logged_in) : ?>
             <?php echo navbar('home'); ?>
-            <?php echo alert() ?>
+            <?php echo alert(true) ?>
             <header>
                 
             </header>

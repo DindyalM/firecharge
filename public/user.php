@@ -1,5 +1,7 @@
 <?php
+   
     session_start();
+    
     function get($name, $default="") {
         return isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
     }
@@ -45,6 +47,9 @@
             case 'login':
                 $user_controller->login();
                 break;
+            case 'update'://still testing
+                 $user_controller->update();
+                break;
             default:
                 break;
         }
@@ -86,6 +91,9 @@
                             break;
                     }
                 }
+                break;
+            case "edit":
+                $user_controller->edit(); 
                 break;
             default:
                 break;

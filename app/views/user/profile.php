@@ -22,12 +22,12 @@
                         <div id="username_tag" class="text-center">
                             <div class="row">
                                 <div class="col-md-4 offset-3">
-                                    <a href='/public/user.php?page=profile'>@<?php echo $user_controller->user['Username']; ?></a>
+                                    <a href="<?php echo USER_PROFILE_PATH; ?>">@<?php echo $user_controller->user['Username']; ?></a>
                                 </div>
                                 <div class="col-md-2 offset-1">
                                     <?php 
                                         if(current_user()['User_Id'] == $user_controller->user['User_Id']) {
-                                            echo '<a class="btn btn-link-danger" href="/public/user.php?page=edit&id=' . $user_controller->user['User_Id'] . '">Edit</a>';
+                                            echo '<a class="btn btn-link-danger" href="' . USER_EDIT_PATH .'&id=' . $user_controller->user['User_Id'] . '">Edit</a>';
                                         }
                                     ?>
                                 </div>

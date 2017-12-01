@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH ?> ">
         <title>User</title>
     </head>
     <body>

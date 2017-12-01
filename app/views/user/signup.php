@@ -1,8 +1,8 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/style.css">
-        <script src="/app/assets/javascripts/signup.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'bootstrap.min.css'; ?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'style.css' ?>">
+        <script src="<?php echo JAVASCRIPTS_PATH . 'signup.js'; ?>"></script>
         <title>User</title>
     </head>
     <body>
@@ -10,11 +10,12 @@
             <?php echo navbar('signup'); ?>
             <?php echo alert(true); ?>
             <h1 class="text-center mt-5">Create a new account.</h1>
-            <p class="text-center">Already have an account? <a href="/public/user.php?page=login">Click here</a> to log in!</p>
+            <p class="text-center">Already have an account? <a href="<?php echo USER_LOGIN_PATH; ?>">Click here</a> to log in!</p>
         </header>
         
         <div class="container bg-light">
-            <form method="POST" action="/public/user.php?action=create" onsubmit="return validateInput();">
+            <!--<form method="POST" action="/public/user.php?action=create" onsubmit="return validateInput();">-->
+            <form method="POST" action="<?php echo USER_PATH; ?>" onsubmit="return validateInput();">
                 <div class="form-group">
                     <label for="email" class="text-dark">Email address</label>
                     <input id="email" class="form-control" name='email' type='email' placeholder="Enter Email"></input>

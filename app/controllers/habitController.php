@@ -97,9 +97,10 @@ class HabitController {
     
      //EFFECT: deletes the selected habit
 
-    public function delete(){
+    public function delete() {
+        die();
         $habit_name = $_POST['name'];
-        $current_user =current_user();
+        $current_user = current_user();
        
         if(!isset($current_user)){
             flash("Must be logged in first!","danger",true);

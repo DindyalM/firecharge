@@ -17,6 +17,7 @@
     require('../app/views/layouts/post_card.php');
     require('../app/views/layouts/habit_card.php');
     require('../app/controllers/helpers.php');
+    require(realpath('./../routes.php'));
     
     
     if(file_exists($model)) {

@@ -1,6 +1,7 @@
 <html>
     <head>
-    <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/bootstrap.min.css">
+     <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'bootstrap.min.css'; ?>">
+     <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'style.css' ?>">
     <title>Update User</title>
     </head>
     <body>
@@ -13,7 +14,7 @@
               <h1 class="display-6 text-white text-center">Edit User Profile</h1>
             </div>
             <div class="container">
-                <form method="POST" action="/public/user.php" id="edit_user_form">
+                <form method="POST" action="<?php echo USER_PATH ?>" id="edit_user_form">
                   <div class="form-group">
                     <label for="name">Username</label>
                     <input type="text" class="form-control" name="new_username" value="<?php echo $user_controller->user['Username']; ?>">

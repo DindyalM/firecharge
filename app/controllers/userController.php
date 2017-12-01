@@ -162,7 +162,7 @@ class UserController {
         
         if(password_verify($password, $user['Password'])) {
             if($this->createSession($user['Username'], $user['User_Id'])) {
-                flash("Successfully logged in!", "success");
+                flash("Successfully logged in!", "success", true);
                 header('Location: /public/user.php?page=index');
             }
         } else {

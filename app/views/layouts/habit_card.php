@@ -5,6 +5,9 @@
             $btns = '<a href="/public/habit.php?page=edit&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Update</a>
                     <a href="/public/habit.php?id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Delete</a>
                      ';
+            // $btns = '<a href="' . HABIT_EDIT_PATH .'&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Update</a>
+            //          <a href="' . HABIT_PATH . '?action=delete&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Delete</a>
+            //  ';
         }
         #<a href="/public/habit.php?action=delete&id=" class="btn btn-link-dark text-dark">Delete</a>
         
@@ -28,7 +31,7 @@
                       <div class="card-body">
                         <h4 class="card-title text-dark">' . $habit['Name'] . '</h4>
                         <p class="card-text text-dark">' . $habit['Description'] . '</p>
-                        <a href="/public/user.php?page=profile&username=' . $habit['Name'] .'" class="btn btn-link-dark text-dark">Show</a>
+                        <a href="' . USER_PROFILE_PATH . '&username=' . $habit['Name'] .'" class="btn btn-link-dark text-dark">Show</a>
                         ' . $btns . $progress . '
                       </div>
                   </div>';

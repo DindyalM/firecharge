@@ -1,9 +1,13 @@
 <?php
-function habit_timeline($habits) {
+
+// EFFECTS: returns the html for the habit timeline, shows the create form
+//          if show_habit_create is true or the username param in the url is equal
+//          to the current user's username
+function habit_timeline($habits, $show_habit_create=false) {
     $timeline = "";
     $form = '<div id="timeline" class="row">
                   <div class="col-md-10 offset-1">
-                    <form action="/public/habit.php" method="POST">
+                    <form action="' . HABIT_PATH .'" method="POST">
                         <div class="form-group mx-auto">
                           <input class="form-control" name="action" type="hidden" value="create"/>
                           <input name="name" class="form-control" type="text" name="Name" placeholder="Name"/></br>
@@ -12,9 +16,9 @@ function habit_timeline($habits) {
                         <input class="btn btn-dark" type="submit" value="Create Habit"/>
                     </form>
                     <div class="text-dark">';
-                    
-    if(!empty($habits) && current_user()['User_Id'] == $habits[0]['User_Id']) {
-        $timeline = $form;    
+    
+    if(current_user()['Username'] == get('username') || $show_habit_create) {
+        $timeline = $form;
     }
     // insert data into timeline
     if($habits) {

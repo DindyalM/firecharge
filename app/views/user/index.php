@@ -3,7 +3,6 @@
         <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'bootstrap.min.css'; ?>">
         <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'style.css' ?>">
         <script src="<?php echo JAVASCRIPTS_PATH . 'signup.js'; ?>"></script>
-        <!--<script src="/app/assets/javascripts/signup.js"></script>-->
         <title>Home | FireCharge</title>
     </head>
     <body>
@@ -23,7 +22,6 @@
                     <div class="col col-md-10 offset-1 mt-5">
                         <h2 class="text-dark text-center">Sign Up</h2>
                         <p class="text-center text-dark">Already have an account? <a href=<?php echo USER_LOGIN_PATH; ?>>Click here</a> to log in!</p>
-                        <!--<form method="POST" action="/public/user.php?action=create" onsubmit="return validateInput();">-->
                         <form method="POST" action="<?php echo USER_CREATE_PATH; ?>" onsubmit="return validateInput();">
                             <div class="form-group">
                                 <label for="email" class="text-dark">Email address</label>
@@ -69,7 +67,7 @@
                         <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box">
                             <img id="avatar" class="rounded d-block mx-auto" src="https://i.pinimg.com/originals/09/b2/de/09b2deff3d7abfffaa12aed8ee14bbe0.png"/>    
                             <div id="username_tag" class="text-center">
-                                <a href='/public/user.php?page=profile'>@<?php echo current_user()['Username']; ?></a>
+                                <a href="<?php echo USER_PROFILE_PATH; ?>">@<?php echo current_user()['Username']; ?></a>
                             </div>
                             
                         </div>
@@ -98,12 +96,13 @@
                                         <button class="btn btn-link text-danger">Likes</button>
                                       </div>
                                         <?php
+                                        
                                             switch($_GET['action']) {
                                                 case 'posts':
                                                     echo post_timeline($user_controller->posts, current_user());
                                                     break;
                                                 default:
-                                                    echo habit_timeline($user_controller->habits);
+                                                    echo habit_timeline($user_controller->habits, true);
                                                     break;
                                             }
                                         ?>

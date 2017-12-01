@@ -7,6 +7,7 @@
     $page = get('page', null);
     
     $view = '../app/views/habit/' . $page .'.php';
+    $home_view = '../app/views/habit/index.php';
     $model = '../app/models/habitModel.php';
     $controller = '../app/controllers/habitController.php';
     
@@ -37,6 +38,9 @@
             case 'update':
                 $habit_controller->update();
                 break;
+            case 'delete':
+                $habit_controller->delete();
+                break;
             default:
                 break;
         }
@@ -52,5 +56,7 @@
     
     if(file_exists($view)) {
         require $view;
+    } elseif(file_exists($home_view)) {
+        require $home_view;
     }
 ?>

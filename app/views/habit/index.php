@@ -1,10 +1,6 @@
 <?php 
-    require($_SERVER['DOCUMENT_ROOT'] .'/app/controllers/habit.php');
-    require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/navbar.php');
-    require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/alert.php');
-    require($_SERVER['DOCUMENT_ROOT'] .'/app/views/layouts/card.php');
-    
-    $habit = new Habit();
+    header('Location: /public/user.php?page=index');
+    // $habit = new Habit();
     // $habit->create("Run");
     
     
@@ -12,31 +8,31 @@
     
 ?>
 
-<html>
-    <head>
-    <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/bootstrap.min.css">
-    <title>Habit</title>
-    </head>
-    <body>
-        <header>
-            <?php echo navbar(); ?>
-            <div class="jumbotron bg-info">
-              <h1 class="display-3">Habit</h1>
-              <hr class="my-4">
-            </div>
-        </header>
-        <section id="data">
+<!--<html>-->
+<!--    <head>-->
+<!--    <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/bootstrap.min.css">-->
+<!--    <title>Habit</title>-->
+<!--    </head>-->
+<!--    <body>-->
+<!--        <header>-->
+            <?php // echo navbar(); ?>
+        <!--    <div class="jumbotron bg-info">-->
+        <!--      <h1 class="display-3">Habit</h1>-->
+        <!--      <hr class="my-4">-->
+        <!--    </div>-->
+        <!--</header>-->
+        <!--<section id="data">-->
             <?php
                 
-                echo '<div class="card-deck">';
-                foreach($habit->find() as $row) {
-                    $name = $row['Name'];
-                    $description = $row['Description'];
-                    echo '<div class="col-sm-3">' . habit_card($row) . "</div>";
-                }
-                echo '</div>';
+                // echo '<div class="card-deck">';
+                // foreach($habit->find() as $row) {
+                //     $name = $row['Name'];
+                //     $description = $row['Description'];
+                //     echo '<div class="col-sm-3">' . habit_card($row) . "</div>";
+                // }
+                // echo '</div>';
                 
             ?>
-        </section>
-    </body>
-</html>
+<!--        </section>-->
+<!--    </body>-->
+<!--</html>-->

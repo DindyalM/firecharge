@@ -93,23 +93,40 @@ class PostModel {
     //EFFECT: checks the database for a user with the given username
     //        returns false if none found
     // this function doesn't work, note to future self: good fukin luk 
+    // TODO
     public function findByUserUsername($username) {
         $this->connect();
+        
+        // get the post information
         $stmt = $this->db->prepare("SELECT * FROM Post p 
-        INNER JOIN User u1 ON u1.User_Id=p.Poster_Id 
-        INNER JOIN User u2 ON u2.User_Id=p.User_Id");
-        // $stmt->bind_param('s', $username);
-        
+                                            INNER JOIN User u ON u.User_Id=p.User_Id
+                                        WHERE Username=?");
+        $stmt->bind_param('s', $username);
         $stmt->execute();
+        $result1 = $stmt->get_result();
+        $stmt->free_result();
         
-        $result = $stmt->get_result();
-        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $stmt = $this->db->prepare("SELECT * FROM Post p
+                                        INNER JOIN User u ON u.User_Id=p.Poster_Id
+                                    WHERE p.Poster_Id=?");
+        // $stmt->bind_param('s', );
+        $stmt->execute();
+        // $result2 = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
+        $stmt->free_result();
+        
+        foreach($result1 as $rslt) {
+            echo var_dump($rslt);
+        }
+        
+        
+        // $result = $stmt->get_result();
+        // $row = $result->fetch_array(MYSQLI_ASSOC);
         
         $arr = array();
         
-        foreach($result as $row) {
-            array_push($arr, $row);
-        }
+        // foreach($result as $row) {
+        //     array_push($arr, $row);
+        // }
         
         return $arr;
     }
@@ -132,7 +149,7 @@ class PostModel {
     public function update($habit_id, $new_name, $new_description) {
         $this->connect();
         
-        $stmt=$this->db->prepare("UPDATE Habit SET Name=?,Description=? WHERE Habit_Id=?;");
+        $stmt = $this->db->prepare("UPDATE Habit SET Name=?,Description=? WHERE Habit_Id=?;");
         $stmt->bind_param("ssi", $new_name, $new_description, $habit_id);
         $stmt->execute();
         

@@ -13,7 +13,7 @@
               <h1 class="display-6 text-white text-center">Edit Habit</h1>
             </div>
             <div class="container">
-                <form method="POST" action="/public/habit.php" id="edit_habit_form">
+                <form method="POST" action="/public/habit.php?" id="edit_habit_form">
                   <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" name="new_name" value="<?php echo $habit_controller->habit['Name']; ?>">

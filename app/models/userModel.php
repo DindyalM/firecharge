@@ -71,12 +71,18 @@ class UserModel {
     // RETURNS: user or false
     public function findUserById($id) {
         if($this->connect()) {
-            $stmt = $this->db->prepare("SELECT * FROM USER WHERE User_Id=? LIMIT 10");
+            $stmt = $this->db->prepare("SELECT * FROM User WHERE User_Id= ? LIMIT 10");
+            
+            if($stmt==false){
+                die ("false statement");
+            }
+            
             $stmt->bind_param('s',$id);
             $stmt->execute();
             
             $result = $stmt->get_result();
-            return $result;
+            return $result->fetch_array();
+            
         }
         
         return false;
@@ -176,7 +182,7 @@ class UserModel {
         $stmt->execute();
 
         $result = $stmt->get_result();
-        echo var_dump($result->fetch_array(MYSQLI_ASSOC));
+        $result->fetch_array(MYSQLI_ASSOC);
         return $result->num_rows > 0;
     }
 
@@ -199,21 +205,27 @@ class UserModel {
     
     // dont use this function unless you're willing to make it actually work
     // use at your own risk
-    private function update($new_username,$new_password,$new_email,$new_bio,$new_user_id){
-       
-        if(!connect()){
+    public function update($new_username,$new_password,$new_email,$new_bio,$user_id){
+     
+        if(!$this->connect()){
             return false;
             
         }
         
-        if(!isValidUserInfo($email, $username, $password)){
+        if(!$this->isValidUserInfo($new_email, $new_username, $new_password)){
             return false;
+            
         }
         
-        $stmt=$this->db->prepare("UPDATE User SET Username='?',Password='?',Email='?',Bio='?' WHERE Name=?;");
-        $stmt->bind_param("ssssi",$new_username,$new_password,$new_email,$new_bio,$new_user_id);
-        $stmt->execute();
+        $stmt=$this->db->prepare("UPDATE User SET Username=? Password=? Email=?, Bio=? WHERE User_Id=?;");
+        $stmt->bind_param("ssssi",$new_username,$new_password,$new_email,$new_bio,$user_id);
         
+        if($stmt->execute()){
+            return true;
+        }
+    
+        return false;
+
     }
     
     public function delete_user ($username){

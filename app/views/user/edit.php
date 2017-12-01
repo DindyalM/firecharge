@@ -10,7 +10,7 @@
         </header>
         <section>
             <div class="jumbotron bg-dark">
-              <h1 class="display-6 text-white text-center">Edit User</h1>
+              <h1 class="display-6 text-white text-center">Edit User Profile</h1>
             </div>
             <div class="container">
                 <form method="POST" action="/public/user.php" id="edit_user_form">
@@ -20,23 +20,21 @@
                   </div>
                   <div class="form-group">
                     <label for="description">Password</label>
-                    <input type="text" class="form-control" name="new_password" value="">
+                    <input type="text" class="form-control" name="new_password">
                   </div>
                   <div class="form-group">
                     <label for="description">Confirm Password</label>
-                    <input type="text" class="form-control" name="new_confrim_password" value="">
+                    <input type="text" class="form-control" name="new_confrim_password">
                   </div>
                   <div class="form-group">
                     <label for="description">Email</label>
-                    <input type="text" class="form-control" name="new_email" value="">
+                    <input type="text" class="form-control" name="new_email" value="<?php echo $user_controller->user['Email']; ?>">
                   </div>
                   <div class="form-group">
                     <label for="description">Bio</label>
-                    <textarea type="text" class="form-control" form="edit_user_form" name="new_bio"></textarea>
+                    <textarea type="text" class="form-control" form="edit_user_form" name="new_bio"><?php echo $user_controller->user['Bio']; ?></textarea>
                   </div>
-                  <input type="hidden" class="form-control" name="user_id" value="">
                   <input type="hidden" class="form-control" name="action" value="update">
-                  
                   <div class="form-group">
                     <button type="submit" class="btn btn-dark">Update Account</button>
                   </div>

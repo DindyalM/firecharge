@@ -20,7 +20,18 @@
                     <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box">
                         <img id="avatar" class="rounded d-block mx-auto" src="https://i.pinimg.com/originals/09/b2/de/09b2deff3d7abfffaa12aed8ee14bbe0.png"/>    
                         <div id="username_tag" class="text-center">
-                            @<?php echo $user_controller->user['Username']; ?>
+                            <div class="row">
+                                <div class="col-md-4 offset-3">
+                                    <a href='/public/user.php?page=profile'>@<?php echo $user_controller->user['Username']; ?></a>
+                                </div>
+                                <div class="col-md-2 offset-1">
+                                    <?php 
+                                        if(current_user()['User_Id'] == $user_controller->user['User_Id']) {
+                                            echo '<a class="btn btn-link-danger" href="/public/user.php?page=edit&id=' . $user_controller->user['User_Id'] . '">Edit</a>';
+                                        }
+                                    ?>
+                                </div>
+                            </div>
                         </div>
                         
                         <p>Lorem ipsum dolor sit amet, ut prima doming patrioque has, per at esse inermis. Commodo neglegentur sed ad, dictas nonumes delectus te nam. Ea mea dico etiam.</p>

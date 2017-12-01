@@ -6,23 +6,28 @@
         return isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
     }
     
+    require(realpath('./../routes.php'));
+    
     $page = get('page', null);
     
-    $view = '../app/views/user/' . $page .'.php';
-    $model = '../app/models/' . 'user' . 'Model.php';
-    $controller = '../app/controllers/' . 'user' . 'Controller.php';
+    $view = realpath('./../app/views/user/' . $page .'.php');
+    // default html page
+    $home_view = realpath('./../app/views/user/index.php');
+    $model = realpath('./../app/models/' . 'user' . 'Model.php');
+    $controller = realpath('./../app/controllers/' . 'user' . 'Controller.php');
     
-    require('../app/models/habitModel.php');
-    require('../app/models/postModel.php');
+    require(realpath('./../app/models/habitModel.php'));
+    require(realpath('./../app/models/postModel.php'));
     
-    require('../app/views/layouts/navbar.php');
-    require('../app/views/layouts/user_card.php');
-    require('../app/views/layouts/habit_timeline.php');
-    require('../app/views/layouts/alert.php');
-    require('../app/views/layouts/post_card.php');
-    require('../app/views/layouts/post_timeline.php');
-    require('../app/views/layouts/habit_card.php');
-    require('../app/controllers/helpers.php');
+    require(realpath('./../app/views/layouts/navbar.php'));
+    require(realpath('./../app/views/layouts/user_card.php'));
+    require(realpath('./../app/views/layouts/habit_timeline.php'));
+    require(realpath('./../app/views/layouts/alert.php'));
+    require(realpath('./../app/views/layouts/post_card.php'));
+    require(realpath('./../app/views/layouts/post_timeline.php'));
+    require(realpath('./../app/views/layouts/habit_card.php'));
+    require(realpath('./../app/controllers/helpers.php'));
+    
     
     if(file_exists($model)) {
         require $model;
@@ -47,7 +52,7 @@
             case 'login':
                 $user_controller->login();
                 break;
-            case 'update'://still testing
+            case 'update':
                  $user_controller->update();
                 break;
             default:
@@ -102,5 +107,9 @@
     
     if(file_exists($view)) {
         require $view;
+    } else {
+        if(file_exists($home_view)) {
+            require $home_view;
+        }
     }
 ?>

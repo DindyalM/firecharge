@@ -64,6 +64,7 @@ class HabitModel {
         $stmt->execute();
         
         $result = $stmt->get_result();
+  
         
         if($this->db->error) {
             return false;
@@ -142,13 +143,14 @@ class HabitModel {
     //REQUIRES:The name and description of the habit
     //RETURNS: return false if update fails
     public function update($habit_id, $new_name, $new_description) {
+      
         $this->connect();
-        
         $stmt=$this->db->prepare("UPDATE Habit SET Name=?,Description=? WHERE Habit_Id=?;");
         $stmt->bind_param("ssi", $new_name, $new_description, $habit_id);
         $stmt->execute();
-        
+
         if($this->db->error) {
+            
             return false;
         }
         

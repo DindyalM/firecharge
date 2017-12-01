@@ -207,7 +207,8 @@ class UserController {
         }
 
     }
-    
+        //the user model returns something different then expected
+        //use at your own risk
      public function edit(){  
          
         if(!logged_in()){//simplify? 
@@ -217,18 +218,30 @@ class UserController {
         }
                 
         $id = @$_GET['id'];
+        $current_user=current_user()['User_Id'];
+        
+        
+        if($id != $current_user){
+            
+            flash('Error!', "danger", true); 
+            header('Location: /public/user.php?page=index');
+            return false; 
+        }
+        
         if(!isset($id)) {
             flash('User does not exist!', "danger", true);
             header('Location: /public/user.php?page=index');
             return false;
         }
         
-        $user = $this->user_model->findById($id);
+        $user = $this->user_model->findUserById($id);
+        
         
         if($user) {
             $this->user = $user;
             return true;
         }
+       
         flash('user does not exist!', "danger", true);
         header('Location: /public/user.php?page=index');
         
@@ -238,29 +251,30 @@ class UserController {
     //still testing, currently none of the flash messages appear even when it seems the if statments are ture.
     // dont use this function unless you're willing to make it actually work
     // use at your own risk
-    public function update() { //send post here?
+    public function update() {
         $new_username = $_POST['new_username'];
-        $new_email = $POST['new_email'];
-        $new_bio = $POST['new_bio'];
-        $new_pasword = @$POST['new_password'];
+        $new_email = $_POST['new_email'];
+        $new_bio = $_POST['new_bio'];
+        $new_password = $_POST['new_password'];
         $current_user = current_user();
-        $new_user_id = $current_user['User_Id'];
-        
-        if($new_username=="") {
+        $user_id = $current_user['User_Id'];
+         
+       
+        if($new_username == ""){
             flash("Username cannot be blank!", "danger", true);
-            header('Location: /public/user.php?page=edit');
-            return false;
+            header("Location: /public/user.php?page=edit&id=$user_id");
+            return false; 
         }
         
-        if($new_email=="") {
+        if($new_email == "") {
             flash("Email cannot be blank!", "danger", true);
-            header('Location: /public/user.php?page=edit');
-            return false;
-        }
+            header("Location: /public/user.php?page=edit&id=$user_id");
+            return false; 
+         }
         
-        if($new_password=="") {
+        if($new_password == "") {
             flash("Password cannot be blank!", "danger", true);
-            header('Location: /public/user.php?page=edit');
+            header("Location: /public/user.php?page=edit&id=$user_id");
             return false;
         }
         
@@ -269,16 +283,17 @@ class UserController {
             header('Location: /public/user.php?page=login');
             return false;
         }
-        
-       if($this->user_model->update($new_username,$new_password,$new_email,$new_bio)){
+   
+      if($this->user_model->update($new_username,$new_password,$new_email,$new_bio,$user_id)){
             flash("Succesfully Updated Account!", "success",true);
             header('Location: /public/user.php?page=profile');
             return true;
         }
         
+        die("model returns false");
         flash("Something Went Wrong", "success",true);
         header('Location: /public/user.php?page=edit');
-        return false;  //an explain it to you once youre done talking if you dont get it. 
+        return false;
     }
    
     // EFFECTS: unsets the user id from the session

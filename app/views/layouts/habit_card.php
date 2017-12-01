@@ -3,8 +3,10 @@
         $btns = "";
         if(current_user()['User_Id'] === $habit['User_Id']) {
             $btns = '<a href="/public/habit.php?page=edit&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Update</a>
-                     <a href="#" class="btn btn-link-dark text-dark">Delete</a>';
+                    <a href="/public/habit.php?id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Delete</a>
+                     ';
         }
+        #<a href="/public/habit.php?action=delete&id=" class="btn btn-link-dark text-dark">Delete</a>
         
         $created_at = $habit['Created_At'];
         

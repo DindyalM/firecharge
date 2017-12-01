@@ -41,6 +41,7 @@ class HabitController {
         }
         
         $habit = $this->habit_model->findById($id);
+        
 
         if($habit) {
             if(!$habit['User_Id'] == current_user()['User_Id']) {
@@ -48,7 +49,7 @@ class HabitController {
                 header('Location: /public/user.php?page=index');
                 return false;
             }
-            
+
             $this->habit = $habit;
             return true;
         }
@@ -62,8 +63,7 @@ class HabitController {
     }
     
     //
-    public function update(){
-        
+    public function update(){        
         $habit_id = @$_POST['habit_id'];
         $new_name = @$_POST['new_name'];
         $new_description = @$_POST['new_description'];
@@ -71,7 +71,7 @@ class HabitController {
 
         if(!isset($new_name)) {
             
-            flash("Name should be present!", "danger", true);
+            flash("Name should be present!", "danger", true); 
             header("Refresh:0");
             return false;
         }
@@ -87,12 +87,31 @@ class HabitController {
             header('Location: /public/user.php?page=login');
             return false;
         }
-        
+       
         if($this->habit_model->update($habit_id, $new_name, $new_description)) {
             flash("Succesfully Updated habit track!", "success",true );
             header('Location: /public/user.php?page=index');
             return true;
         }
+    }
+    
+     //EFFECT: deletes the selected habit
+
+    public function delete(){
+        $habit_name = $_POST['name'];
+        $current_user =current_user();
+       
+        if(!isset($current_user)){
+            flash("Must be logged in first!","danger",true);
+            header("Location: /public/user.php?page=index");
+            return true;
+        }
+        if($this->habit_model->destroy($habit_name)){
+            flash("Succesfully deleted habit","success",true);
+            header("Location: /public/user.php?page=index");
+            return true;
+        }
+        
     }
 }
 ?>

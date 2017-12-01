@@ -1,4 +1,5 @@
 <?php
+    //creates a user card used for search
     function user_card($user) {
         $card = '<div class="card mt-2 mb-2">
                       <div class="card-body">

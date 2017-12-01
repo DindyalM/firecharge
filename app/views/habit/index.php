@@ -1,5 +1,5 @@
 <?php 
-    header('Location: /public/user.php?page=index');
+    header('Location: ' . USER_INDEX_PATH);
     // $habit = new Habit();
     // $habit->create("Run");
     

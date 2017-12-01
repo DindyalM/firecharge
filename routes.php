@@ -9,15 +9,11 @@
     define("ASSETS_PATH", './assets/');
     
     // view
-    ///public/user.php?page=login
-    
-    // $path = $_SERVER['REQUEST_URI'];
-    // define("*MODELNAME*_*ACTIONNAME*_PATH")
     define("USER_LOGIN_PATH", './user.php?page=login');
     define("USER_CREATE_PATH", './user.php?page=login&action=create');
     define("USER_PROFILE_PATH", './user.php?page=profile');
+    define("USER_EDIT_PATH", "/public/user.php?page=edit");
     define("HABIT_EDIT_PATH","/public/habit.php?page=edit");
-    // die($path);
     
     
     // controllers 

@@ -1,7 +1,7 @@
 <html>
     <head>
      <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'bootstrap.min.css'; ?>">
-     <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'style.css' ?>">
+     <!--<link rel="stylesheet" type="text/css" href="<//php echo STYLESHEETS_PATH . 'style.css' ?>"> this makes page gray-->
     <title>Update User</title>
     </head>
     <body>

@@ -23,9 +23,10 @@
         if (logged_in()) {
             $navbar_links = '
                 <li class="navbar-item ' . $signup . '">
-                    <a class="nav-link" href="/public/user.php?page=profile">Profile</a>
+                    <a class="nav-link" href="' . USER_PROFILE_PATH .'">Profile</a>
                 </li>
                 <li class="navbar-item">
+                    <!--<a class="nav-link" href="/public/user.php?action=logout">Logout</a>-->
                     <a class="nav-link" href="/public/user.php?action=logout">Logout</a>
                 </li>
             ';

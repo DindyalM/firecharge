@@ -29,10 +29,10 @@ function habit_timeline($habits, $show_habit_create=false) {
         
     $timeline = $timeline . '</div>
                         </div>
-                    </div>
-                    <div class="card-footer text-muted text-center">
-                        <a href="#" class="">Load More</a>
                     </div>';
+    //                 <div class="card-footer text-muted text-center">
+    //                     <a href="#" class="">Load More</a>
+    //                 </div>';
                     
     return $timeline;
 }

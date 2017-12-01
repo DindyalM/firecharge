@@ -2,7 +2,7 @@
 function post_timeline($posts, $user_to_post_to) {
     $timeline = '<div id="timeline" class="row">
                   <div class="col-md-10 offset-1">
-                    <form action="/public/user.php" method="POST" id="post-form">
+                    <form action=' . USER_PATH . ' method="POST" id="post-form">
                         <div class="form-group mx-auto">
                           <input class="form-control" name="user_id" type="hidden" value="' . $user_to_post_to['User_Id'] .'"/>
                           <input class="form-control" name="poster_id" type="hidden" value="' . current_user()['User_Id'] .'"/>
@@ -19,12 +19,12 @@ function post_timeline($posts, $user_to_post_to) {
         }
     }
         
-    $timeline = $timeline . '</div>
-                            </div>
-                        </div>
-                        <div class="card-footer text-muted text-center">
-                            <a href="#" class="">Load More</a>
-                        </div>';
+    // $timeline = $timeline . '</div>
+    //                         </div>
+    //                     </div>
+    //                     <div class="card-footer text-muted text-center">
+    //                         <a href="#" class="">Load More</a>
+    //                     </div>';
     return $timeline;
 }
 ?>

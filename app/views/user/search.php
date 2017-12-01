@@ -1,7 +1,7 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH ?> ">
-        <title>User</title>
+        <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'bootstrap.min.css' ?>">
+        <title>Search</title>
     </head>
     <body>
         <header>
@@ -15,7 +15,7 @@
         <section id="search-result">
             <?php 
                 foreach($user_controller->users as $user ) {
-                    echo user_card($user);
+                    // echo user_card($user);
                 }
             ?>
         </section>

@@ -1,7 +1,8 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/profile.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'bootstrap.min.css'; ?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'style.css' ?>">
+        <script src="<?php echo JAVASCRIPTS_PATH . 'signup.js'; ?>"></script>
         <script src="./login.js"></script>
         <title>User</title>
     </head>

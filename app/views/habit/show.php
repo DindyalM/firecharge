@@ -8,55 +8,36 @@
     <title>Habit tracking</title>
 </head>
 <body>
-      <header>
+    <header>
             <?php echo navbar('login'); ?>
             <?php echo alert(true); ?>
-                
+    </header>
+    <section>
+        <header>
+            <div class="jumbotron bg-dark"></div>
         </header>
-        
-
-<section>
-    <div class="container-fluid bg-dark" id="profile-container">
-        <div class="col-md-12 bg-danger" id="user-header">
-
-        </div>
-        <div class="row flex-nowrap">
-            <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box">
-                <img id="avatar" class="rounded d-block mx-auto" src="https://i.pinimg.com/originals/09/b2/de/09b2deff3d7abfffaa12aed8ee14bbe0.png"/>
-                <div id="username_tag" class="text-center">
-                  <span class='badge badge-success'>  @<?php echo current_user()['Username']; ?></span>
+        <div class="row">
+            <div class="offset-1 col-md-4">
+                <div class="card">
+                  <h4 class="card-header">Habit Information</h4>
+                  <div class="card-body">
+                    <h4 class="card-title"><?php echo $habit_controller->habit['Name']; ?></h4>
+                    <p class="card-text"><?php echo $habit_controller->habit['Description']; ?></p>
+                    <a href="<?php HABIT_EDIT_PATH . '&id=' . $habit_controller->habit['Habit_Id']; ?>" class="btn btn-dark">Edit</a>
+                    <a href="<?php HABIT_DELETE_PATH . '&id=' . $habit_controller->habit['Habit_Id']; ?>" class="btn btn-danger">Delete</a>
+                  </div>
                 </div>
-
+                <h3 class="text-center"></h3>
+                <p class="text-center"></p>
             </div>
-            <div class="col col-sm-8">
-                <div class="row">
-                    <div class="col col-sm-8 offset-1" style="margin-top: 30px;">
-                        <div class="bg-light rounded">
-                            <h3 class="text-dark text-center">Habit Tracking</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-sm-8 offset-1">
-                        <div class="card">
-                            <div class="card-body">
-
-                                <button class="btn btn-link text-danger">Habits</button>
-                                <button class="btn btn-link text-danger">Activity</button>
-                                <button class="btn btn-link text-danger">Friends</button>
-                                <button class="btn btn-link text-danger">Likes</button>
-                            </div>
-
-                            <div class='col-lg-10 d-inline-block ' id='card-area'>
-                                card area
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-6">
+                <figure class="figure">
+                  <img style="background-color: gray; height: 200px; width: 600px;" src="" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                  <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
 </body>

@@ -73,7 +73,6 @@ class HabitModel {
         if($result->num_rows < 1) {
             return false;
         }
-        
         return $result->fetch_array();
     }
     

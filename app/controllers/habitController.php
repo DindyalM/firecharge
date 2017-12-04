@@ -114,5 +114,25 @@ class HabitController {
         }
         
     }
+    
+    public function show() {
+        $id = $_GET['id'];
+        
+        if(!isset($id)) {
+            flash("Habit does not exist", "danger", true);
+            header("Location: " . USER_PATH);
+            return false;
+        }
+        
+        $result = $this->habit_model->findById($id);
+        
+        $this->habit = $result;
+        return true;
+    }
+    
+    
 }
 ?>
+
+
+        

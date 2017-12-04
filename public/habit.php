@@ -50,6 +50,8 @@
             case('edit'):
                 $habit_controller->edit();
                 break;
+            case('show');
+                $habit_controller->show();
             default:
                 break;
         }

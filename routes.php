@@ -9,11 +9,17 @@
     define("ASSETS_PATH", './assets/');
     
     // view
+    // user
     define("USER_LOGIN_PATH", './user.php?page=login');
+    define("USER_SIGNUP_PATH", './user.php?page=signup');
     define("USER_CREATE_PATH", './user.php?page=login&action=create');
     define("USER_PROFILE_PATH", './user.php?page=profile');
-    define("USER_EDIT_PATH", "/public/user.php?page=edit");
-    define("HABIT_EDIT_PATH","/public/habit.php?page=edit");
+    define("USER_SEARCH_PATH", './user.php?page=search');
+    define("USER_INDEX_PATH", './user.php?page=index');
+    define("USER_EDIT_PATH", "./user.php?page=edit");
+    // habit
+    define("HABIT_EDIT_PATH", "./habit.php?page=edit");
+    define("HABIT_SHOW_PATH", "./habit.php?page=show");
     
     
     // controllers 

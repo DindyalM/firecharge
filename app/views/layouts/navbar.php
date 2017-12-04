@@ -26,18 +26,17 @@
                     <a class="nav-link" href="' . USER_PROFILE_PATH .'">Profile</a>
                 </li>
                 <li class="navbar-item">
-                    <!--<a class="nav-link" href="/public/user.php?action=logout">Logout</a>-->
-                    <a class="nav-link" href="/public/user.php?action=logout">Logout</a>
+                    <a class="nav-link" href="' . USER_PATH . '?action=logout">Logout</a>
                 </li>
             ';
         }
         else {
             $navbar_links = '
                 <li class="navbar-item ' . $signup . '">
-                    <a class="nav-link" href="' . "/public/user.php?page=signup" .'">Sign Up</a>
+                    <a class="nav-link" href="' . USER_SIGNUP_PATH .'">Sign Up</a>
                 </li>
                 <li class="navbar-item ' . $login . '">
-                    <a class="nav-link" href="' . "/public/user.php?page=login" .'">Log In</a>
+                    <a class="nav-link" href="' . USER_LOGIN_PATH .'">Log In</a>
                 </li>
             ';
         }
@@ -54,7 +53,7 @@
                     ' . $navbar_links . '
 
                 </ul>
-                <form class="form-inline my-2 my-lg-0" method="GET" action="/public/user.php">
+                <form class="form-inline my-2 my-lg-0" method="GET" action="' . USER_PATH . '">
                   <input name="action" type="hidden" value="search">
                   <input name="page" type="hidden" value="search">
                   <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search">

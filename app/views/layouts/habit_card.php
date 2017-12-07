@@ -6,8 +6,13 @@
             //         <a href="/public/habit.php?id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Delete</a>
             //          ';
             $btns = '<a href="' . HABIT_EDIT_PATH .'&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Update</a>
-                     <a href="' . HABIT_PATH . '?action=delete&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Delete</a>
-             ';
+                     <form class="d-inline" method="POST" action="' . HABIT_PATH .'">
+                        <input name="action" type="hidden" value="delete">
+                        <input name="Habit_Id" type="hidden" value="' . $habit['Habit_Id'] .'">
+                        <input class="btn btn-link-dark text-dark" type="submit" value="Delete"></input>
+                     </form>';
+                    //  <a href="' . HABIT_PATH . '?action=delete&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Delete</a>
+             
         }
         #<a href="/public/habit.php?action=delete&id=" class="btn btn-link-dark text-dark">Delete</a>
         

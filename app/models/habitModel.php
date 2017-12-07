@@ -127,22 +127,24 @@ class HabitModel {
     }
     
     //EFFECTS: deletes a habit
-    //REQUIRES:The name of the habit
+    //REQUIRES:The id of the habit
     //RETURNS: false if a connection error happens
-    public function destroy($habit_name){
-        if(!connect()){
+    public function destroy($id){
+        $this->connect();
+        $stmt = $this->db->prepare("DELETE FROM Habit WHERE Habit_Id='?'");
+        $stmt->bind_param('i',$habit_id);
+        $stmt->execute();
+        if($this->db->error) {
             return false;
         }
-       $stmt=$this->db->prepare("DELETE FROM Habit WHERE Name='?'");
-       $stmt->bind_param('s',$habit_name);
-       $stmt->execute();
+        
+        return true;
     }
     
     //EFFECTS: updates a habit
     //REQUIRES:The name and description of the habit
     //RETURNS: return false if update fails
     public function update($habit_id, $new_name, $new_description) {
-      
         $this->connect();
         $stmt=$this->db->prepare("UPDATE Habit SET Name=?,Description=? WHERE Habit_Id=?;");
         $stmt->bind_param("ssi", $new_name, $new_description, $habit_id);

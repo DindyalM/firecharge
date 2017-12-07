@@ -40,7 +40,7 @@
                 $habit_controller->update();
                 break;
             case 'delete':
-                $habit_controller->delete();
+                $habit_controller->destroy();
                 break;
             default:
                 break;

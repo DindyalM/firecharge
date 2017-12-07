@@ -24,7 +24,7 @@ class UserController {
         $current_user = current_user();
         if(!$current_user) {
             flash('Must be logged in to do that!', "danger", true);
-            header('Location: /public/user.php?page=login');
+            header("Location: " . USER_LOGIN_PATH);
             return false;
         }
         
@@ -34,22 +34,23 @@ class UserController {
         
         if(!isset($user_id) || !isset($text)) {
             flash('Something went wrong!', "danger", true);
-            header('Location: /public/user.php?page=index');
+            header('Location:' . USER_PATH); 
             return false;
         }
         
         if($this->post_model->create($user_id, $current_user['User_Id'], $text, $username)) {
             flash('Successfully created post!', "success");
             if(isset($username)) {
-                header('Location: /public/user.php?page=profile&username=' . $username);    
-            } else {
-                header('Location: /public/user.php?page=index&action=posts');    
+                die("here");
+                header('Location:'. USER_PROFILE_PATH .'&username=' . $username);    
+            }else {
+                header('Location:'. USER_INDEX_PATH . "&action=posts");    
             }
             
             return true;
         } else {
             flash('Something went wrong!', "danger", true);
-            header('Location: /public/user.php?page=index');
+            header('Location:' . USER_PATH); 
             return false;
         }
         
@@ -248,9 +249,7 @@ class UserController {
         return false;
     }
     
-    //still testing, currently none of the flash messages appear even when it seems the if statments are ture.
-    // dont use this function unless you're willing to make it actually work
-    // use at your own risk
+    //testing do not use 
     public function update() {
         $new_username = $_POST['new_username'];
         $new_email = $_POST['new_email'];
@@ -285,12 +284,13 @@ class UserController {
         }
    
       if($this->user_model->update($new_username,$new_password,$new_email,$new_bio,$user_id)){
+
             flash("Succesfully Updated Account!", "success",true);
             header('Location: /public/user.php?page=profile');
             return true;
         }
         
-        die("model returns false");
+        
         flash("Something Went Wrong", "success",true);
         header('Location: /public/user.php?page=edit');
         return false;

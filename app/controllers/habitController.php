@@ -84,31 +84,52 @@ class HabitController {
         
         if(!$current_user) {
             flash("Must be logged in first!", "danger", true);
-            header('Location: /public/user.php?page=login');
+            header('Location: ' . USER_INDEX_PATH);
             return false;
         }
        
         if($this->habit_model->update($habit_id, $new_name, $new_description)) {
             flash("Succesfully Updated habit track!", "success",true );
-            header('Location: /public/user.php?page=index');
+            header('Location: ' .USER_INDEX_PATH );
             return true;
         }
     }
     
      //EFFECT: deletes the selected habit
 
-    public function delete() {
-        die();
-        $habit_name = $_POST['name'];
-        $current_user = current_user();
+    public function destroy() {
        
-        if(!isset($current_user)){
-            flash("Must be logged in first!","danger",true);
+        $habit_id = @$_POST['Habit_Id'];
+        
+        $current_user = current_user();
+        
+        if(!isset($current_user)) {
+            flash("Must be logged in first!", "danger",true);
+            header("Location: " . USER_PATH);
+            return false;
+        }
+        
+        $habit_to_destroy = $this->habit_model->findById($habit_id);
+        
+        if(!isset($habit_id) || !$habit_to_destroy) {
+            flash("Invalid habit!", "danger",true);
+            header("Location: " . USER_PATH);
+            return false;
+        }
+        
+        
+        if($habit_to_destroy['User_Id'] != $current_user['User_Id']) {
+            flash("Can't delete other user's habits!", "danger",true);
+            header("Location: " . USER_PATH);
+            return false;
+        }
+        if($this->habit_model->destroy($habit_id)) {
+            force_flash("Succesfully deleted habit","success");
             header("Location: /public/user.php?page=index");
             return true;
         }
-        if($this->habit_model->destroy($habit_name)){
-            flash("Succesfully deleted habit","success",true);
+        else {
+            flash("Something went wrong!","danger",true);
             header("Location: /public/user.php?page=index");
             return true;
         }

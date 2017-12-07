@@ -6,13 +6,21 @@
 //           flash session variable, use AJAX for pages with form
 function alert($use_ajax=false) {
     session_start();
-    $class="primary";
+    $class="success";
     $flash = @$_SESSION['flash'];
     $flash_type = @$_SESSION['flash-type'];
     $error_flash = @$_SESSION['error-flash'];
+    $force_flash = @$_SESSION['force-flash'];
+    $force_flash_type = @$_SESSION['force-flash-type'];
     
-    if(!$use_ajax || isset($error_flash)) {
-        if(isset($error_flash)) {
+    if(!$use_ajax || isset($error_flash) || isset($force_flash)) {
+        if(isset($force_flash)) {
+            $class = $force_flash_type;
+            $msg = $force_flash;
+            unset($_SESSION['force-flash']);
+            unset($_SESSION['force-flash-type']);
+        }
+        else if(isset($error_flash)) {
             $msg = $error_flash;
             $class = 'danger';
             unset($_SESSION['error-flash']);
@@ -20,13 +28,14 @@ function alert($use_ajax=false) {
         else if(isset($flash)) {
             $msg = $flash;
             if(isset($flash_type)) { 
-                $class = $flash_type ;
+                $class = $flash_type;
                 unset($_SESSION['flash-type']);
             }
             unset($_SESSION['flash']);
         } else {
             return '<div id="alert"></div>';
         }
+        
         $close_js = '
             <script>
                 var btn = document.getElementById("alert-close");

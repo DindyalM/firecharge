@@ -9,6 +9,14 @@
         }
     }
     
+    //EFFECTS: sets force-flash in the session
+    //         no matter what, this flash will be displayed
+    
+    function force_flash($msg, $flash_type="primary") {
+        $_SESSION['force-flash'] = $msg;
+        $_SESSION['force-flash-type'] = $flash_type;    
+    }
+    
     function logged_in() {
         return isset($_SESSION['User']);
     }

@@ -218,7 +218,7 @@ class UserModel {
         }
         
         $stmt=$this->db->prepare("UPDATE User SET Username=? Password=? Email=?, Bio=? WHERE User_Id=?;");
-        $stmt->bind_param("ssssi",$new_username,$new_password,$new_email,$new_bio,$user_id);
+        $stmt->bind_param("ssssi",$new_username,crypt($new_password),$new_email,$new_bio,$user_id);
         
         if($stmt->execute()){
             return true;

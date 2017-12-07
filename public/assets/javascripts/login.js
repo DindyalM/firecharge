@@ -54,7 +54,7 @@ function validateFormGroup(inputElement, condition, error_msg) {
 // EFFECTS: sets the "alert" element equal to an alert with a message
 function showAlert(type, msg) {
     var alert = document.getElementById('alert');
-    alert.className = 'alert alert-' + type;
+    alert.className = 'mb-0 alert alert-' + type;
     var btn_html ='<button type="button" id="alert-close" class="close" data-dismiss="alert" aria-label="Close">' +
                       '<span aria-hidden="true">&times;</span></button>';
     alert.innerHTML = msg + btn_html;

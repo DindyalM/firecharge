@@ -1,5 +1,10 @@
 <?php 
     
+    function set_message($message, $message_type="primary") {
+        $_SESSION['message'] = $message;
+        $_SESSION['message-type'] = $message_type;   
+    }
+    
     function flash($msg, $flash_type="primary", $error_flash=false) {
         if($error_flash) {
             $_SESSION['error-flash'] = $msg;

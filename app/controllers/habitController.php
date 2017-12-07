@@ -16,17 +16,17 @@ class HabitController {
         
         if(!$current_user) {
             flash("Must be logged in first!");
-            header('Location: /public/user.php?page=login');
+            header('Location: ' . USER_LOGIN_PATH);
             return false;
         }
         if($this->habit_model->create($name, $desc, $current_user['User_Id'])) {
             flash("Succesfully created new habit track!", "success");
-            header('Location: /public/user.php?page=index');
+            header('Location: ' . USER_INDEX_PATH);
             return true;
         } 
             
         flash("Something went wrong!", "danger", true);
-        header('Location: /public/user.php?page=index');
+        header('Location: ' . USER_INDEX_PATH);
         return false;
     }
     
@@ -36,7 +36,7 @@ class HabitController {
         if(!isset($id)) {
             // todo: 404 page here
             flash('Habit does not exist!', "danger", true);
-            header('Location: /public/user.php?page=index');
+            header('Location: ' . USER_INDEX_PATH);
             return false;
         }
         
@@ -46,7 +46,7 @@ class HabitController {
         if($habit) {
             if(!$habit['User_Id'] == current_user()['User_Id']) {
                 flash('Cannot edit another user\'s habits', "danger", true);
-                header('Location: /public/user.php?page=index');
+                header('Location: ' . USER_INDEX_PATH);
                 return false;
             }
 
@@ -56,7 +56,7 @@ class HabitController {
         
         
         flash('Habit does not exist!', "danger", true);
-        header('Location: /public/user.php?page=index');
+        header('Location: ' . USER_INDEX_PATH);
         
         return false;
         
@@ -78,7 +78,8 @@ class HabitController {
         
         if(!isset($habit_id)) {
             flash("Habit doesn't exist!", "danger", true);
-            header("/public/user.php?page=index");
+           // header("/public/user.php?page=index");
+            header('Location:'. USER_INDEX_PATH);
             return false;
         }
         
@@ -125,12 +126,14 @@ class HabitController {
         }
         if($this->habit_model->destroy($habit_id)) {
             force_flash("Succesfully deleted habit","success");
-            header("Location: /public/user.php?page=index");
+            //header("Location: /public/user.php?page=index");
+            header('Location:'. USER_INDEX_PATH);
             return true;
         }
         else {
             flash("Something went wrong!","danger",true);
-            header("Location: /public/user.php?page=index");
+            //header("Location: /public/user.php?page=index");
+            header('Location:'. USER_INDEX_PATH);
             return true;
         }
         

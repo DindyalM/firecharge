@@ -8,8 +8,6 @@ function validateInput() {
     var password_confirm = document.getElementById('password_confirmation');
     
     var error_count = 0;
-    
-    
 
     error_count += validateFormGroup(username, username.value.length > 0, "Username cannot be blank.");
     
@@ -68,7 +66,7 @@ function validateFormGroup(inputElement, condition, error_msg) {
 function showAlert(type, msg) {
     // return;
     var alert = document.getElementById('alert');
-    alert.className = 'alert alert-' + type;
+    alert.className = 'mb-0 alert alert-' + type;
     var btn_html ='<button type="button" id="alert-close" class="close" data-dismiss="alert" aria-label="Close">' +
                       '<span aria-hidden="true">&times;</span></button>';
     alert.innerHTML = msg + btn_html;

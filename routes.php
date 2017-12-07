@@ -21,7 +21,6 @@
     define("HABIT_EDIT_PATH", "./habit.php?page=edit");
     define("HABIT_SHOW_PATH", "./habit.php?page=show");
     
-    
     // controllers 
     
     // models

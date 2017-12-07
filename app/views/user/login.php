@@ -2,13 +2,13 @@
     <head>
         <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'bootstrap.min.css'; ?>">
         <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'style.css' ?>">
-        <script src="<?php echo JAVASCRIPTS_PATH . 'signup.js'; ?>"></script>
+        <script src="<?php echo JAVASCRIPTS_PATH . 'login.js'; ?>"></script>
         <title>User</title>
     </head>
     <body>
         <header>
             <?php echo navbar('login'); ?>
-            <?php echo alert(true); ?>
+            <?php echo alert($user_controller); ?>
             <h1 class="text-center mt-5">Log in to your account.</h1>
             <p class="text-center">Don't have an account yet? <a href="<?php echo USER_SIGNUP_PATH; ?>">Click here</a> to sign up!</p>
         </header>

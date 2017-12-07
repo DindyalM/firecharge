@@ -131,9 +131,11 @@ class HabitModel {
     //RETURNS: false if a connection error happens
     public function destroy($id){
         $this->connect();
-        $stmt = $this->db->prepare("DELETE FROM Habit WHERE Habit_Id='?'");
-        $stmt->bind_param('i',$habit_id);
+        
+        $stmt = $this->db->prepare("DELETE FROM Habit WHERE Habit_Id=?");
+        $stmt->bind_param('i', $id);
         $stmt->execute();
+        
         if($this->db->error) {
             return false;
         }

@@ -24,7 +24,8 @@ class UserController {
         $current_user = current_user();
         if(!$current_user) {
             flash('Must be logged in to do that!', "danger", true);
-            header("Location: " . USER_LOGIN_PATH);
+            // header('Location: /public/user.php?page=login');
+            header('Location: ' . USER_LOGIN_PATH);
             return false;
         }
         
@@ -34,23 +35,23 @@ class UserController {
         
         if(!isset($user_id) || !isset($text)) {
             flash('Something went wrong!', "danger", true);
-            header('Location:' . USER_PATH); 
+            header('Location:' . USER_PATH);
             return false;
         }
         
         if($this->post_model->create($user_id, $current_user['User_Id'], $text, $username)) {
             flash('Successfully created post!', "success");
             if(isset($username)) {
-                die("here");
-                header('Location:'. USER_PROFILE_PATH .'&username=' . $username);    
-            }else {
-                header('Location:'. USER_INDEX_PATH . "&action=posts");    
+                // header('Location: /public/user.php?page=profile&username=' . $username);    
+                header('Location: ' . USER_PROFILE_PATH . '&username=' . $username);
+            } else {
+                header('Location: ' . USER_INDEX_PATH . '&action=posts');    
             }
             
             return true;
         } else {
             flash('Something went wrong!', "danger", true);
-            header('Location:' . USER_PATH); 
+            header('Location: ' . USER_PATH); 
             return false;
         }
         
@@ -79,7 +80,7 @@ class UserController {
         $user = current_user();
         if(!$user) {
             flash("User must be logged in to do that!", "danger", true);
-            header('Location: /public/user.php?page=login');
+            header('Location: ' . USER_LOGIN_PATH);
             return false;
         }
         
@@ -101,7 +102,7 @@ class UserController {
         $user = current_user();
         if(!$user) {
             flash("User must be logged in to do that!", "danger", true);
-            header('Location: /public/user.php?page=login');
+            header('Location: ' . USER_LOGIN_PATH);
             return false;
         }
         
@@ -113,16 +114,13 @@ class UserController {
         else {
             $this->habits = $this->habit_model->findByUserUsername($username);
         }
-        
-        
-        
         return true;
     }
     
     public function profile() {
         $username = $_GET['username'];
         if(!isset($username)) {
-            header('Location: /public/user.php?page=profile&username=' . current_user()['Username']);
+            header('Location: ' . USER_PROFILE_PATH . '&username=' . current_user()['Username']);
             return false;
         }
         
@@ -130,7 +128,7 @@ class UserController {
         
         if(!$user) {
             flash("User doesn't exist!", "danger", true);
-            header('Location: /public/user.php?page=index');
+            header('Location: ' . USER_INDEX_PATH);
             return false;
         }
         
@@ -148,27 +146,35 @@ class UserController {
         $password = @$_POST['password'];
         
         if(!(isset($email) && isset($password))) {
-            flash("Fields can't be blank", "danger", true);
-            header('Location: /public/user.php?page=login');
-            return false;
+            
+            set_message("Fields can't be blank", "danger");
+            
+            //header('Location: /public/user.php?page=login');
+            header('Location:'. USER_LOGIN_PATH);
+            exit();
         }
         
         $user = $this->user_model->findByEmail($email);
         
         if(!$user) {
-            flash("User doesn't exist!", "danger", true);
-            header('Location: /public/user.php?page=login');
-            return false;
+            //header('Location: /public/user.php?page=login');
+            header('Location:'. USER_LOGIN_PATH);
+            set_message("User doesn't exist!", "danger");
+            exit();
         }
         
         if(password_verify($password, $user['Password'])) {
             if($this->createSession($user['Username'], $user['User_Id'])) {
-                flash("Successfully logged in!", "success", true);
-                header('Location: /public/user.php?page=index');
+                set_message("Successfully logged in!", "success");
+                //header('Location: /public/user.php?page=index');
+                header('Location:'. USER_INDEX_PATH);
+                exit();
             }
         } else {
-            flash("Password not valid!", "danger", true);
-            header('Location: /public/user.php?page=login');
+            set_message("Password not valid!", "danger", true);
+            //header('Location: /public/user.php?page=login');
+            header('Location:'. USER_LOGIN_PATH);
+            exit();
         }
     }
 
@@ -188,21 +194,25 @@ class UserController {
         // check if username in use
         if($this->user_model->findByEmail($email)) {
             flash("Email already in use!", "danger", true);
-            header('Location: /public/user.php?page=signup');
+            //header('Location: /public/user.php?page=signup');
+            header('Location:'. USER_SIGNUP_PATH);
             return false;
         } else if($this->user_model->findByUsername($username)) {
             flash("Username already in use!", "danger", true);
-            header('Location: /public/user.php?page=signup');
+            //header('Location: /public/user.php?page=signup');
+            header('Location:'. USER_SIGNUP_PATH);
             return false;
         } 
         
         if($this->user_model->create($email, $username, $password)) {
             $this->createSession($username);
             flash("Welcome to FireCharge!", "success");
-            header('Location: /public/user.php?page=index');
+            //header('Location: /public/user.php?page=index');
+            header('Location:'. USER_INDEX_PATH);
             return true;
         } else {
-            header('Location: /public/user.php?page=login');
+           // header('Location: /public/user.php?page=login');
+            header('Location:'. USER_LOGIN_PATH);
             flash("Uh oh! Something went wrong with your for submission!", "danger", true);
             return false;
         }
@@ -214,7 +224,9 @@ class UserController {
          
         if(!logged_in()){//simplify? 
             flash("Must be logged in first!", "danger", true);
-            header("Location: /public/user.php?page=login");
+            //header("Location: /public/user.php?page=login");
+            header('Location:'. USER_LOGIN_PATH);
+
             return false;
         }
                 
@@ -225,13 +237,15 @@ class UserController {
         if($id != $current_user){
             
             flash('Error!', "danger", true); 
-            header('Location: /public/user.php?page=index');
+            //header('Location: /public/user.php?page=index');
+            header('Location:'. USER_INDEX_PATH);
             return false; 
         }
         
         if(!isset($id)) {
             flash('User does not exist!', "danger", true);
-            header('Location: /public/user.php?page=index');
+            //header('Location: /public/user.php?page=index');
+            header('Location:'. USER_INDEX_PATH);
             return false;
         }
         
@@ -244,12 +258,12 @@ class UserController {
         }
        
         flash('user does not exist!', "danger", true);
-        header('Location: /public/user.php?page=index');
-        
+        //header('Location: /public/user.php?page=index');
+        header('Location:'. USER_INDEX_PATH);
         return false;
     }
     
-    //testing do not use 
+    //testing do not use
     public function update() {
         $new_username = $_POST['new_username'];
         $new_email = $_POST['new_email'];
@@ -261,38 +275,43 @@ class UserController {
        
         if($new_username == ""){
             flash("Username cannot be blank!", "danger", true);
-            header("Location: /public/user.php?page=edit&id=$user_id");
+           // header("Location: /public/user.php?page=edit&id=$user_id");
+            header('Location:'. USER_EDIT_PATH."&id=".$user_id);
             return false; 
         }
         
         if($new_email == "") {
             flash("Email cannot be blank!", "danger", true);
-            header("Location: /public/user.php?page=edit&id=$user_id");
+            //header("Location: /public/user.php?page=edit&id=$user_id");
+            header('Location:'. USER_EDIT_PATH."&id=".$user_id);
             return false; 
          }
         
         if($new_password == "") {
             flash("Password cannot be blank!", "danger", true);
-            header("Location: /public/user.php?page=edit&id=$user_id");
+           // header("Location: /public/user.php?page=edit&id=$user_id");
+           header('Location:'. USER_EDIT_PATH."&id=".$user_id);
             return false;
         }
         
         if(!$current_user) {
             flash("Must be logged in first!", "danger", true);
-            header('Location: /public/user.php?page=login');
+            //header('Location: /public/user.php?page=login');
+            header('Location: ' . USER_LOGIN_PATH);
             return false;
         }
    
       if($this->user_model->update($new_username,$new_password,$new_email,$new_bio,$user_id)){
-
             flash("Succesfully Updated Account!", "success",true);
-            header('Location: /public/user.php?page=profile');
+            //header('Location: /public/user.php?page=profile');
+            header('Location: ' . USER_PROFILE_PATH);
             return true;
         }
         
-        
+       // die("model returns false");
         flash("Something Went Wrong", "success",true);
-        header('Location: /public/user.php?page=edit');
+       // header('Location: /public/user.php?page=edit');
+        header('Location: ' . USER_EDIT_PATH);
         return false;
     }
    
@@ -301,7 +320,8 @@ class UserController {
     // MODIFIES: Session
     public function logout() {
         unset($_SESSION['User']);
-        header( 'Location: /public/user.php?page=index');
+        //header( 'Location: /public/user.php?page=index');
+        header('Location:'. USER_INDEX_PATH);
     }
 }
 ?>

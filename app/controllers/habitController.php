@@ -45,7 +45,6 @@ class HabitController {
         $id = @$_GET['id'];
         
         if(!isset($id)) {
-            // todo: 404 page here
             set_message('Habit does not exist!', "danger");
             header('Location: ' . USER_INDEX_PATH);
             exit();
@@ -88,7 +87,6 @@ class HabitController {
         
         if(!isset($habit_id)) {
             set_messageset_message("Habit doesn't exist!", "danger");
-           // header("/public/user.php?page=index");
             header('Location:'. USER_INDEX_PATH);
             exit();
         }
@@ -106,8 +104,7 @@ class HabitController {
         }
     }
     
-     //EFFECT: deletes the selected habit
-
+    // EFFECT: deletes the a habit
     public function destroy() {
        
         $habit_id = @$_POST['Habit_Id'];
@@ -127,7 +124,6 @@ class HabitController {
             header("Location: " . USER_PATH);
             exit();
         }
-        
         
         if($habit_to_destroy['User_Id'] != $current_user['User_Id']) {
             set_message("Can't delete other user's habits!", "danger");
@@ -162,8 +158,6 @@ class HabitController {
         
         $this->habit = $result;
     }
-    
-    
 }
 ?>
 

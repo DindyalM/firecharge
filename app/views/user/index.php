@@ -8,7 +8,7 @@
     <body>
         <?php if(!logged_in()) : ?>
         <header>
-            <?php echo alert(true) ?>
+            <?php echo alert(); ?>
         </header>
         <section>
             <div class="row">

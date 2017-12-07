@@ -9,25 +9,36 @@ class HabitController {
         $name = @$_POST['name'];
         $desc = @$_POST['description'];
         $current_user = current_user();
-        if(!isset($name)) {
-            flash("Name should be present!", "danger", true);
-            return false;
+        if(!isset($name) || strlen($name) == 0) {
+            set_message("Habit name cannot be blank!", "danger");
+            header("Refresh:0");
+            exit();
         }
         
         if(!$current_user) {
-            flash("Must be logged in first!");
+            set_message("Must be logged in first!","danger");
             header('Location: ' . USER_LOGIN_PATH);
-            return false;
+            exit();
+        }
+        if(strlen($desc) > 250) {
+            set_message("Description is too long!", "danger");
+            header("Refresh:0");
+            exit();
+        }
+        if(strlen($name) > 55) {
+            set_message("Name is too long!", "danger");
+            header("Refresh:0");
+            exit();
         }
         if($this->habit_model->create($name, $desc, $current_user['User_Id'])) {
-            flash("Succesfully created new habit track!", "success");
-            header('Location: ' . USER_INDEX_PATH);
-            return true;
+            set_message("Succesfully created new habit track!", "success");
+            header("Refresh:0");
+            exit();
         } 
             
-        flash("Something went wrong!", "danger", true);
-        header('Location: ' . USER_INDEX_PATH);
-        return false;
+        set_message("Something went wrong!", "danger");
+        header("Refresh:0");
+        exit();
     }
     
     public function edit() {
@@ -35,9 +46,9 @@ class HabitController {
         
         if(!isset($id)) {
             // todo: 404 page here
-            flash('Habit does not exist!', "danger", true);
+            set_message('Habit does not exist!', "danger");
             header('Location: ' . USER_INDEX_PATH);
-            return false;
+            exit();
         }
         
         $habit = $this->habit_model->findById($id);
@@ -45,9 +56,9 @@ class HabitController {
 
         if($habit) {
             if(!$habit['User_Id'] == current_user()['User_Id']) {
-                flash('Cannot edit another user\'s habits', "danger", true);
+                set_message('Cannot edit another user\'s habits', "danger");
                 header('Location: ' . USER_INDEX_PATH);
-                return false;
+                exit();
             }
 
             $this->habit = $habit;
@@ -55,11 +66,10 @@ class HabitController {
         }
         
         
-        flash('Habit does not exist!', "danger", true);
+        set_message('Habit does not exist!', "danger");
         header('Location: ' . USER_INDEX_PATH);
         
-        return false;
-        
+        exit();
     }
     
     //
@@ -71,28 +81,28 @@ class HabitController {
 
         if(!isset($new_name)) {
             
-            flash("Name should be present!", "danger", true); 
+            set_message("Name should be present!", "danger"); 
             header("Refresh:0");
-            return false;
+            exit();
         }
         
         if(!isset($habit_id)) {
-            flash("Habit doesn't exist!", "danger", true);
+            set_messageset_message("Habit doesn't exist!", "danger");
            // header("/public/user.php?page=index");
             header('Location:'. USER_INDEX_PATH);
-            return false;
+            exit();
         }
         
         if(!$current_user) {
-            flash("Must be logged in first!", "danger", true);
+            set_message("Must be logged in first!", "danger", true);
             header('Location: ' . USER_INDEX_PATH);
-            return false;
+            exit();
         }
        
         if($this->habit_model->update($habit_id, $new_name, $new_description)) {
-            flash("Succesfully Updated habit track!", "success",true );
+            set_message("Succesfully Updated habit track!", "success");
             header('Location: ' .USER_INDEX_PATH );
-            return true;
+            exit();
         }
     }
     
@@ -105,36 +115,36 @@ class HabitController {
         $current_user = current_user();
         
         if(!isset($current_user)) {
-            flash("Must be logged in first!", "danger",true);
+            set_message("Must be logged in first!", "danger");
             header("Location: " . USER_PATH);
-            return false;
+            exit();
         }
         
         $habit_to_destroy = $this->habit_model->findById($habit_id);
         
         if(!isset($habit_id) || !$habit_to_destroy) {
-            flash("Invalid habit!", "danger",true);
+            set_message("Invalid habit!", "danger");
             header("Location: " . USER_PATH);
-            return false;
+            exit();
         }
         
         
         if($habit_to_destroy['User_Id'] != $current_user['User_Id']) {
-            flash("Can't delete other user's habits!", "danger",true);
+            set_message("Can't delete other user's habits!", "danger");
             header("Location: " . USER_PATH);
-            return false;
+            exit();
         }
         if($this->habit_model->destroy($habit_id)) {
-            force_flash("Succesfully deleted habit","success");
+            set_message("Succesfully deleted habit","success");
             //header("Location: /public/user.php?page=index");
             header('Location:'. USER_INDEX_PATH);
-            return true;
+            exit();
         }
         else {
-            flash("Something went wrong!","danger",true);
+            set_message("Something went wrong!","danger");
             //header("Location: /public/user.php?page=index");
             header('Location:'. USER_INDEX_PATH);
-            return true;
+            exit();
         }
         
     }
@@ -143,15 +153,14 @@ class HabitController {
         $id = $_GET['id'];
         
         if(!isset($id)) {
-            flash("Habit does not exist", "danger", true);
+            set_message("Habit does not exist", "danger");
             header("Location: " . USER_PATH);
-            return false;
+            exit();
         }
         
         $result = $this->habit_model->findById($id);
         
         $this->habit = $result;
-        return true;
     }
     
     

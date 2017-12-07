@@ -10,7 +10,7 @@
 <body>
     <header>
             <?php echo navbar('login'); ?>
-            <?php echo alert(true); ?>
+            <?php echo alert(); ?>
     </header>
     <section>
         <header>
@@ -23,7 +23,7 @@
                   <div class="card-body">
                     <h4 class="card-title"><?php echo $habit_controller->habit['Name']; ?></h4>
                     <p class="card-text"><?php echo $habit_controller->habit['Description']; ?></p>
-                    <a href="<?php HABIT_EDIT_PATH . '&id=' . $habit_controller->habit['Habit_Id']; ?>" class="btn btn-dark">Edit</a>
+                    <a href="<?php HABIT_EDIT_PATH . '&id=' . $habit_controller->habit['Habit_Id']; ?>" class="btn btn-dark">Update</a>
                     <a href="<?php HABIT_DELETE_PATH . '&id=' . $habit_controller->habit['Habit_Id']; ?>" class="btn btn-danger">Delete</a>
                   </div>
                 </div>

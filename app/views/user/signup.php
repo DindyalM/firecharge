@@ -8,13 +8,12 @@
     <body>
         <header>
             <?php echo navbar('signup'); ?>
-            <?php echo alert(true); ?>
+            <?php echo alert(); ?>
             <h1 class="text-center mt-5">Create a new account.</h1>
             <p class="text-center">Already have an account? <a href="<?php echo USER_LOGIN_PATH; ?>">Click here</a> to log in!</p>
         </header>
         
         <div class="container bg-light">
-            <!--<form method="POST" action="/public/user.php?action=create" onsubmit="return validateInput();">-->
             <form method="POST" action="<?php echo USER_PATH; ?>" onsubmit="return validateInput();">
                 <div class="form-group">
                     <label for="email" class="text-dark">Email address</label>

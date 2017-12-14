@@ -20,6 +20,44 @@ class UserController {
         $this->users = $this->user_model->searchByUsername($query);
     }
     
+    public function destroyPost() {
+        $current_user = current_user();
+        $user_id = @$_POST['user_id'];
+        $post_id = @$_POST['post_id'];
+        $profile_username = @$_POST['username'];
+        
+        if(!isset($user_id) || !isset($post_id)) {
+            set_message('Something went wrong!', "danger");
+            header('Location:' . USER_PATH);
+            exit();
+        }
+        
+        if($user_id != $current_user['User_Id']) {
+            set_message('Can\'t delete another user\'s post!', "danger");
+            header('Location:' . USER_PATH);
+            exit();
+        }
+        
+        if($this->post_model->destroy($post_id)) {
+            set_message('Successfully removed post!', "success");
+            if($profile_username == $current_user['Username']) {
+                header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username'] . '&action=posts');
+                exit();
+            } else {
+                if(isset($profile_username)) {
+                    header('Location: ' . USER_PROFILE_PATH . '&username=' . $profile_username . '&action=posts');
+                } else {
+                    header('Location: ' . USER_PROFILE_PATH);
+                }
+                exit();
+            }
+        } else {
+            set_message('Something went wrong! Could not delete that post. :(', "danger");
+            header('Location:' . USER_PATH);
+            exit();
+        }
+    }
+    
     public function createPost() {
         
         $current_user = current_user();
@@ -262,6 +300,7 @@ class UserController {
         header('Location:'. USER_INDEX_PATH);
         exit();
     }
+    
     
     //testing do not use
     public function update() {

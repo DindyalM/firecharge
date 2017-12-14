@@ -53,7 +53,10 @@
                 $user_controller->login();
                 break;
             case 'update':
-                 $user_controller->update();
+                $user_controller->update();
+                break;
+            case 'delete_post':
+                $user_controller->destroyPost();
                 break;
             default:
                 break;

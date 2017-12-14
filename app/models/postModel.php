@@ -124,13 +124,17 @@ class PostModel {
     //EFFECTS: deletes a habit
     //REQUIRES:The name of the habit
     //RETURNS: false if a connection error happens
-    public function destroy($habit_name){
-        if(!connect()){
+    public function destroy($post_id){
+        $this->connect();
+        $stmt=$this->db->prepare("DELETE FROM Post WHERE Post_Id=?");
+        $stmt->bind_param('s',$post_id);
+        $stmt->execute();
+                
+        if($this->db->error) {
             return false;
         }
-       $stmt=$this->db->prepare("DELETE FROM Habit WHERE Name='?'");
-       $stmt->bind_param('s',$habit_name);
-       $stmt->execute();
+        
+        return true;
     }
     
     //EFFECTS: updates a habit

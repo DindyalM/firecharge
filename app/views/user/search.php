@@ -6,16 +6,14 @@
     <body>
         <header>
             <?php echo navbar('search'); ?>
-            <div class="jumbotron bg-dark">
-              <h1 class="display-3">Search</h1>
-              <hr class="my-4">
-              <p></p>
+            <div class="bg-dark">
+              <h1 class="p-3 text-center  text-white ">Search results</h1>
             </div>
         </header>
         <section id="search-result">
             <?php 
                 foreach($user_controller->users as $user ) {
-                    // echo user_card($user);
+                    echo user_card($user);
                 }
             ?>
         </section>

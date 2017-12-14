@@ -36,6 +36,7 @@
                       <div class="card-body">
                         <h4 class="card-title text-dark">' . $habit['Name'] . '</h4>
                         <p class="card-text text-dark">' . $habit['Description'] . '</p>
+                        <p>' . $days_since_created .' days tracked.</p>
                         <a href="' . HABIT_SHOW_PATH . '&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Show</a>
                         ' . $btns . $progress . '
                       </div>

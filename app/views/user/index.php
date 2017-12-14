@@ -92,8 +92,8 @@
                                             <input type="hidden" name="action" value="posts">
                                             <input type="submit" class="btn btn-link text-danger" value="Posts"></input>
                                           </form>
-                                        <button class="btn btn-link text-danger">Friends</button>
-                                        <button class="btn btn-link text-danger">Likes</button>
+                                        <!--<button class="btn btn-link text-danger">Friends</button>-->
+                                        <!--<button class="btn btn-link text-danger">Likes</button>-->
                                       </div>
                                         <?php
                                         

@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         
-                        <p>Lorem ipsum dolor sit amet, ut prima doming patrioque has, per at esse inermis. Commodo neglegentur sed ad, dictas nonumes delectus te nam. Ea mea dico etiam.</p>
+                        <!--<p>Lorem ipsum dolor sit amet, ut prima doming patrioque has, per at esse inermis. Commodo neglegentur sed ad, dictas nonumes delectus te nam. Ea mea dico etiam.</p>-->
                     </div>
                     <div class="col col-sm-8">
                         <div class="row">
@@ -60,8 +60,8 @@
                                         <input type="hidden" name="username" value="<?php echo $user_controller->user['Username']; ?>">
                                         <input type="submit" class="btn btn-link text-danger" value="Posts"></input>
                                       </form>
-                                      <button class="btn btn-link text-danger">Friends</button>
-                                      <button class="btn btn-link text-danger">Likes</button>
+                                      <!--<button class="btn btn-link text-danger">Friends</button>-->
+                                      <!--<button class="btn btn-link text-danger">Likes</button>-->
                                     </div>
                                         <?php
                                             switch($_GET['action']) {

@@ -25,7 +25,9 @@ class PostModel {
         return true;
     }
     
-    public function __construct() {}
+    public function __construct() {
+        $this->user_model = new UserModel();
+    }
     
     // EFFECTS: creates a new habit 
     // REQUIRES: TODO
@@ -98,25 +100,31 @@ class PostModel {
         $this->connect();
         
         // get the post information
-        $stmt = $this->db->prepare("SELECT * FROM Post p 
-                                            INNER JOIN User u ON u.User_Id=p.User_Id
-                                        WHERE Username=?");
-        $stmt->bind_param('s', $username);
+        
+        $user = $this->user_model->findByUsername($username, 1)->fetch_array();
+        $user_id = $user['User_Id'];
+        
+        
+        $stmt = $this->db->prepare("SELECT * FROM User u
+                                        INNER JOIN Post p ON u.User_Id=p.Poster_Id
+                                        WHERE p.User_Id=?");
+
+        $stmt->bind_param('s', $user_id);
         $stmt->execute();
         $result1 = $stmt->get_result();
         $stmt->free_result();
         
-        $stmt = $this->db->prepare("SELECT * FROM Post p
-                                        INNER JOIN User u ON u.User_Id=p.Poster_Id
-                                    WHERE p.Poster_Id=?");
+        // $stmt = $this->db->prepare("SELECT * FROM Post p
+        //                                 INNER JOIN User u ON u.User_Id=p.Poster_Id
+        //                             WHERE p.Poster_Id=?");
         // $stmt->bind_param('s', );
         $stmt->execute();
         // $result2 = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
         $stmt->free_result();
         
-        foreach($result1 as $rslt) {
-            echo var_dump($rslt);
-        }
+        // foreach($result1 as $rslt) {
+        //     echo var_dump($rslt);
+        // }
         
         
         // $result = $stmt->get_result();

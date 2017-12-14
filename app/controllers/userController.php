@@ -285,7 +285,7 @@ class UserController {
         if($new_password == "") {
             set_message("Password cannot be blank!", "danger");
             header('Location:'. USER_EDIT_PATH."&id=".$user_id);
-            return false;
+            exit();
         }
         
         if(!$current_user) {
@@ -300,8 +300,7 @@ class UserController {
             exit();
         }
         
-        set_message("Something Went Wrong", "success");
-       
+        set_message("Something Went Wrong", "danger");
         header('Location: ' . USER_EDIT_PATH);
         exit();
     }

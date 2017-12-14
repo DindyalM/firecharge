@@ -13,24 +13,36 @@
             <div class=" bg-dark p-2">
               <h1 class="col-12  text-white text-center">Edit My Profile</h1>
             </div>
-           <!-- <div class="container">   -->
+           
            <div class='row mt-4 p-2 ml-3'>
-               <div class='col-3 '>
-      <!--   <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box"> -->
+             
+             <div class ='col-4'>
+                 <div>
+                      <!--   <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box"> -->
                         <img id="avatar" class="rounded d-block" src="https://i.pinimg.com/originals/09/b2/de/09b2deff3d7abfffaa12aed8ee14bbe0.png"/>    
-                        <div id="username_tag" class="text-center">
-                          <!--  <div class="row">   -->
-                          <!--      <div class="col-md-4 offset-3">   -->
-                                    <a href="<?php echo USER_PROFILE_PATH; ?>">@<?php echo $user_controller->user['Username']; ?></a>
-                                </div>
-                               <div> 
-                                      <h1>Navigation area</h1>
-                                        personal<br/>account<br/>application preferences
-                                     </div>
-                 
-                 </div>
+                          <div id="username_tag" class="text-center">
+                            <a href="<?php echo USER_PROFILE_PATH; ?>">@<?php echo $user_controller->user['Username']; ?></a>
+                         </div>
+                    </div>
+                        <ul class="nav flex-column">
+                              <li class="nav-item">
+                                <a class="nav-link active" href="#">Details about you</a>
+                                  </li>
+                                    <li class="nav-item">
+                                      <a class="nav-link" href="#">Contact and Basic info</a>
+                                       </li>
+                                         <li class="nav-item">
+                                        <a class="nav-link" href="#">Account Preferences</a>
+                                        </li>
+                                      <li class="nav-item">
+                                       <a class="nav-link disabled" href="#">Disabled</a>
+                                   </li>
+                              </ul>
+                       </div>
 
-                        <form method="POST" action="<?php echo USER_PATH ?>" id="edit_user_form" class='col-5 bg-faded'>
+<div class='col-5'>
+  
+                        <form method="POST" action="<?php echo USER_PATH ?>" id="edit_user_form" class=' bg-faded'>
                           <div class="form-group">
                             
                             <label for="name" class="text-weight-bold">Username</label>
@@ -60,8 +72,7 @@
                             <button type="submit" class="btn btn-success">Update Account</button>
                           </div>
                         </form>
-                     <div class='col-3'>
-                        </div>
+                     </div>
 
             </div>
         </section>

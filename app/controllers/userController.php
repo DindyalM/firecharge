@@ -21,6 +21,7 @@ class UserController {
     }
     
     public function createPost() {
+        
         $current_user = current_user();
         if(!$current_user) {
             flash('Must be logged in to do that!', "danger", true);
@@ -41,11 +42,13 @@ class UserController {
         
         if($this->post_model->create($user_id, $current_user['User_Id'], $text, $username)) {
             set_message('Successfully created post!', "success");
-            if(isset($username)) {
-                // header('Location: /public/user.php?page=profile&username=' . $username);    
-                header('Location: ' . USER_PROFILE_PATH . '&username=' . $username);
+            
+            if($user_id == $current_user['User_Id']) {
+                header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username'] . '&action=posts');
+                exit();
             } else {
-                header('Location: ' . USER_INDEX_PATH . '&action=posts');    
+                header('Location: ' . USER_PROFILE_PATH . '&username=' . $username . '&action=posts');
+                exit();
             }
             
             exit();
@@ -87,7 +90,7 @@ class UserController {
         $username = $_GET['username'];
         
         if(!isset($username)) {
-            $this->posts = $this->post_model->findByUserId(current_user()['User_Id']);    
+            $this->posts = $this->post_model->findByUserUsername(current_user()['Username']);
         }
         else {
             $this->posts = $this->post_model->findByUserUsername($username);
@@ -310,7 +313,6 @@ class UserController {
     // MODIFIES: Session
     public function logout() {
         unset($_SESSION['User']);
-        //header( 'Location: /public/user.php?page=index');
         header('Location:'. USER_INDEX_PATH);
         exit();
     }

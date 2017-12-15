@@ -310,7 +310,8 @@ class UserController {
         $new_password = $_POST['new_password'];
         $current_user = current_user();
         $user_id = $current_user['User_Id'];
-         
+        
+       die(var_dump($current_user));
        
         if($new_username == ""){
             set_message("Username cannot be blank!", "danger");

@@ -205,7 +205,7 @@ class UserModel {
     
     // dont use this function unless you're willing to make it actually work
     // use at your own risk
-    private function update($new_username,$new_password,$new_email,$new_bio,$user_id){
+    public function update($new_username,$new_password,$new_email,$new_bio,$user_id){
         
         if(!$this->connect()){
             return false;
@@ -214,15 +214,14 @@ class UserModel {
       
       
         $user=$_SESSION["User"];
-        $email=
+       
         
-         die(var_dump(current_user()));
+         die(var_dump($_SESSION));
 
-        if($new_username != $user["Username"] ){ //if the username is different
+        if($new_username != $user["Username"]  ){ //if the username is different
         
             if(!$this->isValidUserInfo($new_email, $new_username, $new_password)){ //gets caught here
             
-                die("here");
                 return false;
             }
 
@@ -231,6 +230,7 @@ class UserModel {
             $stmt->execute();
 
         }
+        
         
         
         

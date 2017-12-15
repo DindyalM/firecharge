@@ -3,6 +3,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'bootstrap.min.css'; ?>">
         <link rel="stylesheet" type="text/css" href="<?php echo STYLESHEETS_PATH . 'style.css' ?>">
         <script src="<?php echo JAVASCRIPTS_PATH . 'signup.js'; ?>"></script>
+        <script src="<?php echo JAVASCRIPTS_PATH . 'jquery-3.0.0.min.js'; ?>"></script>
         <title>Home | FireCharge</title>
     </head>
     <body>
@@ -52,67 +53,134 @@
         </section>
             
         <?php elseif(logged_in) : ?>
-            <?php echo navbar('home'); ?>
-            <?php echo alert(true) ?>
-            <header>
-                
-            </header>
-                    
-            <section>
-                <div class="container-fluid bg-dark" id="profile-container">
-                    <div class="col-md-12 bg-danger" id="user-header">
-                        
-                    </div>
-                    <div class="row flex-nowrap">
-                        <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box">
-                            <img id="avatar" class="rounded d-block mx-auto" src="https://i.pinimg.com/originals/09/b2/de/09b2deff3d7abfffaa12aed8ee14bbe0.png"/>    
-                            <div id="username_tag" class="text-center">
-                                <a href="<?php echo USER_PROFILE_PATH; ?>">@<?php echo current_user()['Username']; ?></a>
+        <nav class="navbar navbar-light justify-content-between">
+          <a class="navbar-brand text-light">RightSteps</a>
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </nav>
+        <section id="dashboard">
+            <div class="row">
+                <div class="col col-md-2" style="height: 100%;">
+                    <ul class="nav nav-bordered nav-stacked flex-md-column mt-5 text-center">
+                        <li class="nav-header">Links</li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Groups</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Habits</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col col-md-10">
+                    <div class="row">
+                        <div class="col-md-6 mt-5 offset-1">
+                            <div class="dashhead-titles">
+                                <h6 class="dashhead-subtitle">Resolutions</h6>
+                                <h3 class="dashhead-title">Overview</h3>
+                                <a href="#" class="badge badge badge-primary float-right">New Resolution</a>
                             </div>
-                            
+                            <div class="container border border-primary">
+                                <div class="list-group">
+                                  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                      <h5 class="mb-1">Become an elite level athlete</h5>
+                                      <small>21 days ago</small>
+                                    </div>
+                                    <p class="mb-1">I want to place in the top 3 of my school's swimming tournament.</p></p>
+                                    <small></small>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-primary">Edit</button>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-danger">Delete</button>
+                                  </a>
+                                  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                      <h5 class="mb-1">Spend more time with my family.</h5>
+                                      <small class="text-muted">7 days ago</small>
+                                    </div>
+                                    <p class="mb-1">I've been really busy at school and I want to make it an effort to spend more time with my family.</p>
+                                    <small class="text-muted"></small>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-primary">Edit</button>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-danger">Delete</button>
+                                  </a>
+                                  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                      <h5 class="mb-1">Become a guitar master!</h5>
+                                      <small class="text-muted">3 days ago</small>
+                                    </div>
+                                    <p class="mb-1">I want to be able to play wonderwall at my brother's birthday to impress everyone with my awesome guitar playing skills!</p>
+                                    <small class="text-muted"></small>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-primary">Edit</button>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-danger">Delete</button>
+                                  </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col col-sm-8">
-                            <div class="row">
-                                <div class="col col-sm-8 offset-1" style="margin-top: 30px;">
-                                    <div class="bg-light rounded">
-                                        <h3 class="text-dark text-center">Timeline</h3>
+                        
+                        <div class="col col-md-5" style="margin-top: 10%;">
+                            <div class="row mt-5">
+                                <div class="col col-md-5">
+                                    <div class="border rounded border-primary">
+                                        <div class="statcard p-3" style="height: 115px;">
+                                          <h3 class="statcard-number text-light text-center">15</h3>
+                                          <p class="statcard-desc text-light text-center">Days Tracked</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col col-md-5">
+                                    <div class="border rounded border-primary">
+                                        <div class="statcard p-3" style="height: 115px;">
+                                          <h3 class="statcard-number text-light text-center">151</h3>
+                                          <p class="statcard-desc text-light text-center">Profile views</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col col-sm-8 offset-1">
-                                    <div class="card">
-                                      <div class="card-body">
-                                          <form style="display: inline;">
-                                            <input type="hidden" name="page" value="index">
-                                            <input type="submit" class="btn btn-link text-danger" value="Habits"></input>
-                                          </form>
-                                          <form style="display: inline;">
-                                            <input type="hidden" name="page" value="index">
-                                            <input type="hidden" name="action" value="posts">
-                                            <input type="submit" class="btn btn-link text-danger" value="Posts"></input>
-                                          </form>
-                                        <!--<button class="btn btn-link text-danger">Friends</button>-->
-                                        <!--<button class="btn btn-link text-danger">Likes</button>-->
-                                      </div>
-                                        <?php
-                                        
-                                            switch($_GET['action']) {
-                                                case 'posts':
-                                                    echo post_timeline($user_controller->posts, current_user());
-                                                    break;
-                                                default:
-                                                    echo habit_timeline($user_controller->habits, true);
-                                                    break;
-                                            }
-                                        ?>
+                            <div class="row mt-5">
+                                <div class="col col-md-5">
+                                    <div class="border rounded border-primary">
+                                        <div class="statcard p-3" style="height: 115px;">
+                                          <h3 class="statcard-number text-light text-center">3</h3>
+                                          <p class="statcard-desc text-light text-center">Groups Joined</p>
+                                        </div>
                                     </div>
                                 </div>
+                                
+                                <div class="col col-md-5">
+                                    <div class="border rounded border-primary">
+                                        <div class="statcard p-3" style="height: 115px;">
+                                          <h3 class="statcard-number text-light text-center">3</h3>
+                                          <p class="statcard-desc text-light text-center">Goals Accomplished</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mt-5 offset-1">
+                            <div class="dashhead-titles">
+                                <h6 class="dashhead-subtitle">Resolutions</h6>
+                                <h3 class="dashhead-title">Overview</h3>
+                                <a href="#" class="badge badge badge-primary float-right">New Resolution</a>
+                            </div>
+                        </div>
+                        <div class="col col-md-10 mt-5 offset-1" style="height: 20%;">
+                            <h2 class="text-center">Group Progress</h2>
+                            <div class="container bg-light">
+                                
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+            
+        </section>
+        
         <?php endif; ?>
         
     </body>

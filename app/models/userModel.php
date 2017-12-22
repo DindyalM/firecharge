@@ -217,17 +217,46 @@ class UserModel {
        
         
          die(var_dump($_SESSION));
-
-        if($new_username != $user["Username"]  ){ //if the username is different
         
-            if(!$this->isValidUserInfo($new_email, $new_username, $new_password)){ //gets caught here
+        // if they change there email or username or both we need to make sure that they do not put the same data as another user
+        // if they dont change anything then there should be no need to check if the info is valid. 
+        //checks
+        switch ($variable) {
+            case (($new_username != $user["Username"]) && ($new_email != $user["email"])): 
+                
+                if(!$this->isValidUserInfo($new_email, $new_username, $new_password)){
+                    return false;
+                }
+                
+                break;
+            case (($new_username == $user["Username"]) && ($new_email != $user["email"])): //they want to keep this username but change there email
             
-                return false;
-            }
+                if(!$this->isValidUserInfo($new_email, $new_username, $new_password)){
+                    return false;
+                }
+                
+                break;
+            case(($new_username != $user["Username"]) && ($new_email == $user["email"])); //they want to keep there email but change there user name
+            
+                if(!$this->isValidUserInfo($new_email, $new_username, $new_password)){
+                        return false;
+                    }
+                    
+                break;
+            default:
+                break;
+        }
+
+        if(true){ //if the username is different
+        //CAN NOT ADD A NEW USER IF THEY KEEP ALL THERE INFO
+        //THE FUNCITON isValidUserInfo returns false
+        //IF THEY KEEP THE INFO THE SAME DO WE NEED TO STIL VALIDATE IT ?
+        // WHAT IF THEY ONLY CHANGE ONE THING
 
             $stmt=$this->db->prepare("UPDATE User SET Username=? WHERE User_Id=?;");
             $stmt->bind_param("si",$new_username,$user_id);
             $stmt->execute();
+            
 
         }
         

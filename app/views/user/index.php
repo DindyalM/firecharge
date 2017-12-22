@@ -164,9 +164,44 @@
                     <div class="row">
                         <div class="col-md-6 mt-5 offset-1">
                             <div class="dashhead-titles">
-                                <h6 class="dashhead-subtitle">Resolutions</h6>
-                                <h3 class="dashhead-title">Overview</h3>
-                                <a href="#" class="badge badge badge-primary float-right">New Resolution</a>
+                                <h6 class="dashhead-subtitle">Accomplish Your Goals</h6>
+                                <h3 class="dashhead-title">Today's Work</h3>
+                                <a href="#" class="badge badge badge-primary float-right">New Habit</a>
+                            </div>
+                            <div class="container border border-primary">
+                                <div class="list-group">
+                                  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                      <h4 class="mb-1">Go for a 30 minute run.</h4>
+                                      <small>Today</small>
+                                    </div>
+                                    <!--<p class="mb-1">I want to place in the top 3 of my school's swimming tournament.</p></p>-->
+                                    <small>For "Become An Elite Level Athlete" Goal</small>
+                                    <br>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-primary">Edit</button>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-danger">Delete</button>
+                                  </a>
+                                  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                      <h5 class="mb-1">Spend more time with my family.</h5>
+                                      <small class="text-muted">7 days ago</small>
+                                    </div>
+                                    <p class="mb-1">I've been really busy at school and I want to make it an effort to spend more time with my family.</p>
+                                    <small class="text-muted"></small>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-primary">Edit</button>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-danger">Delete</button>
+                                  </a>
+                                  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                      <h5 class="mb-1">Become a guitar master!</h5>
+                                      <small class="text-muted">3 days ago</small>
+                                    </div>
+                                    <p class="mb-1">I want to be able to play wonderwall at my brother's birthday to impress everyone with my awesome guitar playing skills!</p>
+                                    <small class="text-muted"></small>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-primary">Edit</button>
+                                    <button type="button" class="btn btn-sm rounded btn-outline-danger">Delete</button>
+                                  </a>
+                                </div>
                             </div>
                         </div>
                         <div class="col col-md-10 mt-5 offset-1" style="height: 20%;">

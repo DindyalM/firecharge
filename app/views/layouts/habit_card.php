@@ -23,7 +23,10 @@
         $days_since_created = round($seconds_since_created / ( 24 * 60 * 60 ));
         
         if($days_since_created <= 30) {
-            $progress_amount = strval(floor(($days_since_created / 30) * 100));    
+            $progress_amount = strval(floor(($days_since_created / 30) * 100));   
+            $days_tracked = '<p>' . $days_since_created .' days tracked.</p>';
+        } else {
+            $days_tracked = '<p>Tracking complete! Congrats!</p>';
         }
         
         $progress = '<div class="progress">
@@ -36,7 +39,7 @@
                       <div class="card-body">
                         <h4 class="card-title text-dark">' . $habit['Name'] . '</h4>
                         <p class="card-text text-dark">' . $habit['Description'] . '</p>
-                        <p>' . $days_since_created .' days tracked.</p>
+                        ' . $days_tracked . '
                         <a href="' . HABIT_SHOW_PATH . '&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Show</a>
                         ' . $btns . $progress . '
                       </div>

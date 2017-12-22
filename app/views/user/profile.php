@@ -23,7 +23,9 @@
                         <div id="username_tag" class="text-center">
                             <div class="row">
                                 <div class="col-md-4 offset-3">
-                                    <a href="<?php echo USER_PROFILE_PATH; ?>">@<?php echo $user_controller->user['Username']; ?></a>
+                                    <!--<a href="<?php echo USER_PROFILE_PATH; ?>">-->
+                                        <p>@<?php echo $user_controller->user['Username']; ?></p>
+                                        <!--</a>-->
                                 </div>
                                 <div class="col-md-2 offset-1">
                                     <?php 
@@ -35,7 +37,7 @@
                             </div>
                         </div>
                         
-                        <!--<p>Lorem ipsum dolor sit amet, ut prima doming patrioque has, per at esse inermis. Commodo neglegentur sed ad, dictas nonumes delectus te nam. Ea mea dico etiam.</p>-->
+                        <p><?php echo $user_controller->user['Bio']; ?></p>
                     </div>
                     <div class="col col-sm-8">
                         <div class="row">

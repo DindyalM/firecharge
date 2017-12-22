@@ -60,15 +60,16 @@
                     
             <section>
                 <div class="container-fluid bg-dark" id="profile-container">
-                    <div class="col-md-12 bg-danger" id="user-header">
+                    <div class="col-md-12 bg-primary" id="user-header">
                         
                     </div>
                     <div class="row flex-nowrap">
                         <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box">
                             <img id="avatar" class="rounded d-block mx-auto" src="https://i.pinimg.com/originals/09/b2/de/09b2deff3d7abfffaa12aed8ee14bbe0.png"/>    
                             <div id="username_tag" class="text-center">
-                                <a href="<?php echo USER_PROFILE_PATH; ?>">@<?php echo current_user()['Username']; ?></a>
+                                <a href="<?php echo USER_PROFILE_PATH; ?>">@<?php echo $user_controller->current_user['Username']; ?></a>
                             </div>
+                            <p><?php echo $user_controller->current_user['Bio']; ?></p>
                             
                         </div>
                         <div class="col col-sm-8">
@@ -85,12 +86,12 @@
                                       <div class="card-body">
                                           <form style="display: inline;">
                                             <input type="hidden" name="page" value="index">
-                                            <input type="submit" class="btn btn-link text-danger" value="Habits"></input>
+                                            <input type="submit" class="btn btn-link text-primary" value="Habits"></input>
                                           </form>
                                           <form style="display: inline;">
                                             <input type="hidden" name="page" value="index">
                                             <input type="hidden" name="action" value="posts">
-                                            <input type="submit" class="btn btn-link text-danger" value="Posts"></input>
+                                            <input type="submit" class="btn btn-link text-primary" value="Posts"></input>
                                           </form>
                                         <!--<button class="btn btn-link text-danger">Friends</button>-->
                                         <!--<button class="btn btn-link text-danger">Likes</button>-->

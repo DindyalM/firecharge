@@ -14,7 +14,7 @@
             <div class="jumbotron bg-dark">
               <h1 class="display-6 text-white text-center">Edit Habit</h1>
             </div>
-            <div class="container">
+            <div class="container bg-light text-dark">
                 <form method="POST" action="<?php echo HABIT_PATH; ?>" id="edit_habit_form">
                   <div class="form-group">
                     <label for="name">Name</label>

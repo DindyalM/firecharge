@@ -14,7 +14,7 @@
         
         <section id="profile">
             <div class="container-fluid bg-dark" id="profile-container">
-                <div id="user-header" class="col-md-12 bg-danger">
+                <div id="user-header" class="col-md-12 bg-primary">
                     
                 </div>
                 <div class="row flex-nowrap">
@@ -28,7 +28,7 @@
                                 <div class="col-md-2 offset-1">
                                     <?php 
                                         if(current_user()['User_Id'] == $user_controller->user['User_Id']) {
-                                            echo '<a class="btn btn-link-danger" href="' . USER_EDIT_PATH .'&id=' . $user_controller->user['User_Id'] . '">Edit</a>';
+                                            echo '<a class="btn btn-link-primary" href="' . USER_EDIT_PATH .'&id=' . $user_controller->user['User_Id'] . '">Edit</a>';
                                         }
                                     ?>
                                 </div>
@@ -52,16 +52,16 @@
                                       <form style="display: inline;">
                                         <input type="hidden" name="page" value="profile">
                                         <input type="hidden" name="username" value="<?php echo $user_controller->user['Username']; ?>">
-                                        <input type="submit" class="btn btn-link text-danger" value="Habits"></input>
+                                        <input type="submit" class="btn btn-link text-primary" value="Habits"></input>
                                       </form>
                                       <form style="display: inline;">
                                         <input type="hidden" name="page" value="profile">
                                         <input type="hidden" name="action" value="posts">
                                         <input type="hidden" name="username" value="<?php echo $user_controller->user['Username']; ?>">
-                                        <input type="submit" class="btn btn-link text-danger" value="Posts"></input>
+                                        <input type="submit" class="btn btn-link text-primary" value="Posts"></input>
                                       </form>
-                                      <!--<button class="btn btn-link text-danger">Friends</button>-->
-                                      <!--<button class="btn btn-link text-danger">Likes</button>-->
+                                      <!--<button class="btn btn-link text-primary">Friends</button>-->
+                                      <!--<button class="btn btn-link text-primary">Likes</button>-->
                                     </div>
                                         <?php
                                             switch($_GET['action']) {

@@ -90,6 +90,8 @@
                 break;
             case 'index':
                 if(logged_in()){
+                    $user_controller->index();
+                    $user_controller->findPosts(); 
                     switch($_GET['action']) {
                         case 'posts':
                             $user_controller->findPosts(); 

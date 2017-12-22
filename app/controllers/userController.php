@@ -137,6 +137,12 @@ class UserController {
         return true;
     }
     
+    public function index() {
+        if(current_user()) {
+            $this->current_user = $this->user_model->findUserById(current_user()['User_Id']);
+        }
+    }
+    
     // EFFECTS: Finds a users habits through their username, if no id provided
     //          returns the current users habits
     public function findHabits() {
@@ -187,10 +193,7 @@ class UserController {
         $password = @$_POST['password'];
         
         if(!(isset($email) && isset($password))) {
-            
             set_message("Fields can't be blank", "danger");
-            
-            //header('Location: /public/user.php?page=login');
             header('Location:'. USER_LOGIN_PATH);
             exit();
         }
@@ -198,7 +201,6 @@ class UserController {
         $user = $this->user_model->findByEmail($email);
         
         if(!$user) {
-            //header('Location: /public/user.php?page=login');
             header('Location:'. USER_LOGIN_PATH);
             set_message("User doesn't exist!", "danger");
             exit();
@@ -232,6 +234,12 @@ class UserController {
             exit();
         }
         
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            set_message("Not a valid email format!", "danger");
+            header('Location:'. USER_PATH);
+            exit();
+        }
+        
         // check if username in use
         if($this->user_model->findByEmail($email)) {
             set_message("Email already in use!", "danger");
@@ -259,35 +267,23 @@ class UserController {
     //use at your own risk
     // EFFECTS:
     public function edit(){  
-         
-        if(!logged_in()){//simplify? 
-            set_message("Must be logged in first!", "danger");
-            //header("Location: /public/user.php?page=login");
-            header('Location:'. USER_LOGIN_PATH);
-
+        $id = @$_GET['id'];
+        $current_user = current_user();
+        
+    
+        if(!isset($id)) {
+            set_message('User does not exist!', "danger");
+            header('Location:'. USER_INDEX_PATH);
             exit();
         }
-                
-        $id = @$_GET['id'];
-        $current_user=current_user()['User_Id'];
         
-        
-        if($id != $current_user){
-            
-            set_message('Error!', "danger"); 
-            //header('Location: /public/user.php?page=index');
+        if($id != $current_user['User_Id']){
+            set_message('You can\'t edit other people\'s profiles!', "danger"); 
             header('Location:'. USER_INDEX_PATH);
             exit(); 
         }
         
-        if(!isset($id)) {
-            set_message('User does not exist!', "danger");
-            //header('Location: /public/user.php?page=index');
-            header('Location:'. USER_INDEX_PATH);
-            exit();
-        }
-        
-        $user = $this->user_model->findUserById($id);
+        $user = $this->user_model->findUserById($current_user['User_Id']);
         
         
         if($user) {
@@ -296,7 +292,6 @@ class UserController {
         }
        
         set_message('user does not exist!', "danger");
-        //header('Location: /public/user.php?page=index');
         header('Location:'. USER_INDEX_PATH);
         exit();
     }
@@ -304,41 +299,71 @@ class UserController {
     
     //testing do not use
     public function update() {
-        $new_username = $_POST['new_username'];
-        $new_email = $_POST['new_email'];
-        $new_bio = $_POST['new_bio'];
-        $new_password = $_POST['new_password'];
+        $new_username = @$_POST['username'];
+        $new_email = @$_POST['email'];
+        $new_bio = @$_POST['bio'];
+        // $new_password = @$_POST['password'];
         $current_user = current_user();
         $user_id = $current_user['User_Id'];
          
-       
-        if($new_username == ""){
-            set_message("Username cannot be blank!", "danger");
-            header('Location:'. USER_EDIT_PATH."&id=".$user_id);
-            exit(); 
+        $param = [];
+        
+        if(!(!isset($new_username) || $new_username == "" || $new_username == $current_user['Username'])) {
+            if($this->user_model->findByUsername($new_username)) {
+                set_message("Username already in use!", "danger");
+                header('Location:'. USER_EDIT_PATH."&id=" . $user_id);
+                exit();
+            }
+            // die($new_username);
+            $param['Username'] = $new_username;
         }
         
-        if($new_email == "") {
-            set_message("Email cannot be blank!", "danger");
-            header('Location:'. USER_EDIT_PATH."&id=".$user_id);
-            exit(); 
-         }
+        // $user = $this->user_model->findUserById($user_id);
         
-        if($new_password == "") {
-            set_message("Password cannot be blank!", "danger");
-            header('Location:'. USER_EDIT_PATH."&id=".$user_id);
-            exit();
+        // if(!(!isset($new_email) || $new_email == "" || $new_email == $user['Email'])) {
+        //     if(!filter_var($new_email, FILTER_VALIDATE_EMAIL)) {
+        //         set_message("Not a valid email format!", "danger");
+        //         header('Location:'. USER_EDIT_PATH."&id=".$user_id);
+        //         exit();
+        //     }
+            
+        //     if($this->user_model->findByEmail($new_email)) {
+        //         set_message("Email already in use!", "danger");
+        //         header('Location:'. USER_EDIT_PATH."&id=".$user_id);
+        //         exit();
+        //     }
+
+        //     $param['Email'] = $new_username;
+        // }
+        
+        if(isset($new_bio) && $new_bio != "") {
+            if(!(strlen($new_bio) <= 250)) {
+                set_message("Bio must be below 250 characters.", "danger");
+                header('Location:'. USER_EDIT_PATH."&id=" . $user_id);
+                exit();
+            }
+            
+            $param['Bio'] = $new_bio;
         }
         
-        if(!$current_user) {
-            set_message("Must be logged in first!", "danger");
-            header('Location: ' . USER_LOGIN_PATH);
-            exit();
-        }
-   
-        if($this->user_model->update($new_username,$new_password,$new_email,$new_bio,$user_id)) {
+        // if($new_password == "") {
+        //     set_message("Password cannot be blank!", "danger");
+        //     header('Location:'. USER_EDIT_PATH."&id=".$user_id);
+        //     exit();
+        // }
+        
+        // $arr = array('Username' => $new_username, 'Email' => $new_email, 'Bio' => $new_bio);
+        
+        // if($this->user_model->update($new_username,$new_password,$new_email,$new_bio,$user_id)) {
+        
+        if($this->user_model->update($user_id, $param)) {
+            if(isset($param['Username'])) {
+                // $this->logout();
+                $this->createSession($new_username, $user_id);
+            }
+            
             set_message("Succesfully Updated Account!", "success");
-            header('Location: ' . USER_PROFILE_PATH);
+            header('Location: ' . USER_INDEX_PATH);
             exit();
         }
         

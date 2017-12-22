@@ -40,7 +40,7 @@
                 </li>
             ';
         }
-        // e3f2fd
+
         $navbar = '
             <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f8f9fa; color: white;">
                 <nav class="navbar navbar-light" style="background-color: #f8f9fa;">
@@ -57,7 +57,7 @@
                   <input name="action" type="hidden" value="search">
                   <input name="page" type="hidden" value="search">
                   <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search">
-                  <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+                  <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </nav>
         ';

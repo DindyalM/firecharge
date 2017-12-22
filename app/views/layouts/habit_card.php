@@ -27,7 +27,7 @@
         }
         
         $progress = '<div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-danger" 
+                        <div class="progress-bar progress-bar-striped bg-primary" 
                         role="progressbar" style="width: ' . $progress_amount .'%" aria-valuenow="' . $progress_amount . '" 
                         aria-valuemin="0" aria-valuemax="100"></div>
                     </div>';

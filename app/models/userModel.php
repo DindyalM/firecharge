@@ -28,13 +28,6 @@ class UserModel {
         
         return true;
     }
-    
-    // EFFECTS: 
-    // MODIFIES: $_SESSION['user_id']
-    private function createSession($id) {
-        session_start();
-        $_SESSION['User_Id'] = $id;
-    }
 
     public function findAll() {
         if($this->connect()) {
@@ -185,14 +178,6 @@ class UserModel {
         $result->fetch_array(MYSQLI_ASSOC);
         return $result->num_rows > 0;
     }
-
-    // EFFECTS: removes the user from the session
-    // MODIFIES: $_SESSION['user_id']
-    // RETURNS: boolean
-    public function logout() {
-        session_start();
-        unset($_SESSION['User_Id']);
-    }
     
     // EFFECTS: validates the user information
     // REQUIRES: fields must be non empty, password & password_confirm must match
@@ -203,56 +188,40 @@ class UserModel {
         return filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($username) && !empty($password) && !$this->userExists($email, $username);
     }
     
-    // dont use this function unless you're willing to make it actually work
-    // use at your own risk
-    private function update($new_username,$new_password,$new_email,$new_bio,$user_id){
+    // EFFECTS: updates the user with new values
+    // REQUIRES: $params is an assoc array and the keys correspond to 
+    //           the User table column names, and the value with the
+    //           new value
+    public function update($user_id, $params){
+        $this->connect();
         
-        if(!$this->connect()){
-            return false;
-            
-        }
-      
-      
-        $user=$_SESSION["User"];
-        $email=
+        $username = $params['Username'];
+        $email = $params['Email'];
+        $bio = $params['Bio'];
         
-         die(var_dump(current_user()));
-
-        if($new_username != $user["Username"] ){ //if the username is different
         
-            if(!$this->isValidUserInfo($new_email, $new_username, $new_password)){ //gets caught here
-            
-                die("here");
-                return false;
-            }
-
-            $stmt=$this->db->prepare("UPDATE User SET Username=? WHERE User_Id=?;");
-            $stmt->bind_param("si",$new_username,$user_id);
+        if(isset($username)) {
+            $stmt=$this->db->prepare("UPDATE User SET Username = ? WHERE User_Id = ?;");
+            $stmt->bind_param("si", $username, $user_id);
             $stmt->execute();
-
+            $stmt->close();
         }
         
+        if(isset($email)) {
+            $stmt=$this->db->prepare("UPDATE User SET Email = ? WHERE User_Id = ?;");
+            $stmt->bind_param("si", $email, $user_id);
+            $stmt->execute();
+            $stmt->close();
+        }
         
-        
-    //     if(false===$stmt){
-    //         die('prepare() failed: ' . htmlspecialchars($mysqli->error));
+        if(isset($bio)) {
+            $stmt=$this->db->prepare("UPDATE User SET Bio = ? WHERE User_Id = ?;");
+            $stmt->bind_param("si", $bio, $user_id);
+            $stmt->execute();
+            $stmt->close();
+        }
 
-    //     }
-        
-    //   $test = $stmt->bind_param("ssssi",$new_username,crypt($new_password),$new_email,$new_bio,$user_id);
-        
-    //     if(false===$test){
-    //         die('bind_param() failed: ' . htmlspecialchars($stmt->error));
-    //     }
-        
-    //     $test = $stmt->execute();
-        
-    //     if($test===false){
-    //          die('prepare() failed: ' . htmlspecialchars($mysqli->error));
-    //     }
-        
-        
-    //     $stmt->close();
+        return true;
     }
     
     public function delete_user ($username){

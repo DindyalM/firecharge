@@ -166,8 +166,7 @@ class UserController {
         
     }
     
-    // EFFECTS: subscribed the current user another user
-    
+    // EFFECTS: subscribes the current user to another user
     public function subscribe() {
         $user = current_user();
         
@@ -198,7 +197,49 @@ class UserController {
             set_message("Subscribed successfully!", "success");
             header("Refresh:0");
             exit();
-            return true;
+        } 
+        else {
+            set_message("Something went wrong!", "danger");
+            header("Refresh:0");
+            exit();
+        }
+    }
+    
+    // EFFECTS: unsubscribes the current user to another user
+    public function unsubscribe() {
+        $user = current_user();
+        
+        if(!$user) {
+            set_message("User must be logged in to do that!", "danger");
+            header('Location: ' . USER_LOGIN_PATH);
+            exit();
+        }
+        
+        $unsubscribe_to_id = @$_POST['Unsubscribe_To_Id'];
+        
+        if(!$unsubscribe_to_id) {
+            set_message("Something went wrong!", "danger");
+            header("Refresh:0");
+            exit();
+        }
+        
+        $unsubscribe_to_user = $this->user_model->findUserById($unsubscribe_to_id);
+        
+        if(!$unsubscribe_to_user) {
+            set_message("User doesn't exist!", "danger");
+            header("Refresh:0");
+            exit();
+        }
+        
+        if($this->subscription_model->destroy($user['User_Id'], $unsubscribe_to_user['User_Id'])) {
+            set_message("Unsubscribed successfully!", "success");
+            header("Refresh:0");
+            exit();
+        } 
+        else {
+            set_message("Something went wrong!", "danger");
+            header("Refresh:0");
+            exit();
         }
     }
     

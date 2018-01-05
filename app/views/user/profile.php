@@ -37,22 +37,23 @@
                             </div>
                         </div>
                         <?php 
-                            if(!$user_controller->isSubscribedTo($user_controller->user['User_Id'])) {
-                                echo '
-                                    <form style="display: inline;" method="POST">
-                                      <input type="hidden" name="action" value="subscribe">
-                                      <input type="hidden" name="Subscribe_To_Id" value="' . $user_controller->user['User_Id'] . '">
-                                      <input type="submit" class="btn btn-link text-primary" value="Subscribe"></input>
-                                    </form>';
-                            } else {
-                                echo '
-                                    <form style="display: inline;" method="POST">
-                                      <input type="hidden" name="action" value="unsubscribe">
-                                      <input type="hidden" name="Unsubscribe_To_Id" value="' . $user_controller->user['User_Id'] . '">
-                                      <input type="submit" class="btn btn-link text-primary" value="Unsubscribe"></input>
-                                    </form>';
+                            if(!(current_user()['User_Id'] == $user_controller->user['User_Id'])) {
+                                if(!$user_controller->isSubscribedTo($user_controller->user['User_Id'])) {
+                                    echo '
+                                        <form style="display: inline;" method="POST">
+                                          <input type="hidden" name="action" value="subscribe">
+                                          <input type="hidden" name="Subscribe_To_Id" value="' . $user_controller->user['User_Id'] . '">
+                                          <input type="submit" class="btn btn-link text-primary" value="Subscribe"></input>
+                                        </form>';
+                                } else {
+                                    echo '
+                                        <form style="display: inline;" method="POST">
+                                          <input type="hidden" name="action" value="unsubscribe">
+                                          <input type="hidden" name="Unsubscribe_To_Id" value="' . $user_controller->user['User_Id'] . '">
+                                          <input type="submit" class="btn btn-link text-primary" value="Unsubscribe"></input>
+                                        </form>';
+                                }
                             }
-
                         ?>
                         <p><?php //echo '<a class="btn btn-link-primary" href="">Subscribe</a>'; ?></p>
                         <p><?php echo $user_controller->user['Bio']; ?></p>

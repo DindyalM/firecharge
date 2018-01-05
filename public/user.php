@@ -53,6 +53,9 @@
             case 'subscribe':
                 $user_controller->subscribe();
                 break;
+            case 'unsubscribe':
+                $user_controller->unsubscribe();
+                break;
             case 'create':
                 $user_controller->create();
                 break;

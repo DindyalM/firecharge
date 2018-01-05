@@ -54,25 +54,13 @@
         <?php elseif(logged_in) : ?>
             <?php echo navbar('home'); ?>
             <?php echo alert(true) ?>
-            <header>
+            
+            <div class="row flex-nowrap">
+                <!--<div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box">-->
+
+                <!--</div>-->
                 
-            </header>
-                    
-            <section>
-                <div class="container-fluid bg-dark" id="profile-container">
-                    <div class="col-md-12 bg-primary" id="user-header">
-                        
-                    </div>
-                    <div class="row flex-nowrap">
-                        <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box">
-                            <img id="avatar" class="rounded d-block mx-auto" src="https://i.pinimg.com/originals/09/b2/de/09b2deff3d7abfffaa12aed8ee14bbe0.png"/>    
-                            <div id="username_tag" class="text-center">
-                                <a href="<?php echo USER_PROFILE_PATH; ?>">@<?php echo $user_controller->current_user['Username']; ?></a>
-                            </div>
-                            <p><?php echo $user_controller->current_user['Bio']; ?></p>
-                            
-                        </div>
-                        <div class="col col-sm-8">
+                <div class="col col-sm-8 offset-sm-3">
                             <div class="row">
                                 <div class="col col-sm-8 offset-1" style="margin-top: 30px;">
                                     <div class="bg-light rounded">
@@ -83,37 +71,91 @@
                             <div class="row">
                                 <div class="col col-sm-8 offset-1">
                                     <div class="card">
-                                      <div class="card-body">
-                                          <form style="display: inline;">
-                                            <input type="hidden" name="page" value="index">
-                                            <input type="submit" class="btn btn-link text-primary" value="Habits"></input>
-                                          </form>
-                                          <form style="display: inline;">
-                                            <input type="hidden" name="page" value="index">
-                                            <input type="hidden" name="action" value="posts">
-                                            <input type="submit" class="btn btn-link text-primary" value="Posts"></input>
-                                          </form>
-                                        <!--<button class="btn btn-link text-danger">Friends</button>-->
-                                        <!--<button class="btn btn-link text-danger">Likes</button>-->
-                                      </div>
-                                        <?php
-                                        
-                                            switch($_GET['action']) {
-                                                case 'posts':
-                                                    echo post_timeline($user_controller->posts, current_user());
-                                                    break;
-                                                default:
-                                                    echo habit_timeline($user_controller->habits, true);
-                                                    break;
-                                            }
-                                        ?>
+                                        <div class="card-body">
+                                            <p class="text-dark mt-3 mb-0">Subscription Activity</p>
+                                          <!--<form style="display: inline;">-->
+                                          <!--  <input type="hidden" name="page" value="profile">-->
+                                          <!--  <input type="hidden" name="username" value="<?php// echo $user_controller->user['Username']; ?>">-->
+                                          <!--  <input type="submit" class="btn btn-link text-primary" value="Subscription Activity"></input>-->
+                                          <!--</form>-->
+                                        </div>
+                                            <?php
+                                                echo subscription_timeline($user_controller->subscriptions);
+                                            ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!--<section>-->
+            <!--    <div class="container-fluid bg-dark" id="profile-container">-->
+            <!--        <div class="col-md-12 bg-primary" id="user-header">-->
+                        
+            <!--        </div>-->
+            <!--        <div class="row flex-nowrap">-->
+            <!--            <div class="col col-md-2 offset-sm-1 font-weight-light text-left" id="bio-box">-->
+            <!--                <img id="avatar" class="rounded d-block mx-auto" src="https://i.pinimg.com/originals/09/b2/de/09b2deff3d7abfffaa12aed8ee14bbe0.png"/>    -->
+            <!--                <div id="username_tag" class="text-center">-->
+            <!--                    <a href="<?php echo USER_PROFILE_PATH; ?>">@<?php echo $user_controller->current_user['Username']; ?></a>-->
+            <!--                </div>-->
+                            <!--<p><?php //echo $user_controller->current_user['Bio']; ?></p>-->
+                            
+            <!--            </div>-->
+            <!--            <div class="col col-sm-8">-->
+            <!--                <div class="row">-->
+            <!--                    <div class="col col-sm-8 offset-1" style="margin-top: 30px;">-->
+            <!--                        <div class="bg-light rounded">-->
+            <!--                            <h3 class="text-dark text-center">Timeline</h3>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="row">-->
+            <!--                    <div class="col col-sm-8 offset-1">-->
+            <!--                        <div class="card">-->
+            <!--                          <div class="card-body">-->
+            <!--                              <form style="display: inline;">-->
+            <!--                                <input type="hidden" name="page" value="index">-->
+            <!--                                <input type="submit" class="btn btn-link text-primary" value="Habits"></input>-->
+            <!--                              </form>-->
+            <!--                              <form style="display: inline;">-->
+            <!--                                <input type="hidden" name="page" value="index">-->
+            <!--                                <input type="hidden" name="action" value="posts">-->
+            <!--                                <input type="submit" class="btn btn-link text-primary" value="Posts"></input>-->
+            <!--                              </form>-->
+                                        <!--<button class="btn btn-link text-danger">Friends</button>-->
+                                        <!--<button class="btn btn-link text-danger">Likes</button>-->
+            <!--                          </div>-->
+                                         <?php
+                                        
+                                            // switch($_GET['action']) {
+                                                // case 'posts':
+                                                    // echo post_timeline($user_controller->posts, current_user());
+                                                    // break;
+                                                // default:
+                                                    // echo habit_timeline($user_controller->habits, true);
+                                                    // break;
+                                            // }
+                                        ?>
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--    </div>-->
+            <!--</section>-->
         <?php endif; ?>
         
     </body>

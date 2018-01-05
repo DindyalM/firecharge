@@ -7,6 +7,7 @@ class UserController {
         $this->user_model = new UserModel();
         $this->habit_model = new HabitModel();
         $this->post_model = new PostModel();
+        $this->subscription_model = new SubscriptionModel();
     }
     
     // EFFECTS: finds a user from the database with the username
@@ -140,6 +141,58 @@ class UserController {
     public function index() {
         if(current_user()) {
             $this->current_user = $this->user_model->findUserById(current_user()['User_Id']);
+        }
+    }
+    
+    
+    // EFFECTS: finds data from the users the current user is subscriped to
+    // MODIFIES: $this->subscriptions
+    public function findSubscriptions() {
+        $user = current_user();
+        
+        if(!$user) {
+            set_message("User must be logged in to do that!", "danger");
+            header('Location: ' . USER_LOGIN_PATH);
+            exit();
+        }
+        
+        $this->subscriptions = $this->subscription_model->findSubscriptionsByUserId($user['User_Id']);
+        
+    }
+    
+    // EFFECTS: subscribed the current user another user
+    
+    public function subscribe() {
+        $user = current_user();
+        
+        if(!$user) {
+            set_message("User must be logged in to do that!", "danger");
+            header('Location: ' . USER_LOGIN_PATH);
+            exit();
+        }
+        
+        $subscribe_to_id = @$_POST['Subscribe_To_Id'];
+        
+        
+        if(!$subscribe_to_id) {
+            set_message("Something went wrong!", "danger");
+            header("Refresh:0");
+            exit();
+        }
+        
+        $subscribe_to_user = $this->user_model->findUserById($subscribe_to_id);
+        
+        if(!$subscribe_to_user) {
+            set_message("User doesn't exist!", "danger");
+            header("Refresh:0");
+            exit();
+        }
+        
+        if($this->subscription_model->create($subscribe_to_user['User_Id'], $user['User_Id'])) {
+            set_message("Subscribed successfully!", "success");
+            header("Refresh:0");
+            exit();
+            return true;
         }
     }
     

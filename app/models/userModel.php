@@ -1,33 +1,7 @@
 <?php
-class UserModel {
-    
-    private $db;
+class UserModel extends Model {
     
     public function __construct() {}
-    
-    // EFFECTS: sets $db to the database connection
-    // MODIFIES: $db
-    // REQUIRES: there must be a database with name in database variable
-    // RETURNS: boolean
-    // EXCEPTION: Throws an exception when it fails to connect to the database
-    private function connect() {
-        // Check connection
-        $servername = getenv('IP');
-        $username = getenv('C9_USER');
-        $password = "";
-        $database = "dev";
-        $dbport = 3306;
-         
-        // Create connection
-        $this->db = new mysqli($servername, $username, $password, $database, $dbport);
-
-        // Check connection
-        if ($this->db->connect_error) {
-            throw new Exception($this->db->connect_error);
-        }
-        
-        return true;
-    }
 
     public function findAll() {
         if($this->connect()) {
@@ -125,6 +99,7 @@ class UserModel {
         
         return $result;
     }
+    
     
     public function findByEmail($email) {
         $this->connect();

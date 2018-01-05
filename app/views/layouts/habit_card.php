@@ -5,11 +5,11 @@
             // $btns = '<a href="/public/habit.php?page=edit&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Update</a>
             //         <a href="/public/habit.php?id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Delete</a>
             //          ';
-            $btns = '<a href="' . HABIT_EDIT_PATH .'&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Update</a>
+            $btns = '<a href="' . HABIT_EDIT_PATH .'&id=' . $habit['Habit_Id'] .'" class="btn btn-dark mt-2">Update</a>
                      <form class="d-inline" method="POST" action="' . HABIT_PATH .'">
                         <input name="action" type="hidden" value="delete">
                         <input name="Habit_Id" type="hidden" value="' . $habit['Habit_Id'] .'">
-                        <input class="btn btn-link-dark text-dark" type="submit" value="Delete"></input>
+                        <!-- <input class="btn btn-link-dark text-dark" type="submit" value="Delete"></input> -->
                      </form>';
                     //  <a href="' . HABIT_PATH . '?action=delete&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Delete</a>
              
@@ -35,15 +35,27 @@
                         aria-valuemin="0" aria-valuemax="100"></div>
                     </div>';
             
-        $card = '<div class="card mt-2 mb-2">
-                      <div class="card-body">
-                        <h4 class="card-title text-dark">' . $habit['Name'] . '</h4>
-                        <p class="card-text text-dark">' . $habit['Description'] . '</p>
-                        ' . $days_tracked . '
-                        <a href="' . HABIT_SHOW_PATH . '&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Show</a>
-                        ' . $btns . $progress . '
-                      </div>
-                  </div>';
+        // $card = '<div class="card mt-2 mb-2">
+        //               <div class="card-body">
+        //                 <h4 class="card-title text-dark">' . $habit['Name'] . '</h4>
+        //                 <p class="card-text text-dark">' . $habit['Description'] . '</p>
+        //                 ' . $days_tracked . '
+        //                 <a href="' . HABIT_SHOW_PATH . '&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Show</a>
+        //                 ' . $btns . $progress . '
+        //               </div>
+        //           </div>';
+                  
+                  
+                  $card = '<div class="card bg-faded mt-2 mb-2 p-2" style="background-color:#f8f9faff">
+                              <div class="card-body">
+                              <h4 class="card-title">'. $habit['Name']. '</h4>
+                              <span class="glyphicon glyphicon-remove">d</span>
+                              <p class="card-text">'. $habit["Description"] . 
+                              $progress . $btns . 
+                              '</div>
+                          </div>'
+                                         ;
+                  
         return $card;
     }
 ?>

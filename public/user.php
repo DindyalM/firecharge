@@ -16,8 +16,12 @@
     $model = realpath('./../app/models/' . 'user' . 'Model.php');
     $controller = realpath('./../app/controllers/' . 'user' . 'Controller.php');
     
+    
+    require(realpath('./../app/models/Model.php'));
+    
     require(realpath('./../app/models/habitModel.php'));
     require(realpath('./../app/models/postModel.php'));
+    require(realpath('./../app/models/subscriptionModel.php'));
     
     require(realpath('./../app/views/layouts/navbar.php'));
     require(realpath('./../app/views/layouts/user_card.php'));
@@ -26,6 +30,8 @@
     require(realpath('./../app/views/layouts/post_card.php'));
     require(realpath('./../app/views/layouts/post_timeline.php'));
     require(realpath('./../app/views/layouts/habit_card.php'));
+    require(realpath('./../app/views/layouts/subscription_timeline.php'));
+    require(realpath('./../app/views/layouts/subscription_card.php'));
     require(realpath('./../app/controllers/helpers.php'));
     
     
@@ -43,6 +49,9 @@
     
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         switch(get('action')) {
+            case 'subscribe':
+                $user_controller->subscribe();
+                break;
             case 'create':
                 $user_controller->create();
                 break;
@@ -91,15 +100,7 @@
             case 'index':
                 if(logged_in()){
                     $user_controller->index();
-                    $user_controller->findPosts(); 
-                    switch($_GET['action']) {
-                        case 'posts':
-                            $user_controller->findPosts(); 
-                            break;
-                        default:
-                            $user_controller->findHabits(); 
-                            break;
-                    }
+                    $user_controller->findSubscriptions();
                 }
                 break;
             case "edit":

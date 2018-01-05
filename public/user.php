@@ -45,6 +45,7 @@
     
     $user_model = new UserModel();
     $post_model = new PostModel();
+    $subscription_model = new SubscriptionModel();
     $user_controller = new UserController();
     
     if($_SERVER['REQUEST_METHOD'] == "POST") {

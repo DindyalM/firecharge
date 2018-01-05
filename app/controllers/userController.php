@@ -21,6 +21,12 @@ class UserController {
         $this->users = $this->user_model->searchByUsername($query);
     }
     
+    // EFFECTS: checks to see if the current user is subscribed to the user
+    //          associated with $user_id
+    public function isSubscribedTo($user_id) {
+        return $this->subscription_model->subscriptionExists(current_user()['User_Id'], $user_id);
+    }
+    
     public function destroyPost() {
         $current_user = current_user();
         $user_id = @$_POST['user_id'];
@@ -188,7 +194,7 @@ class UserController {
             exit();
         }
         
-        if($this->subscription_model->create($subscribe_to_user['User_Id'], $user['User_Id'])) {
+        if($this->subscription_model->create($user['User_Id'], $subscribe_to_user['User_Id'])) {
             set_message("Subscribed successfully!", "success");
             header("Refresh:0");
             exit();

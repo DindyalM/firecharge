@@ -38,11 +38,24 @@ class SubscriptionModel extends Model {
         return true;
     }
     
+    public function subscriptionExists($subscriber_id, $subscribed_to_id) {
+        $this->connect();
+
+        $stmt = $this->db->prepare("SELECT * FROM Subscription WHERE Subscriber_Id=? AND Subscribed_To_Id=?");
+        $stmt->bind_param('ii', $subscriber_id, $subscribed_to_id);
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $result->fetch_array(MYSQLI_ASSOC);
+        return $result->num_rows > 0;
+    }
+    
     //     // EFFECTS: unsubscribe subscribee from subscriber
     // public function destroy($subscribed_to_id, $subscriber_id) {
     //     $this->connect();
         
-    //     $stmt = $this->db->prepare('DELETE FROM Subscription WHERE Subscriber_Id = ? AND Subscribed_To_Id = ?'); 
+    //     $stmt = $this->db->prepare('DELETE FROM Subscription WHERE Subscriber_Id=? AND Subscribed_To_Id=?'); 
     //     $stmt->bind_param('ii',$subscriber_id,$subscribed_to_id);
     //     $stmt->execute();
         

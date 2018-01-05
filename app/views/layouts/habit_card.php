@@ -49,7 +49,7 @@
                   $card = '<div class="card bg-faded mt-2 mb-2 p-2" style="background-color:#f8f9faff">
                               <div class="card-body">
                               <h4 class="card-title">'. $habit['Name']. '</h4>
-                              <span class="glyphicon glyphicon-remove">d</span>
+
                               <p class="card-text">'. $habit["Description"] . 
                               $progress . $btns . 
                               '</div>

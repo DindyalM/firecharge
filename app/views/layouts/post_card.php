@@ -10,9 +10,9 @@
            </form>';
         }
         
-        $card = '<div class="card mt-2 mb-2">
+        $card = '<div class="card mt-2 mb-2 border-primary" >
                    <div class="card-body">
-                     <p class="text-dark">@' . $post['Username'] . '</p>
+                     <h4 class="card-title text-dark">@' . $post['Username'] . '</h4>
                     <p class="card-text text-dark">' . $post['Text'] . '</p>
                      ' . $delete_form . '
                    </div>
@@ -20,3 +20,12 @@
         return $card;
     }
 ?>
+
+                  <!--$card = '<div class="card bg-faded mt-2 mb-2 p-2" style="background-color:#f8f9faff">-->
+                  <!--            <div class="card-body">-->
+                  <!--            <h4 class="card-title">'. $habit['Name']. '</h4>-->
+
+                  <!--            <p class="card-text">'. $habit["Description"] . -->
+                  <!--            $progress . $btns . -->
+                  <!--            '</div>-->
+                  <!--        </div>'-->

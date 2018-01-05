@@ -4,7 +4,6 @@
 //          if show_habit_create is true or the username param in the url is equal
 //          to the current user's username
 function subscription_timeline($data) {
-    return var_dump($data);
     $timeline = "";
     $form = '<div id="timeline" class="row">
                   <div class="col-md-10 offset-1">
@@ -22,11 +21,12 @@ function subscription_timeline($data) {
     //     $timeline = $form;
     // }
     // insert data into timeline
-    // if($data) {
-    //     foreach($data as $d) {
-    //         $timeline = $timeline . habit_card($d);
-    //     }
-    // }
+    if($data) {
+        foreach($data as $d) {
+          // echo '<p class="text-dark">'.var_dump($d).'</p>';
+            $timeline = $timeline . subscription_post_card($d);
+        }
+    }
         
     $timeline = $timeline . '</div>
                         </div>

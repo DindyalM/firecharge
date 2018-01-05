@@ -104,7 +104,7 @@
             case 'index':
                 if(logged_in()){
                     $user_controller->index();
-                    $user_controller->findSubscriptions();
+                    $user_controller->findSubscriptionPosts();
                 }
                 break;
             case "edit":

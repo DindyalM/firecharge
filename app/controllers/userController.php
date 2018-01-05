@@ -153,7 +153,7 @@ class UserController {
     
     // EFFECTS: finds data from the users the current user is subscriped to
     // MODIFIES: $this->subscriptions
-    public function findSubscriptions() {
+    public function findSubscriptionPosts() {
         $user = current_user();
         
         if(!$user) {
@@ -162,8 +162,7 @@ class UserController {
             exit();
         }
         
-        $this->subscriptions = $this->subscription_model->findSubscriptionsByUserId($user['User_Id']);
-        
+        $this->subscriptionPosts = $this->subscription_model->findSubscriptionPostsByUserId($user['User_Id']);
     }
     
     // EFFECTS: subscribes the current user to another user

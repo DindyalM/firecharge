@@ -12,6 +12,8 @@
     $controller = '../app/controllers/habitController.php';
     
     
+    require('../app/models/Model.php');
+    
     require('../app/views/layouts/navbar.php');
     require('../app/views/layouts/alert.php');
     require('../app/views/layouts/post_card.php');

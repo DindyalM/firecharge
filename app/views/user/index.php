@@ -80,7 +80,8 @@
                                           <!--</form>-->
                                         </div>
                                             <?php
-                                                echo subscription_timeline($user_controller->subscriptions);
+                                                // subscription_timeline($user_controller->subscriptionHabits);
+                                                echo subscription_timeline($user_controller->subscriptionPosts);
                                             ?>
                                     </div>
                                 </div>

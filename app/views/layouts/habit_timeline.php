@@ -27,7 +27,7 @@ function habit_timeline($habits, $show_habit_create=false) {
         }
     }
     else {
-        $timeline = '<p class="text-dark">User hasn\'t tracked any of their habits yet!</p>';
+        $timeline = no_posts_card();
     }
         
     $timeline = $timeline . '</div>

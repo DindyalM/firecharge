@@ -20,13 +20,20 @@
                  </div>';
         return $card;
     }
+    
+    function no_posts_card() {
+        $card = '<div class="card text-center">
+                    <div class="card-header text-dark">
+                        User hasn\'t tracked any habits yet!
+                    </div>
+                    <div class="card-body">
+                        <a href="' . USER_PATH .'" class="btn btn-dark">Go Home</a>
+                    </div>
+                        <div class="card-footer text-muted">
+                        </div>
+                    </div>';
+                    
+        return $card;
+    }
 ?>
-
-        <!--$card = '<div class="card mt-2 mb-2 border-primary p-1 text-center" >-->
-        <!--           <div class="card-body">-->
-        <!--             <h4 class="card-title text-dark">@' . $post['Username'] . '</h4>-->
-        <!--            <p class="card-text text-dark">' . $post['Text'] . '</p>-->
-        <!--             ' . $delete_form . '-->
-        <!--           </div>-->
-        <!--         </div>';-->
 

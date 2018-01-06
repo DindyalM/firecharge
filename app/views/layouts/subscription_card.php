@@ -36,4 +36,28 @@
  
         return $card;
     }
+    
+    function no_subscriptions_card() {
+        
+        $search_form = '<form class=" my-2 my-lg-0" method="GET" action="' . USER_PATH . '">
+                          <input name="action" type="hidden" value="search">
+                          <input name="page" type="hidden" value="search">
+                          <input name="search" class="form-control text-center mb-3" style="width: 200px; margin: 0 auto;" type="search" placeholder="Enter a term!">
+                          <button class="btn btn-dark" type="submit">Search For Users</button>
+                        </form>';
+        
+        $card = '<div class="card text-center text-dark">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                    <h5 class="card-title">hmm...</h5>
+                    <p class="card-text">Looks like you haven\'t subscribed to any users yet!</p>
+                    ' . $search_form .'
+                    </div>
+                        <div class="card-footer text-muted">
+                        </div>
+                    </div>';
+                    
+        return $card;
+    }
 ?>

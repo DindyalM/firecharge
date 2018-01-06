@@ -42,7 +42,7 @@ class SubscriptionModel extends Model {
             return false;
         }
         
-        return $result->fetch_all(FETCH_ASSOC);
+        return $result;
     }
     
     // EFFECTS: finds users whom the correlated user_id is subscribed to
@@ -91,6 +91,43 @@ class SubscriptionModel extends Model {
         }
         
         return true;
+    }
+    public function findSubscriptionsByUserId($subscriber_id) {
+        $this->connect();
+        
+        $stmt = $this->db->prepare('SELECT User_Id, Username, Bio FROM Subscription s
+                                    INNER JOIN User u ON u.User_Id=s.Subscribed_To_Id
+                                    WHERE Subscriber_Id=?'); 
+        
+        $stmt->bind_param('i',$subscriber_id);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        
+        if($this->db->error) {
+            return false;
+        }
+        
+        return $result;
+    }
+    
+    public function findSubscribersByUserId($subscriber_id) {
+         
+        $this->connect();
+         
+        $stmt = $this->db->prepare('SELECT User_Id, Username, Bio FROM Subscription s
+                                    INNER JOIN User u ON u.User_Id=s.Subscriber_Id
+                                    WHERE Subscribed_To_Id=?'); 
+        $stmt->bind_param('i', $subscriber_id);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        
+        if($this->db->error) {
+            return false;
+        }
+        
+        return $result;
     }
 }
 ?>

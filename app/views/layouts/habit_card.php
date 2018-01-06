@@ -1,7 +1,7 @@
 <?php
     function habit_card($habit) {
         $btns = "";
-        if(current_user()['User_Id'] === $habit['User_Id']) {
+        if(current_user()['User_Id'] == $habit['User_Id']) {
             // $btns = '<a href="/public/habit.php?page=edit&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Update</a>
             //         <a href="/public/habit.php?id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Delete</a>
             //          ';
@@ -12,7 +12,6 @@
                         <input class="btn btn-dark mt-2 ml-3" type="submit" value="Delete"></input>
                      </form>';
                     //  <a href="' . HABIT_PATH . '?action=delete&id=' . $habit['Habit_Id'] .'" class="btn btn-link-dark text-dark">Delete</a>
-             
         }
         #<a href="/public/habit.php?action=delete&id=" class="btn btn-link-dark text-dark">Delete</a>
         
@@ -24,31 +23,29 @@
         
         if($days_since_created <= 30) {
             $progress_amount = strval(floor(($days_since_created / 30) * 100));   
-            $days_tracked = '<p>' . $days_since_created .' days tracked.</p>';
+            $days_tracked = '<p class="font-weight-light">Progress: ' . $days_since_created .' days tracked!</p>';
         } else {
-            $days_tracked = '<p>Tracking complete! Congrats!</p>';
+            $days_tracked = '<p class="font-weight-light">Tracking complete! Congrats!</p>';
         }
         
-        $progress = '<div class="progress">
-                        <div class="progress-bar bg-dark" 
-                        role="progressbar" style="width: ' . $progress_amount .'%" aria-valuenow="' . $progress_amount . '" 
-                        aria-valuemin="0" aria-valuemax="100"><strong class="ml-2">Progress</strong>
-                        <strong class="text-dark float-right"> '.$progress_amount .' </strong>
-                     </div>
+        $progress = $days_tracked .'
+                    <div class="progress">
+                        <div class="progress-bar bg-dark" role="progressbar" style="width: ' . $progress_amount .'%;" aria-valuenow="' . $progress_amount . '" 
+                        aria-valuemin="0" aria-valuemax="100"></div>
                     </div>';
-                    
+                
 
 
-                  
-                  
-                  $card = '<div class="text-dark card bg-faded mt-2 mb-2 p-2" style="background-color:#f8f9faff">
-                              <div class="card-body">
-                              <h4 class="card-title">'. $habit['Name']. '</h4>
+              
+              
+        $card = '<div class="text-dark card bg-faded mt-2 mb-2" style="background-color:#f8f9faff">
+                  <div class="card-body">
+                  <h4 class="card-title">'. $habit['Name']. '</h4>
 
-                              <p class="card-text">'. $habit["Description"] . 
-                              $progress . $btns . 
-                              '</div>
-                          </div>'
+                  <p class="card-text">'. $habit["Description"] . 
+                  $progress . $btns . 
+                  '</div>
+                </div>'
                                          ;
                   
         return $card;

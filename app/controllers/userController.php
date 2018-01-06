@@ -27,6 +27,23 @@ class UserController {
         return $this->subscription_model->subscriptionExists(current_user()['User_Id'], $user_id);
     }
     
+    // EFFECTS: checks to see if the current user is subscribed to by the user
+    //          associated with $user_id
+    public function isSubscriptionOf($user_id) {
+        return $this->subscription_model->subscriptionExists($user_id, current_user()['User_Id']);
+    }
+    
+    // EFFECTS: gets the amount of users that follow a user
+    public function subscriberCount($user_id) {
+        return $this->subscription_model->findSubscribersByUserId($user_id)->field_count;
+    }
+    
+    // EFFECTS: gets the amount of users that a user follows
+    public function subscriptionCount($user_id) {
+        echo(var_dump($this->subscription_model->findSubscriptionsByUserId($user_id));
+        return $this->subscription_model->findSubscriptionsByUserId($user_id)->field_count;
+    }
+    
     public function destroyPost() {
         $current_user = current_user();
         $user_id = @$_POST['user_id'];
@@ -124,10 +141,11 @@ class UserController {
         return false;
     }
     
+    // EFFECTS: Gets the posts for the user
     public function findPosts() {
         $user = current_user();
         if(!$user) {
-            set_message("User must be logged in to do that!", "danger");
+            set_message("You must be logged in to do that!", "danger");
             header('Location: ' . USER_LOGIN_PATH);
             exit();
         }
@@ -144,6 +162,46 @@ class UserController {
         return true;
     }
     
+    // EFFECTS: Gets the subscriptions for the user
+    public function findSubscriptions() {
+        $user = current_user();
+        if(!$user) {
+            set_message("You must be logged in to do that!", "danger");
+            header('Location: ' . USER_LOGIN_PATH);
+            exit();
+        }
+        
+        $subscriber_id = $_GET['subscriber_id'];
+        
+        if(!isset($subscriber_id)) {
+            set_message("Something went wrong!", "danger");
+            header("Refresh:0");
+            exit();
+        }
+        
+        $this->subscriptions = $this->subscription_model->findSubscriptionsByUserId($subscriber_id);
+    }
+    
+    // EFFECTS: Gets the subscribers for the user
+    public function findSubscribers() {
+        $user = current_user();
+        if(!$user) {
+            set_message("You must be logged in to do that!", "danger");
+            header('Location: ' . USER_LOGIN_PATH);
+            exit();
+        }
+        
+        $subscription_id = $_GET['subscription_id'];
+        
+        if(!isset($subscription_id)) {
+            set_message("Something went wrong!", "danger");
+            header("Refresh:0");
+            exit();
+        }
+        
+        $this->subscribers = $this->subscription_model->findSubscribersByUserId($subscription_id);
+    }
+    
     public function index() {
         if(current_user()) {
             $this->current_user = $this->user_model->findUserById(current_user()['User_Id']);
@@ -157,7 +215,7 @@ class UserController {
         $user = current_user();
         
         if(!$user) {
-            set_message("User must be logged in to do that!", "danger");
+            set_message("You must be logged in to do that!", "danger");
             header('Location: ' . USER_LOGIN_PATH);
             exit();
         }
@@ -170,7 +228,7 @@ class UserController {
         $user = current_user();
         
         if(!$user) {
-            set_message("User must be logged in to do that!", "danger");
+            set_message("You must be logged in to do that!", "danger");
             header('Location: ' . USER_LOGIN_PATH);
             exit();
         }
@@ -192,6 +250,12 @@ class UserController {
             exit();
         }
         
+        if($this->isSubscribedTo($subscribe_to_id)) {
+            set_message("You are already subscribed to that user!", "danger");
+            header("Refresh:0");
+            exit();
+        }
+        
         if($this->subscription_model->create($user['User_Id'], $subscribe_to_user['User_Id'])) {
             set_message("Subscribed successfully!", "success");
             header("Refresh:0");
@@ -209,7 +273,7 @@ class UserController {
         $user = current_user();
         
         if(!$user) {
-            set_message("User must be logged in to do that!", "danger");
+            set_message("You must be logged in to do that!", "danger");
             header('Location: ' . USER_LOGIN_PATH);
             exit();
         }
@@ -247,7 +311,7 @@ class UserController {
     public function findHabits() {
         $user = current_user();
         if(!$user) {
-            set_message("User must be logged in to do that!", "danger");
+            set_message("You must be logged in to do that!", "danger");
             header('Location: ' . USER_LOGIN_PATH);
             exit();
         }

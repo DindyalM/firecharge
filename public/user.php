@@ -96,13 +96,19 @@
                     case 'posts':
                         $user_controller->findPosts(); 
                         break;
+                    case 'subscriptions':
+                        $user_controller->findSubscriptions(); 
+                        break;
+                    case 'subscribers':
+                        $user_controller->findSubscribers(); 
+                        break;
                     default:
                         $user_controller->findHabits(); 
                         break;
                 }
                 break;
             case 'index':
-                if(logged_in()){
+                if(logged_in()) {
                     $user_controller->index();
                     $user_controller->findSubscriptionPosts();
                 }

@@ -26,6 +26,9 @@ function habit_timeline($habits, $show_habit_create=false) {
             $timeline = $timeline . habit_card($habit);
         }
     }
+    else {
+        $timeline = '<p class="text-dark">User hasn\'t tracked any of their habits yet!</p>';
+    }
         
     $timeline = $timeline . '</div>
                         </div>

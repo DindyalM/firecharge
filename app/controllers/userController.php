@@ -35,13 +35,12 @@ class UserController {
     
     // EFFECTS: gets the amount of users that follow a user
     public function subscriberCount($user_id) {
-        return $this->subscription_model->findSubscribersByUserId($user_id)->field_count;
+        return $this->subscription_model->findSubscribersByUserId($user_id)->num_rows;
     }
     
     // EFFECTS: gets the amount of users that a user follows
     public function subscriptionCount($user_id) {
-        echo(var_dump($this->subscription_model->findSubscriptionsByUserId($user_id));
-        return $this->subscription_model->findSubscriptionsByUserId($user_id)->field_count;
+        return $this->subscription_model->findSubscriptionsByUserId($user_id)->num_rows;
     }
     
     public function destroyPost() {

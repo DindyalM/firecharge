@@ -14,7 +14,7 @@
         </header>
         
         <div class="container bg-light">
-            <form method="POST" action="<?php echo USER_PATH; ?>" onsubmit="return validateInput();">
+            <form method="POST" action="<?php echo USER_CREATE_PATH; ?>" onsubmit="return validateInput();">
                 <div class="form-group">
                     <label for="email" class="text-dark">Email address</label>
                     <input id="email" class="form-control" name='email' type='email' placeholder="Enter Email"></input>

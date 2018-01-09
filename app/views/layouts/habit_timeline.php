@@ -13,26 +13,35 @@ function habit_timeline($habits, $show_habit_create=false) {
                           <input maxlength="55" name="name" class="form-control" type="text" name="Name" placeholder="Name"/></br>
                           <textarea maxlength="250" name="description" class="form-control" name="Details" placeholder="Details"></textarea>
                         </div>
-                        <input class="btn btn-dark" type="submit" value="Create Habit"/>
+                        <input class="btn btn-dark" type="submit" value="Track Habit"/>
                     </form>
                     <div class="text-dark">';
     
-    if(current_user()['Username'] == get('username') || $show_habit_create) {
+    if(current_user()['Username'] == get('username')) {
         $timeline = $form;
-    }
-    // insert data into timeline
-    if($habits) {
+        
+        if(!$habits) {
+            $timeline = no_habits_card(true) . $timeline;
+        }
+        else {
+            foreach($habits as $habit) {
+                $timeline = $timeline . habit_card($habit);
+            }
+        }
+        
+        $timeline = $timeline . '</div>
+                          </div>
+                        </div>';
+    } else if($habits) {
         foreach($habits as $habit) {
             $timeline = $timeline . habit_card($habit);
         }
+    } else {
+        $timeline = no_habits_card();
     }
-    else {
-        $timeline = no_posts_card();
-    }
-        
-    $timeline = $timeline . '</div>
-                        </div>
-                    </div>';
+    
+    return $timeline;
+    
     //                 <div class="card-footer text-muted text-center">
     //                     <a href="#" class="">Load More</a>
     //                 </div>';

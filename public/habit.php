@@ -11,7 +11,7 @@
     $model = '../app/models/habitModel.php';
     $controller = '../app/controllers/habitController.php';
     
-    
+    require(realpath('./../config/dbinfo.php'));
     require('../app/models/Model.php');
     
     require('../app/views/layouts/navbar.php');

@@ -7,15 +7,18 @@
         // REQUIRES: there must be a database with name in database variable
         // RETURNS: boolean
         protected function connect() {
+            if(isset($db)) {
+                return true;
+            }
             
-            $servername = getenv('IP');
-            $username = getenv('C9_USER');
-            $password = "";
-            $database = "dev";
-            $dbport = 3306;
+            $servername = SERVER_NAME;
+            $username = USERNAME;
+            $password = PASSWORD;
+            $database = DATABASE;
+            $dbport = DB_PORT;
              
             // Create connection
-            $this->db = new mysqli($servername, $username, $password, $database, $dbport);
+            $this->db = new mysqli($servername, $username, $password, $database, (int) $dbport);
     
             // Check connection
             if ($this->db->connect_error) {

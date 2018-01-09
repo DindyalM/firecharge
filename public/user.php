@@ -7,6 +7,7 @@
     }
     
     require(realpath('./../routes.php'));
+    require(realpath('./../config/dbinfo.php'));
     
     $page = get('page', null);
     

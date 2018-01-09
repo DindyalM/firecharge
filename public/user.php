@@ -1,5 +1,5 @@
 <?php
-   
+    ob_start();
     session_start();
     
     function get($name, $default="") {
@@ -133,4 +133,6 @@
             require $home_view;
         }
     }
+
+    ob_end_flush();
 ?>

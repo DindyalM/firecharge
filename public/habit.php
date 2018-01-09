@@ -1,4 +1,5 @@
 <?php
+    ob_start();
     session_start();
     function get($name, $default="") {
         return isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
@@ -64,4 +65,6 @@
     } elseif(file_exists($home_view)) {
         require $home_view;
     }
+    
+    ob_end_flush();
 ?>

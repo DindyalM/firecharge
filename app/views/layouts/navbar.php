@@ -44,11 +44,11 @@
         $navbar = '
             <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f8f9fa; color: white;">
                 <nav class="navbar navbar-light" style="background-color: #f8f9fa;">
-                  <a class="navbar-brand" href="#">FireCharge</a>
+                  <a class="navbar-brand" href="' . USER_PATH . '">FireCharge</a>
                 </nav>
                 <ul class="navbar-nav ml-auto mr-4">
                     <li class="navbar-item ' . $home .'">
-                        <a class="nav-link" href=" '. "/public/user.php?page=index" .'">Home</a>
+                        <a class="nav-link" href=" '. USER_PATH .'">Home</a>
                     </li>
                     ' . $navbar_links . '
 

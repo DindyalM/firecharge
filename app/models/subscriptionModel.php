@@ -15,7 +15,7 @@ class SubscriptionModel extends Model {
         
         $stmt->execute();
         
-        $result = $stmt->get_result();
+        $result = stmt_to_assoc($stmt);
         
         if($this->db->error) {
             return false;
@@ -25,25 +25,25 @@ class SubscriptionModel extends Model {
     }
     
         // EFFECTS: finds habits from the users you are subscribed to
-    public function findSubscriptionHabitsByUserId($subscriber_id) {
-        $this->connect();
+    // public function findSubscriptionHabitsByUserId($subscriber_id) {
+    //     $this->connect();
         
-        $stmt = $this->db->prepare('SELECT * FROM Habit h
-                                    INNER JOIN Subscription s ON s.Subscriber_Id=?
-                                    INNER JOIN User u ON u.User_Id=h.User_Id
-                                    WHERE h.User_Id=s.Subscribed_To_Id');
-        $stmt->bind_param('i', $subscriber_id);
+    //     $stmt = $this->db->prepare('SELECT * FROM Habit h
+    //                                 INNER JOIN Subscription s ON s.Subscriber_Id=?
+    //                                 INNER JOIN User u ON u.User_Id=h.User_Id
+    //                                 WHERE h.User_Id=s.Subscribed_To_Id');
+    //     $stmt->bind_param('i', $subscriber_id);
         
-        $stmt->execute();
+    //     $stmt->execute();
         
-        $result = $stmt->get_result();
+    //     $result = $stmt->get_result();
         
-        if($this->db->error) {
-            return false;
-        }
+    //     if($this->db->error) {
+    //         return false;
+    //     }
         
-        return $result;
-    }
+    //     return $result;
+    // }
     
     // EFFECTS: finds users whom the correlated user_id is subscribed to
     public function create($subscriber_id, $subscribe_to_id) {
@@ -53,8 +53,6 @@ class SubscriptionModel extends Model {
         $stmt->bind_param('ii', $subscriber_id, $subscribe_to_id);
         
         $stmt->execute();
-        
-        $result = $stmt->get_result();
         
         if($this->db->error) {
             return false;
@@ -70,10 +68,12 @@ class SubscriptionModel extends Model {
         $stmt->bind_param('ii', $subscriber_id, $subscribed_to_id);
 
         $stmt->execute();
-        $result = $stmt->get_result();
+
+        $result = stmt_to_arr($stmt);
         
-        $result->fetch_array(MYSQLI_ASSOC);
-        return $result->num_rows > 0;
+        // die(var_dump($result));
+        
+        return count($result) > 0;
     }
     
     //     // EFFECTS: unsubscribe subscribee from subscriber
@@ -83,8 +83,7 @@ class SubscriptionModel extends Model {
         $stmt = $this->db->prepare('DELETE FROM Subscription WHERE Subscriber_Id=? AND Subscribed_To_Id=?'); 
         $stmt->bind_param('ii',$subscriber_id,$unsubscribe_to_id);
         $stmt->execute();
-        
-        $result = $stmt->get_result();
+        $stmt->store_result();
         
         if($this->db->error) {
             return false;
@@ -102,11 +101,12 @@ class SubscriptionModel extends Model {
         $stmt->bind_param('i',$subscriber_id);
         $stmt->execute();
         
-        $result = $stmt->get_result();
+        $result = stmt_to_assoc($stmt);
         
         if($this->db->error) {
             return false;
         }
+        
         
         return $result;
     }
@@ -121,7 +121,7 @@ class SubscriptionModel extends Model {
         $stmt->bind_param('i', $subscriber_id);
         $stmt->execute();
         
-        $result = $stmt->get_result();
+        $result = stmt_to_assoc($stmt);
         
         if($this->db->error) {
             return false;

@@ -98,13 +98,7 @@
                                 <!--</div>-->
                                 <?php
                                     // subscription_timeline($user_controller->subscriptionHabits);
-                                    switch($_GET['action']) {
-                                        case 'subscription_habits':
-                                            echo var_dump($user_controller->subscriptionHabits);
-                                        default:
-                                            echo subscription_timeline($user_controller->subscriptionPosts, false, current_user()['Username']);
-                                    }
-                                    
+                                    echo subscription_timeline($user_controller->subscriptionPosts, false, current_user()['Username']);
                                 ?>
                             </div>
                         </div>

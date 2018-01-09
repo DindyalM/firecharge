@@ -54,7 +54,7 @@ class HabitController {
         
 
         if($habit) {
-            if(!$habit['User_Id'] == current_user()['User_Id']) {
+            if(!($habit['User_Id'] == current_user()['User_Id'])) {
                 set_message('Cannot edit another user\'s habits', "danger");
                 header('Location: ' . USER_INDEX_PATH);
                 exit();

@@ -118,6 +118,10 @@
                 $user_controller->edit(); 
                 break;
             default:
+                if(logged_in()) {
+                    $user_controller->index();
+                    $user_controller->findSubscriptionPosts();
+                }
                 break;
         }
     }

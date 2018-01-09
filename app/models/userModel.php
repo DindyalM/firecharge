@@ -8,7 +8,7 @@ class UserModel extends Model {
             $stmt = $this->db->prepare('SELECT Username FROM User;');
             $stmt->execute();
             
-            $result = $stmt->get_result();
+            $result = stmt_to_assoc($stmt);
             
             return $result;
         }
@@ -25,9 +25,9 @@ class UserModel extends Model {
             $stmt->bind_param('s', $username);
             $stmt->execute();
             
-            $result = $stmt->get_result();
+            $result = stmt_to_assoc($stmt);
             
-            return $result;
+            return $result[0];
         }
         
        die("Inernal error.");
@@ -47,8 +47,9 @@ class UserModel extends Model {
             $stmt->bind_param('s',$id);
             $stmt->execute();
             
-            $result = $stmt->get_result();
-            return $result->fetch_array();
+            $result = stmt_to_assoc($stmt);
+            
+            return $result[0];
             
         }
         
@@ -64,17 +65,18 @@ class UserModel extends Model {
         $stmt->bind_param('si', $username, $max_return);
         $stmt->execute();
         
-        $result = $stmt->get_result();
+        
+        $result = stmt_to_assoc($stmt);
         
         if($this->db->error) {
             return false;
         }
         
-        if($result->num_rows < 1) {
+        if(count($result) < 1) {
             return false;
         }
         
-        return $result;
+        return $result[0];
     }
     
         //EFFECT: searches a column for a field
@@ -87,13 +89,13 @@ class UserModel extends Model {
         $stmt->bind_param('si', $like_param, $max_return);
         $stmt->execute();
         
-        $result = $stmt->get_result();
+        $result = stmt_to_assoc($stmt);
         
         if($this->db->error) {
             return false;
         }
         
-        if($result->num_rows < 0) {
+        if(count($result) < 0) {
             return false;
         }
         
@@ -108,13 +110,13 @@ class UserModel extends Model {
         $stmt->bind_param('s', $email);
         $stmt->execute();
         
-        $result = $stmt->get_result();
+        $result = stmt_to_assoc($stmt);
         
-        if($result->num_rows < 1) {
+        if(count($result) < 1) {
             return false;
         }
         
-        return $result->fetch_array(MYSQLI_ASSOC);
+        return $result[0];
     }
     
     public function create($email, $username, $password) {
@@ -127,8 +129,6 @@ class UserModel extends Model {
         $stmt->bind_param('sss', $email, $username, crypt($password));
 
         $stmt->execute();
-        
-        $result = $stmt->get_result();
             
         if($this->db->error) {
             return false;
@@ -148,10 +148,10 @@ class UserModel extends Model {
         }
 
         $stmt->execute();
-
-        $result = $stmt->get_result();
-        $result->fetch_array(MYSQLI_ASSOC);
-        return $result->num_rows > 0;
+        
+        $result = stmt_to_assoc($stmt);
+        
+        return count($result) > 0;
     }
     
     // EFFECTS: validates the user information

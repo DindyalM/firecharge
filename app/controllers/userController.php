@@ -35,12 +35,12 @@ class UserController {
     
     // EFFECTS: gets the amount of users that follow a user
     public function subscriberCount($user_id) {
-        return $this->subscription_model->findSubscribersByUserId($user_id)->num_rows;
+        return count($this->subscription_model->findSubscribersByUserId($user_id));
     }
     
     // EFFECTS: gets the amount of users that a user follows
     public function subscriptionCount($user_id) {
-        return $this->subscription_model->findSubscriptionsByUserId($user_id)->num_rows;
+        return count($this->subscription_model->findSubscriptionsByUserId($user_id));
     }
     
     public function destroyPost() {
@@ -130,7 +130,7 @@ class UserController {
         }
         $user = $this->user_model->findByUsername($username);
         if($user) {
-            $user = $user->fetch_array();
+            $user = $user;
             $_SESSION['User'] = array(
                 'User_Id' => $user['User_Id'],
                 'Username' => $user['Username']);
@@ -293,6 +293,8 @@ class UserController {
             exit();
         }
         
+        // die(var_dump($unsubscribe_to_user));
+        
         if($this->subscription_model->destroy($user['User_Id'], $unsubscribe_to_user['User_Id'])) {
             set_message("Unsubscribed successfully!", "success");
             header("Refresh:0");
@@ -342,7 +344,7 @@ class UserController {
         }
         
         $this->habits = $this->habit_model->findByUserUsername($username);
-        $this->user = $user->fetch_array();
+        $this->user = $user;
         return true;
     }
     

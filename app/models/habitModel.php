@@ -18,10 +18,7 @@ class HabitModel extends Model {
         
         $stmt->execute();
         
-        $result = $stmt->get_result();
-        
         if($this->db->error) {
-            echo $this->db->error;
             return false;
         }
         
@@ -38,17 +35,14 @@ class HabitModel extends Model {
         $stmt->bind_param('i', $habit_id);
         $stmt->execute();
         
-        $result = $stmt->get_result();
+        $result = stmt_to_assoc($stmt);
   
         
-        if($this->db->error) {
+        if($this->db->error || count($result) < 1) {
             return false;
         }
-        
-        if($result->num_rows < 1) {
-            return false;
-        }
-        return $result->fetch_array();
+
+        return $result[0];
     }
     
     public function findByUserId($user_id) {
@@ -59,16 +53,9 @@ class HabitModel extends Model {
         
         $stmt->execute();
         
-        $result = $stmt->get_result();
-        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $result = stmt_to_assoc($stmt);
         
-        $arr = array();
-        
-        foreach($result as $row) {
-            array_push($arr, $row);
-        }
-        
-        return $arr;
+        return $result;
     }
     
     //EFFECT: checks the database for a user with the given username
@@ -80,25 +67,17 @@ class HabitModel extends Model {
         $stmt->bind_param('s', $username);
         $stmt->execute();
         
-        $result = $stmt->get_result();
+        $result = stmt_to_assoc($stmt);
         
         if($this->db->error) {
             return false;
         }
         
-        if($result->num_rows < 1) {
+        if(count($result) < 1) {
             return false;
         }
         
-        $row = $result->fetch_array(MYSQLI_ASSOC);
-        
-        $arr = array();
-        
-        foreach($result as $row) {
-            array_push($arr, $row);
-        }
-        
-        return $arr;
+        return array_reverse($result);
     }
     
     //EFFECTS: deletes a habit

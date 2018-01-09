@@ -15,8 +15,6 @@ class PostModel extends Model {
         
         $stmt->execute();
         
-        $result = $stmt->get_result();
-        
         if($this->db->error) {
             return false;
         }
@@ -34,17 +32,17 @@ class PostModel extends Model {
         $stmt->bind_param('i', $habit_id);
         $stmt->execute();
         
-        $result = $stmt->get_result();
+        $result = stmt_to_assoc($stmt);
         
         if($this->db->error) {
             return false;
         }
         
-        if($result->num_rows < 1) {
+        if(count($result) < 1) {
             return false;
         }
         
-        return $result->fetch_array();
+        return $result;
     }
     
     public function findByUserId($user_id) {
@@ -55,16 +53,7 @@ class PostModel extends Model {
         
         $stmt->execute();
         
-        $result = $stmt->get_result();
-        $row = $result->fetch_array(MYSQLI_ASSOC);
-        
-        $arr = array();
-        
-        foreach($result as $row) {
-            array_push($arr, $row);
-        }
-        
-        return $arr;
+        return stmt_to_assoc($stmt);
     }
     
     //EFFECT: checks the database for a user with the given username
@@ -74,7 +63,7 @@ class PostModel extends Model {
     public function findByUserUsername($username) {
         $this->connect();
         
-        $user = $this->user_model->findByUsername($username, 1)->fetch_array();
+        $user = $this->user_model->findByUsername($username, 1);
         $user_id = $user['User_Id'];
         
         $stmt = $this->db->prepare("SELECT * FROM User u
@@ -83,17 +72,8 @@ class PostModel extends Model {
 
         $stmt->bind_param('s', $user_id);
         $stmt->execute();
-        $result1 = $stmt->get_result();
         
-        
-        $arr = [];
-        
-        foreach($result1 as $row) {
-            
-            array_push($arr, $row);
-        }
-        
-        return array_reverse($arr);
+        return array_reverse(stmt_to_assoc($stmt));
     }
     
     //EFFECTS: deletes a habit

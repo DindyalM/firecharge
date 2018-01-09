@@ -6,11 +6,8 @@
 function subscription_timeline($data, $subscription_data=false, $profile_owner_username=false) {
 	$timeline = "";
 	// insert data into timeline
-	if($data) {
-		if($data->num_rows == 0 && $profile_owner_username == current_user()['Username']) {
-			echo no_subscriptions_card();
-		}
-		else if($subscription_data) {
+	if($data && count($data) != 0) { 
+		if($subscription_data) {
 			foreach($data as $d) {
 				$timeline = $timeline . subscription_card($d, $subscription_data, $profile_owner_username);
 			}
@@ -20,6 +17,8 @@ function subscription_timeline($data, $subscription_data=false, $profile_owner_u
 				$timeline = $timeline . subscription_post_card($d);
 			}
 		}
+	} else if($profile_owner_username == current_user()['Username']) {
+		echo no_subscriptions_card();
 	}
 										
 	return $timeline;

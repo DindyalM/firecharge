@@ -11,7 +11,7 @@ class HabitController {
         $current_user = current_user();
         if(!isset($name) || strlen($name) == 0) {
             set_message("Habit name cannot be blank!", "danger");
-            header("Refresh:0");
+            header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username']);
             exit();
         }
         
@@ -22,17 +22,17 @@ class HabitController {
         }
         if(strlen($desc) > 250) {
             set_message("Description is too long!", "danger");
-            header("Refresh:0");
+            header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username']);
             exit();
         }
         if(strlen($name) > 55) {
             set_message("Name is too long!", "danger");
-            header("Refresh:0");
+            header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username']);
             exit();
         }
         if($this->habit_model->create($name, $desc, $current_user['User_Id'])) {
             set_message("Succesfully created new habit track!", "success");
-            header("Refresh:0");
+            header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username']);
             exit();
         } 
             
@@ -79,7 +79,6 @@ class HabitController {
         $current_user = current_user();
 
         if(!isset($new_name)) {
-            
             set_message("Name should be present!", "danger"); 
             header("Refresh:0");
             exit();
@@ -96,10 +95,16 @@ class HabitController {
             header('Location: ' . USER_INDEX_PATH);
             exit();
         }
+        
+        if(strlen($new_name) < 1) {
+            set_message("Habit name cannot be blank!", "danger", true);
+            header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username']);
+            exit();
+        }
        
         if($this->habit_model->update($habit_id, $new_name, $new_description)) {
             set_message("Succesfully Updated habit track!", "success");
-            header('Location: ' .USER_INDEX_PATH );
+            header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username']);
             exit();
         }
     }
@@ -121,25 +126,24 @@ class HabitController {
         
         if(!isset($habit_id) || !$habit_to_destroy) {
             set_message("Invalid habit!", "danger");
-            header("Location: " . USER_PATH);
+            header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username']);
             exit();
         }
         
         if($habit_to_destroy['User_Id'] != $current_user['User_Id']) {
             set_message("Can't delete other user's habits!", "danger");
-            header("Location: " . USER_PATH);
+            header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username']);
             exit();
         }
         if($this->habit_model->destroy($habit_id)) {
             set_message("Succesfully deleted habit","success");
-            //header("Location: /public/user.php?page=index");
-            header('Location:'. USER_INDEX_PATH);
+            header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username']);
             exit();
         }
         else {
             set_message("Something went wrong!","danger");
             //header("Location: /public/user.php?page=index");
-            header('Location:'. USER_INDEX_PATH);
+            header('Location: ' . USER_PROFILE_PATH . '&username=' . $current_user['Username']);
             exit();
         }
         

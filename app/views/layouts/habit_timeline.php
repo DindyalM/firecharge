@@ -10,7 +10,7 @@ function habit_timeline($habits, $show_habit_create=false) {
                     <form action="' . HABIT_PATH .'" method="POST">
                         <div class="form-group mx-auto">
                           <input class="form-control" name="action" type="hidden" value="create"/>
-                          <input maxlength="55" name="name" class="form-control" type="text" name="Name" placeholder="Name"/></br>
+                          <input maxlength="55" name="name" class="form-control" type="text" name="Name" placeholder="Name" required/></br>
                           <textarea maxlength="250" name="description" class="form-control" name="Details" placeholder="Details"></textarea>
                         </div>
                         <input class="btn btn-dark" type="submit" value="Track Habit"/>

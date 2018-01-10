@@ -53,6 +53,8 @@
                     <h5 class="card-title">hmm...</h5>
                     <p class="card-text">Looks like you haven\'t subscribed to any users yet!</p>
                     ' . $search_form .'
+                    <br>
+                    <p class="card-text text-muted">(Note: You can leave the field blank to search through all users)</p>
                     </div>
                         <div class="card-footer text-muted">
                         </div>

@@ -80,13 +80,13 @@ class UserModel extends Model {
     }
     
         //EFFECT: searches a column for a field
-    public function searchByUsername($username, $max_return=10) {
+    public function searchByUsername($username) {
         $this->connect();
         
         $like_param = $username ."%";
         
-        $stmt = $this->db->prepare("SELECT * FROM User WHERE Username LIKE ? LIMIT ?");
-        $stmt->bind_param('si', $like_param, $max_return);
+        $stmt = $this->db->prepare("SELECT * FROM User WHERE Username LIKE ?");
+        $stmt->bind_param('s', $like_param);
         $stmt->execute();
         
         $result = stmt_to_assoc($stmt);
@@ -198,17 +198,4 @@ class UserModel extends Model {
 
         return true;
     }
-    
-    public function delete_user ($username){
-
-        if(!connect()){
-            return false;
-            }
-            
-           $stmt=$this->db->prepare("DELETE FROM User WHERE Name='?'");
-           $stmt->bind_param('s',$username);
-           $stmt->execute();
-        
-    }
-    
 }

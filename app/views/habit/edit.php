@@ -18,7 +18,7 @@
                 <form method="POST" action="<?php echo HABIT_PATH; ?>" id="edit_habit_form">
                   <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" name="new_name" value="<?php echo $habit_controller->habit['Name']; ?>">
+                    <input type="text" class="form-control" name="new_name" value="<?php echo $habit_controller->habit['Name']; ?>" required>
                   </div>
                   <div class="form-group">
                     <label for="description">Description</label>

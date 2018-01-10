@@ -8,7 +8,7 @@ function post_timeline($posts, $user_to_post_to) {
                           <input class="form-control" name="username" type="hidden" value="' . $user_to_post_to['Username'] .'"/>
                           <input class="form-control" name="poster_id" type="hidden" value="' . current_user()['User_Id'] .'"/>
                           <input class="form-control" name="action" type="hidden" value="create_post"/>
-                          <textarea name="text" class="form-control" name="Details" placeholder="What would you like to say?"></textarea>
+                          <textarea name="text" class="form-control" name="Details" placeholder="What would you like to say?" required></textarea>
                         </div>
                         <input class="btn btn-dark" type="submit" value="Post"/>
                     </form>

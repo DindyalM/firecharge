@@ -21,21 +21,10 @@
                         <label for="username" class="text-weight-bold">Username</label>
                         <div class='input-group'>
                             <span class="input-group-addon" id="basic-addon1">@</span>
-                            <input type="text" class="form-control" name="username" value="<?php echo $user_controller->user['Username']; ?>">
+                            <input type="text" class="form-control" name="username" value="<?php echo $user_controller->user['Username']; ?>" required>
                         </div>
                     </div>
-                    <!--<div class="form-group">-->
-                    <!--    <label for="password" class="text-weight-bold">Password</label>-->
-                    <!--    <input type="password" class="form-control" name="password">-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                    <!--    <label for="password_confirmation" class="text-weight-bold">Confirm Password</label>-->
-                    <!--    <input type="password" class="form-control" name="password_confirmation">-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                    <!--    <label for="email" class="text-weight-bold">Email</label>-->
-                    <!--    <input type="text" class="form-control" name="email" value="<?php echo $user_controller->user['Email']; ?>">-->
-                    <!--</div>-->
+
                     <div class="form-group">
                         <label for="bio"  class="text-weight-bold">Bio</label>
                         <textarea type="text" class="form-control" name="bio" placeholder='Tell us about yourself!'><?php echo $user_controller->user['Bio']; ?></textarea>

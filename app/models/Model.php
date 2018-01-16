@@ -122,7 +122,7 @@
             $dbport = DB_PORT;
              
             // Create connection
-            $this->db = new mysqli($servername, $username, $password, $database, (int) $dbport);
+            $this->db = new mysqli($servername, $username, $password, $database);
     
             // Check connection
             if ($this->db->connect_error) {
